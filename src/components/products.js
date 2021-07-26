@@ -1,7 +1,12 @@
 import React from 'react'
 import {CircleFill} from 'react-bootstrap-icons'
+import {useParams} from 'react-router-dom';
 
-function Products() {
+function Products() 
+{
+    let {category} = useParams();
+    //console.log(category);
+
     return (
         <div>
             <div className="container py-4">

@@ -1,3 +1,4 @@
+import {Link}  from 'react-router-dom';
 function HomePage() 
 {
     return (
@@ -7,36 +8,36 @@ function HomePage()
             </div>
            <div className ="row">
                 <div className ="col">
-                    <img src="images/shirts.png" className="img-fluid"></img>
+                  <Link to="/product/accessories"><img src="images/shirts.png" className="img-fluid"></img> </Link> 
                 </div>
                 <div className ="col">
-                    <img src="images/suits.png" className="img-fluid"></img>
+                <Link to="/product/shirts"><img src="images/suits.png" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
-                    <img src="images/slippers.png" className="img-fluid" ></img>
+                <Link to="/product/trousers"><img src="images/slippers.png" className="img-fluid" ></img></Link>
                 </div>
                 <div className ="col">
-                    <img src="images/trousers.png" className="img-fluid"></img>
+                <Link to="/product/Jeans"><img src="images/trousers.png" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
-                    <img src="images/Loungewear.png" className="img-fluid"></img>
+                <Link to="/product/men-jackets-coats"><img src="images/Loungewear.png" className="img-fluid"></img></Link>
                 </div>
            </div>
            <div className ="row">
                 <div className ="col">
-                    <img src="images/innerwear.png" className="img-fluid"></img>
+                <Link to="/product/Innerwear-Sleapwear"><img src="images/innerwear.png" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
-                    <img src="images/shoes.png" className="img-fluid"></img>
+                <Link to="/product/men-suits"> <img src="images/shoes.png" className="img-fluid"></img></Link>  
                 </div>
                 <div className ="col">
-                    <img src="images/T-Shirts.png" className="img-fluid" ></img>
+                <Link to="/product/men-swimwear"><img src="images/T-Shirts.png" className="img-fluid" ></img></Link> 
                 </div>
                 <div className ="col">
-                    <img src="images/trackpants.png" className="img-fluid"></img>
+                <Link to="/product/track-pants"><img src="images/trackpants.png" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
-                    <img src="images/kurta.png" className="img-fluid"></img>
+                <Link to="/product/T-Shirts"><img src="images/kurta.png" className="img-fluid"></img></Link>
                 </div>
            </div>
 
@@ -50,7 +51,7 @@ function HomePage()
                         <div className="card-body">
                             <h5 className="card-title">Card title</h5>
                             <p className="card-text">Some quick example.</p>
-                            <p>price</p>
+                             <p>price</p>
                         </div>
                     </div>
                 </div>
