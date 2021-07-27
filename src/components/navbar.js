@@ -14,7 +14,7 @@ const Navbar = () => {
             <form className="d-flex " >
                 <div className="input-group me-5">
                     <input className="form-control" type="search" placeholder="Search" aria-label="Search"/>
-                    <button className="btn btn-outline-success " type="submit"><Search/></button>
+                    <button className="btn btn-dark " type="submit"><Search/></button>
               </div>
               <Router>
                 <Link to = "/viewProfile" className="pe-4 fs-4" >
