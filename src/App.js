@@ -7,8 +7,11 @@ import Navbar from './components/navbar';
 import HomePage from './components/homePage';
 import Products from './components/products';
 import {BrowserRouter as Router,Switch, Route } from 'react-router-dom';
+import dotenv from 'dotenv';
 
 function App() {
+  dotenv.config();
+  
   return (
     <div className="App">
       <Navbar/>

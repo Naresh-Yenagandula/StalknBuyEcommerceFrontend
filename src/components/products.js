@@ -315,7 +315,33 @@ function Products()
                             </h2>
                             <div id="panelsStayOpen-collapseFive" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
                             <div className="accordion-body ps-4">
-                                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classNamees that we use to style each element. These classNamees control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                                <div className="form-check ps-">
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <label className="form-check-label" for="flexCheckDefault">
+                                        Regular-fit
+                                    </label>
+                                </div>
+
+                                <div className="form-check ps-">
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <label className="form-check-label" for="flexCheckDefault">
+                                        Slim-fit
+                                    </label>
+                                </div>
+
+                                <div className="form-check ps-">
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <label className="form-check-label" for="flexCheckDefault">
+                                        Skinny-fit
+                                    </label>
+                                </div>
+
+                                <div className="form-check ps-">
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <label className="form-check-label" for="flexCheckDefault">
+                                        Narrow-fit
+                                    </label>
+                                </div>
                             </div>
                             </div>
                         </div>

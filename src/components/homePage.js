@@ -1,6 +1,37 @@
 import {Link}  from 'react-router-dom';
+import {useState, useEffect} from 'react';
+import axios from 'axios';
+
 function HomePage() 
 {
+    const [newP, setNewP] = useState();
+    const [popularP, setPopularP] = useState();
+
+    useEffect(()=>
+    {
+
+        axios.get('http://localhost:5000/product/new')
+        .then((res)=>
+        {
+            setNewP(res.data.products);
+        })
+        .catch((err)=>
+        {
+            console.log(err);
+        })
+ 
+        axios.get('http://localhost:5000/product/popular')
+        .then((res)=>
+        {
+            setPopularP(res.data.products);
+        })
+        .catch((err)=>
+        {
+            console.log(err);
+        })
+
+    },[])
+
     return (
         <div className="container pb-5">
             <div className= "text-center headings">
@@ -8,36 +39,36 @@ function HomePage()
             </div>
            <div className ="row">
                 <div className ="col">
-                  <Link to="/product/accessories"><img src="images/shirts.png" className="img-fluid"></img> </Link> 
+                  <Link to="/product/accessories"><img src="images/accessories.jpg" className="img-fluid"></img> </Link> 
                 </div>
                 <div className ="col">
-                <Link to="/product/shirts"><img src="images/suits.png" className="img-fluid"></img></Link>
+                <Link to="/product/shirts"><img src="images/shirts.jpg" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
-                <Link to="/product/trousers"><img src="images/slippers.png" className="img-fluid" ></img></Link>
+                <Link to="/product/trousers"><img src="images/trousers.jpg" className="img-fluid" ></img></Link>
                 </div>
                 <div className ="col">
-                <Link to="/product/Jeans"><img src="images/trousers.png" className="img-fluid"></img></Link>
+                <Link to="/product/Jeans"><img src="images/jeans.jpg" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
-                <Link to="/product/men-jackets-coats"><img src="images/Loungewear.png" className="img-fluid"></img></Link>
+                <Link to="/product/men-jackets-coats"><img src="images/jackets.jpg" className="img-fluid"></img></Link>
                 </div>
            </div>
            <div className ="row">
                 <div className ="col">
-                <Link to="/product/Innerwear-Sleapwear"><img src="images/innerwear.png" className="img-fluid"></img></Link>
+                <Link to="/product/Innerwear-Sleapwear"><img src="images/innerwear.jpg" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
-                <Link to="/product/men-suits"> <img src="images/shoes.png" className="img-fluid"></img></Link>  
+                <Link to="/product/men-suits"> <img src="images/suits.jpg" className="img-fluid"></img></Link>  
                 </div>
                 <div className ="col">
-                <Link to="/product/men-swimwear"><img src="images/T-Shirts.png" className="img-fluid" ></img></Link> 
+                <Link to="/product/men-swimwear"><img src="images/swimwear.jpg" className="img-fluid" ></img></Link> 
                 </div>
                 <div className ="col">
-                <Link to="/product/track-pants"><img src="images/trackpants.png" className="img-fluid"></img></Link>
+                <Link to="/product/track-pants"><img src="images/trackpants.jpg" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
-                <Link to="/product/T-Shirts"><img src="images/kurta.png" className="img-fluid"></img></Link>
+                <Link to="/product/T-Shirts"><img src="images/Tshirts.jpg" className="img-fluid"></img></Link>
                 </div>
            </div>
 
@@ -45,100 +76,44 @@ function HomePage()
                 <h2>POPULAR PRODUCTS</h2>
             </div>
             <div className="row">
-                <div className="col">
-                    <div className="card">
-                        <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                             <p>price</p>
-                        </div>
+                 {popularP?
+                  popularP.map((product)=>
+                    {
+                        return(
+                            <div className="col">
+                            <div className="card" style={{height:"452.4px"}}>
+                            <img src= {product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..."/>
+                            <div className="card-body">
+                            <small>{product.NAME}</small>
+                            <p><b>Price : Rs {product.PRICE}</b></p>
+                            </div>
                     </div>
                 </div>
 
-                <div className="col">
-                    <div className="card" >
-                        <img src= "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/12222114/2020/8/13/1988f347-afd1-4e05-b210-2f31f20c2f531597298558197-SASSAFRAS-Women-Mint-Green-Solid-Wide-Leg-Track-Pants-761597-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="card" >
-                        <img src= "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/13581134/2021/2/24/bb6b124a-5335-4b89-83fc-69cf792b2cf91614146589759-SASSAFRAS-Women-Dusty-Pink-Self-Design-Dobby-Weave-Wrap-Dres-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="card" >
-                        <img src= "https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/2314457/2018/4/24/11524547946133-HRX-by-Hrithik-Roshan-Men-Black-Printed-Round-Neck-T-shirt-8401524547945966-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
-                        </div>
-                    </div>
-                </div>
-
+                        )
+                    }):null}
             </div>
 
             <div className= "text-center headings">
                 <h2>NEW ARRIVALS</h2>
             </div>
             <div className="row">
-                <div className="col">
-                    <div className="card">
-                        <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
+                  {newP?
+                  newP.map((product)=>
+                    {
+                        return(
+                            <div className="col">
+                            <div className="card" style={{height:"452.4px"}}>
+                            <img src= {product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..."/>
+                            <div className="card-body">
+                            <h5 className="card-title fs-6">{product.NAME}</h5>
+                            <p><b>Price : Rs {product.PRICE}</b></p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="card" >
-                        <img src= "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/12222114/2020/8/13/1988f347-afd1-4e05-b210-2f31f20c2f531597298558197-SASSAFRAS-Women-Mint-Green-Solid-Wide-Leg-Track-Pants-761597-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
                         </div>
-                    </div>
-                </div>
 
-                <div className="col">
-                    <div className="card" >
-                        <img src= "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/13581134/2021/2/24/bb6b124a-5335-4b89-83fc-69cf792b2cf91614146589759-SASSAFRAS-Women-Dusty-Pink-Self-Design-Dobby-Weave-Wrap-Dres-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="card" >
-                        <img src= "https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/2314457/2018/4/24/11524547946133-HRX-by-Hrithik-Roshan-Men-Black-Printed-Round-Neck-T-shirt-8401524547945966-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
-                        </div>
-                    </div>
-                </div>
-
+                        )
+                    }):null}
             </div>
 
         </div>
