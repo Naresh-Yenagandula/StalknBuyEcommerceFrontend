@@ -1,15 +1,18 @@
 import React from 'react'
 import {CircleFill, StarFill, Star} from 'react-bootstrap-icons'
-import {useParams} from 'react-router-dom';
+import {useParams, useLocation} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
 function Products() 
 {
+    
+    
     let {category} = useParams();
     const [categoryP, setcategoryP] = useState();
     const [count,setCount] = useState([1,2,3,4,5]);
-
+    const cat =['men-swimwear', 'Jeans'];
+    const price = ['919','2000'];
     useEffect(() => 
     {
         let url = ""
@@ -25,7 +28,17 @@ function Products()
         {
             url = category;
         }
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories/${url}`)
+        // axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories/${url}`)
+        //     .then((res)=>
+        //     {
+        //         setcategoryP(res.data.products);
+        //     })
+        //     .catch((err)=>
+        //     {
+        //         console.log(err);
+        //     })
+
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${cat}&price=${price}`)
             .then((res)=>
             {
                 setcategoryP(res.data.products);

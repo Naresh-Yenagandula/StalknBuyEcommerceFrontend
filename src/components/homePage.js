@@ -1,15 +1,24 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {StarFill, Star} from 'react-bootstrap-icons'
 
 function HomePage() {
+
+    
     const [newP, setNewP] = useState();
     const [popularP, setPopularP] = useState();
     const [count,setCount] = useState([1,2,3,4,5]);
 
+    function useQuery() 
+    {
+        return new URLSearchParams(useLocation().search);    
+    }
+    let query = useQuery();
+    
     useEffect(() => {
 
+        console.log(query.get("data"));
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/new`)
             .then((res) => {
                 setNewP(res.data.products);
