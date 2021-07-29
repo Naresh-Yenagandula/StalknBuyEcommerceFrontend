@@ -24,3 +24,20 @@
     margin-top: 80px;
     margin-bottom: 40px;
 }
+.sidebar{
+    position:-webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+.card-cart-icon{
+position: absolute;
+bottom: 110px;
+right: 10px;
+display:none !important;
+}
+.card-img-top:hover + .card-cart-icon{
+    display: block !important;
+}
+.card-cart-icon:hover{
+    display: block !important;
+}

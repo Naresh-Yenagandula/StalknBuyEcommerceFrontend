@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {CircleFill} from 'react-bootstrap-icons'
 import {useParams} from 'react-router-dom';
 
@@ -6,6 +6,19 @@ function Products()
 {
     let {category} = useParams();
     //console.log(category);
+    const [categorys, setcategorys] = useState([]) 
+
+    const filter=(value)=>{
+        const currentIndex = categorys.indexOf(value)
+        const newCategorys = [...categorys]
+        if(currentIndex===-1){
+            newCategorys.push(value)
+        }else{
+            newCategorys.splice(currentIndex,1)
+        }
+        setcategorys(newCategorys)
+        console.log(newCategorys);
+    }
 
     return (
         <div>
@@ -25,7 +38,7 @@ function Products()
         
                 <div className ="col-md-3">
                     
-                    <div style={{height:"80vh", width:"250px" }} className="overflow-auto">
+                    <div style={{height:"80vh", width:"250px" }} className="overflow-auto sidebar">
                     <div className="container d-flex justify-content-between align-items-center py-3">
                         <b>FILTERS</b> 
                         <button className ="btn btn-outline-secondary btn-sm">Reset All</button>
@@ -42,21 +55,21 @@ function Products()
                             <div className="accordion-body ps-4">
                                 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onChange={e=>filter("inner wear")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         Innerwear
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onChange={e=>filter("LoungeWear")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         Loungewear
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onChange={e=>filter("Kurtas")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         Kurtas
                                     </label>
@@ -419,7 +432,7 @@ function Products()
                         </div>
                     </div>
 
-                    <div className ="row mt-3">
+                    <div className ="row mt-3 row-cols-4">
                         <div className="col">
                             <div className="card">
                                 <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
@@ -431,6 +444,66 @@ function Products()
                             </div>
                         </div>
 
+                        <div className="col">
+                            <div className="card">
+                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
+                                <div className="card-body">
+                                    <h5 className="card-title">Card title</h5>
+                                    <p className="card-text">Some quick example.</p>
+                                    <p>price</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <div className="card">
+                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
+                                <div className="card-body">
+                                    <h5 className="card-title">Card title</h5>
+                                    <p className="card-text">Some quick example.</p>
+                                    <p>price</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <div className="card">
+                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
+                                <div className="card-body">
+                                    <h5 className="card-title">Card title</h5>
+                                    <p className="card-text">Some quick example.</p>
+                                    <p>price</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <div className="card">
+                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
+                                <div className="card-body">
+                                    <h5 className="card-title">Card title</h5>
+                                    <p className="card-text">Some quick example.</p>
+                                    <p>price</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <div className="card">
+                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
+                                <div className="card-body">
+                                    <h5 className="card-title">Card title</h5>
+                                    <p className="card-text">Some quick example.</p>
+                                    <p>price</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col">
+                            <div className="card">
+                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
+                                <div className="card-body">
+                                    <h5 className="card-title">Card title</h5>
+                                    <p className="card-text">Some quick example.</p>
+                                    <p>price</p>
+                                </div>
+                            </div>
+                        </div>
                         <div className="col">
                             <div className="card">
                                 <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>

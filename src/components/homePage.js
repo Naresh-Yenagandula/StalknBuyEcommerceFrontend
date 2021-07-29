@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import {Heart} from 'react-bootstrap-icons'
 
 function HomePage() {
     const [newP, setNewP] = useState();
@@ -76,8 +77,9 @@ function HomePage() {
                             <div className="col">
                                 <div className="card">
                                     <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
+                                    <button className="btn btn-outline-dark card-cart-icon" title="Wishlist"><Heart /></button>
                                     <div className="card-body">
-                                        <div className="card-body-section-one">
+                                        <div className="card-body-section-one text-truncate" style={{width:"210px"}}>
                                             <small>{product.NAME}</small>
                                         </div>
                                         <div className="card-body-section-two">
