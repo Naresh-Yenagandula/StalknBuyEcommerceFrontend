@@ -1,23 +1,55 @@
-import React, { useState } from 'react'
-import {CircleFill} from 'react-bootstrap-icons'
+import React from 'react'
+import {CircleFill, StarFill, Star} from 'react-bootstrap-icons'
 import {useParams} from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import axios from 'axios';
 
 function Products() 
 {
     let {category} = useParams();
-    //console.log(category);
-    const [categorys, setcategorys] = useState([]) 
+    const [categoryP, setcategoryP] = useState();
+    const [count,setCount] = useState([1,2,3,4,5]);
 
-    const filter=(value)=>{
-        const currentIndex = categorys.indexOf(value)
-        const newCategorys = [...categorys]
-        if(currentIndex===-1){
-            newCategorys.push(value)
-        }else{
-            newCategorys.splice(currentIndex,1)
+    useEffect(() => 
+    {
+        let url = ""
+        if(category == 'shirts')
+        {   
+            url = `casual-${category}-or-formal-${category}`
         }
-        setcategorys(newCategorys)
-        console.log(newCategorys);
+        else if(category == 'Trousers')
+        {
+            url = `Men-Casual-${category}-or-Men-Formal-${category}`
+        }
+        else
+        {
+            url = category;
+        }
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories/${url}`)
+            .then((res)=>
+            {
+                setcategoryP(res.data.products);
+            })
+            .catch((err)=>
+            {
+                console.log(err);
+            })
+    }, [])
+
+    const productDetails = (product)=>
+    {
+        let brand="";
+        let desc="";
+        let rating = product.RATING;
+        console.log(rating);
+        brand = product.DESCRIPTION_COLOR.split(",")[1];
+        let size = product.SIZE;
+        console.log(size);
+        let arr = product.DESCRIPTION_COLOR.split(",");
+        desc = arr[arr.length-2].replace("Buy ", "").replace(" Online in India", "").replace(brand.trim(),"").replace(size.split(" ")[0],"").replace(/fit/gi,"").replace("-", "").replace(/\s+/g,' ');
+        console.log(desc);
+        return {brand,desc, rating}
+        
     }
 
     return (
@@ -55,21 +87,21 @@ function Products()
                             <div className="accordion-body ps-4">
                                 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onChange={e=>filter("inner wear")}/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" />
                                     <label className="form-check-label" for="flexCheckDefault">
                                         Innerwear
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onChange={e=>filter("LoungeWear")}/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" />
                                     <label className="form-check-label" for="flexCheckDefault">
                                         Loungewear
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onChange={e=>filter("Kurtas")}/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         Kurtas
                                     </label>
@@ -433,109 +465,46 @@ function Products()
                     </div>
 
                     <div className ="row mt-3 row-cols-4">
-                        <div className="col">
-                            <div className="card">
-                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example.</p>
-                                    <p>price</p>
+                            {categoryP?
+                            categoryP.map((product)=>
+                            {
+                                let obj = productDetails(product);
+                                return(
+                                <div className="col mb-4">
+                                <div className="card box-shadow">
+                                    <img src={product.IMAGE} className="card-img-top" height="280px" width="210px" alt="..." />
+                                    <div className="card-body" style={{height:"120px"}}>
+                                        <div className="card-body-section-one ">
+                                            <b style={{paddingBottom:"1px"}}>{obj.brand}</b><br/>
+                                            <p style={{fontSize:"12px", paddingBottom:"0.2px"}}>{obj.desc}</p>
+                                        </div>
+                                        <div className="card-body-section-two" style={{paddingTop:"10px"}}>
+                                            <small className="card-body-section-two">Rs {product.PRICE}</small>
+                                        </div>
+                                        <div className="card-body-section-three" style={{paddingTop:"10px"}}>
+                                         
+                                            {count.map((i)=>
+                                                {
+                                                if(i<= obj.rating)
+                                                {   
+                                                    return(
+                                                        <small ><StarFill className="star-color"/></small>
+                                                    )
+                                                }
+                                                else
+                                                {
+                                                    return(
+                                                        <small><Star/></small>
+                                                    )
+                                                }
+                                
+                                            })}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="col">
-                            <div className="card">
-                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example.</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="card">
-                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example.</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="card">
-                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example.</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="card">
-                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example.</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="card">
-                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example.</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="card">
-                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example.</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col">
-                            <div className="card">
-                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example.</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col">
-                            <div className="card">
-                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example.</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col">
-                            <div className="card">
-                                <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="280px" width="210px" alt="..."/>
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">Some quick example.</p>
-                                    <p>price</p>
-                                </div>
-                            </div>
-                        </div>
+                            )
+                            }): null}
                     </div>
                 </div>
                 

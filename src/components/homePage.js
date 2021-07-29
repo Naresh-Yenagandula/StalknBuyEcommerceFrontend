@@ -1,31 +1,48 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import {Heart} from 'react-bootstrap-icons'
+import {StarFill, Star} from 'react-bootstrap-icons'
 
 function HomePage() {
     const [newP, setNewP] = useState();
     const [popularP, setPopularP] = useState();
+    const [count,setCount] = useState([1,2,3,4,5]);
 
     useEffect(() => {
 
-        axios.get('http://localhost:5000/product/new')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/new`)
             .then((res) => {
-                setNewP(res.data);
+                setNewP(res.data.products);
             })
             .catch((err) => {
                 console.log(err);
             })
 
-        axios.get('http://localhost:5000/product/popular')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/popular`)
             .then((res) => {
-                setPopularP(res.data);
+                setPopularP(res.data.products);
             })
             .catch((err) => {
                 console.log(err);
             })
 
     }, [])
+
+    const productDetails = (product)=>
+    {
+        let brand="";
+        let desc="";
+        let rating = product.RATING;
+        console.log(rating);
+        brand = product.DESCRIPTION_COLOR.split(",")[1];
+        let size = product.SIZE;
+        console.log(size);
+        let arr = product.DESCRIPTION_COLOR.split(",");
+        desc = arr[arr.length-2].replace("Buy ", "").replace(" Online in India", "").replace(brand.trim(),"").replace(size.split(" ")[0],"").replace(/fit/gi,"").replace("-", "").replace(/\s+/g,' ');
+        console.log(desc);
+        return {brand,desc, rating}
+        
+    }
 
     return (
         <div className="container pb-5">
@@ -40,7 +57,7 @@ function HomePage() {
                     <Link to="/product/shirts"><img src="images/shirts.jpg" className="img-fluid"></img></Link>
                 </div>
                 <div className="col">
-                    <Link to="/product/trousers"><img src="images/trousers.jpg" className="img-fluid" ></img></Link>
+                    <Link to="/product/Trousers"><img src="images/trousers.jpg" className="img-fluid" ></img></Link>
                 </div>
                 <div className="col">
                     <Link to="/product/Jeans"><img src="images/jeans.jpg" className="img-fluid"></img></Link>
@@ -51,7 +68,7 @@ function HomePage() {
             </div>
             <div className="row">
                 <div className="col">
-                    <Link to="/product/Innerwear-Sleapwear"><img src="images/innerwear.jpg" className="img-fluid"></img></Link>
+                    <Link to="/product/Innerwear & Sleapwear"><img src="images/innerwear.jpg" className="img-fluid"></img></Link>
                 </div>
                 <div className="col">
                     <Link to="/product/men-suits"> <img src="images/suits.jpg" className="img-fluid"></img></Link>
@@ -72,26 +89,43 @@ function HomePage() {
             </div>
             <div className="row">
                 {popularP ?
-                    popularP.map((product) => {
-                        return (
-                            <div className="col">
-                                <div className="card">
-                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
-                                    <button className="btn btn-outline-dark card-cart-icon" title="Wishlist"><Heart /></button>
-                                    <div className="card-body">
-                                        <div className="card-body-section-one text-truncate" style={{width:"210px"}}>
-                                            <small>{product.NAME}</small>
-                                        </div>
-                                        <div className="card-body-section-two">
-                                            <p className="card-body-section-two"><b>Price : Rs {product.PRICE}</b></p>
-                                        </div>
-                                        <div className="card-body-section-three">
-                                            <p>rating</p>
-                                        </div>
+                    popularP.map((product) => 
+                    {
+                        let obj = productDetails(product);
+                        return(
+                            <div className="col mb-4">
+                            <div className="card box-shadow">
+                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
+                                <div className="card-body" style={{height:"120px"}}>
+                                    <div className="card-body-section-one ">
+                                        <b style={{paddingBottom:"1px"}}>{obj.brand}</b><br/>
+                                        <p style={{fontSize:"12px", paddingBottom:"0.2px"}}>{obj.desc}</p>
+                                    </div>
+                                    <div className="card-body-section-two" style={{paddingTop:"10px"}}>
+                                        <small className="card-body-section-two">Rs {product.PRICE}</small>
+                                    </div>
+                                    <div className="card-body-section-three" style={{paddingTop:"10px"}}>
+                                     
+                                        {count.map((i)=>
+                                            {
+                                            if(i<= obj.rating)
+                                            {   
+                                                return(
+                                                    <small ><StarFill className="star-color"/></small>
+                                                )
+                                            }
+                                            else
+                                            {
+                                                return(
+                                                    <small><Star/></small>
+                                                )
+                                            }
+                            
+                                        })}
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
                         )
                     }) : null}
             </div>
@@ -102,25 +136,43 @@ function HomePage() {
             <div className="row">
                 {newP ?
                     newP.map((product) => {
-                        return (
-                            <div className="col">
-                                <div className="card" style={{ height: "452.4px" }}>
-                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
-                                    <div className="card-body">
-                                        <div className="card-body-section-one">
-                                            <small>{product.NAME}</small>
-                                        </div>
-                                        <div className="card-body-section-two">
-                                            <p><b>Price : Rs {product.PRICE}</b></p>
-                                        </div>
-                                        <div className="card-body-section-three">
-                                            <p>rating</p>
-                                        </div>
+                        let obj = productDetails(product);
+                        return(
+                            <div className="col mb-4">
+                            <div className="card box-shadow">
+                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
+                                <div className="card-body" style={{height:"120px"}}>
+                                    <div className="card-body-section-one ">
+                                        <b style={{paddingBottom:"1px"}}>{obj.brand}</b><br/>
+                                        <p style={{fontSize:"12px", paddingBottom:"0.2px"}}>{obj.desc}</p>
+                                    </div>
+                                    <div className="card-body-section-two" style={{paddingTop:"10px"}}>
+                                        <small className="card-body-section-two">Rs {product.PRICE}</small>
+                                    </div>
+                                    <div className="card-body-section-three" style={{paddingTop:"10px"}}>
+                                     
+                                        {count.map((i)=>
+                                            {
+                                            if(i<= obj.rating)
+                                            {   
+                                                return(
+                                                    <small ><StarFill className="star-color"/></small>
+                                                )
+                                            }
+                                            else
+                                            {
+                                                return(
+                                                    <small><Star/></small>
+                                                )
+                                            }
+                            
+                                        })}
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
                         )
+                      
                     }) : null}
             </div>
 
