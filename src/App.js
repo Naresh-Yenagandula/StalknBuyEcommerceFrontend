@@ -15,7 +15,7 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact component={HomePage} />
-          <Route path="/product/:category" exact component={Products}/>
+          <Route path="/product" exact component={Products}/>
         </Switch>
       </Router>
       
