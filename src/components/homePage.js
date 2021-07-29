@@ -1,144 +1,188 @@
-import {Link}  from 'react-router-dom';
-function HomePage() 
-{
+import { Link, useLocation } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import {StarFill, Star} from 'react-bootstrap-icons'
+
+function HomePage() {
+
+    
+    const [newP, setNewP] = useState();
+    const [popularP, setPopularP] = useState();
+    const [count,setCount] = useState([1,2,3,4,5]);
+
+    function useQuery() 
+    {
+        return new URLSearchParams(useLocation().search);    
+    }
+    let query = useQuery();
+    
+    useEffect(() => {
+
+        console.log(query.get("data"));
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/new`)
+            .then((res) => {
+                setNewP(res.data.products);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/popular`)
+            .then((res) => {
+                setPopularP(res.data.products);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+    }, [])
+
+    const productDetails = (product)=>
+    {
+        let brand="";
+        let desc="";
+        let rating = product.RATING;
+        console.log(rating);
+        brand = product.DESCRIPTION_COLOR.split(",")[1];
+        let size = product.SIZE;
+        console.log(size);
+        let arr = product.DESCRIPTION_COLOR.split(",");
+        desc = arr[arr.length-2].replace("Buy ", "").replace(" Online in India", "").replace(brand.trim(),"").replace(size.split(" ")[0],"").replace(/fit/gi,"").replace("-", "").replace(/\s+/g,' ');
+        console.log(desc);
+        return {brand,desc, rating}
+        
+    }
+
     return (
         <div className="container pb-5">
-            <div className= "text-center headings">
+            <div className="text-center headings">
                 <h2>CATEGORIES</h2>
             </div>
-           <div className ="row">
-                <div className ="col">
-                  <Link to="/product?category='accessories'"><img src="images/shirts.png" className="img-fluid"></img> </Link> 
+            <div className="row">
+            <div className ="col">
+                  <Link to="/product?category=accessories"><img src="images/accessories.jpg" className="img-fluid"></img> </Link> 
                 </div>
                 <div className ="col">
-                <Link to="/product?category='shirts'"><img src="images/suits.png" className="img-fluid"></img></Link>
+                <Link to="/product?category=shirts"><img src="images/shirts.jpg" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
-                <Link to="/product?category='trousers'"><img src="images/slippers.png" className="img-fluid" ></img></Link>
+                <Link to="/product?category=trousers"><img src="images/trousers.jpg" className="img-fluid" ></img></Link>
                 </div>
                 <div className ="col">
-                <Link to="/product?category='Jeans'"><img src="images/trousers.png" className="img-fluid"></img></Link>
+                <Link to="/product?category=Jeans"><img src="images/jeans.jpg" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
-                <Link to="/product?category='men-jackets-coats'"><img src="images/Loungewear.png" className="img-fluid"></img></Link>
-                </div>
-           </div>
-           <div className ="row">
-                <div className ="col">
-                <Link to="/product?category='Innerwear-Sleapwear'"><img src="images/innerwear.png" className="img-fluid"></img></Link>
-                </div>
-                <div className ="col">
-                <Link to="/product?category='men-suits'"> <img src="images/shoes.png" className="img-fluid"></img></Link>  
-                </div>
-                <div className ="col">
-                <Link to="/product?category='men-swimwear'"><img src="images/T-Shirts.png" className="img-fluid" ></img></Link> 
-                </div>
-                <div className ="col">
-                <Link to="/product?category='track-pants'"><img src="images/trackpants.png" className="img-fluid"></img></Link>
-                </div>
-                <div className ="col">
-                <Link to="/product?category='T-Shirts'"><img src="images/kurta.png" className="img-fluid"></img></Link>
+                <Link to="/product?category=men-jackets-coats"><img src="images/jackets.jpg" className="img-fluid"></img></Link>
                 </div>
            </div>
+           <div className ="row">
+                <div className ="col">
+                <Link to="/product?category=Innerwear & Sleapwear"><img src="images/innerwear.jpg" className="img-fluid"></img></Link>
+                </div>
+                <div className ="col">
+                <Link to="/product?category=men-suits"> <img src="images/suits.jpg" className="img-fluid"></img></Link>  
+                </div>
+                <div className ="col">
+                <Link to="/product?category=men-swimwear"><img src="images/swimwear.jpg" className="img-fluid" ></img></Link> 
+                </div>
+                <div className ="col">
+                <Link to="/product?category=track-pants"><img src="images/trackpants.jpg" className="img-fluid"></img></Link>
+                </div>
+                <div className ="col">
+                <Link to="/product?category=T-Shirts"><img src="images/Tshirts.jpg" className="img-fluid"></img></Link>
+                </div>
+            </div>
 
-           <div className= "text-center headings">
+            <div className="text-center headings">
                 <h2>POPULAR PRODUCTS</h2>
             </div>
             <div className="row">
-                <div className="col">
-                    <div className="card">
-                      '  <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                             <p>price</p>
+                {popularP ?
+                    popularP.map((product) => 
+                    {
+                        let obj = productDetails(product);
+                        return(
+                            <div className="col mb-4">
+                            <div className="card box-shadow">
+                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
+                                <div className="card-body" style={{height:"120px"}}>
+                                    <div className="card-body-section-one ">
+                                        <b style={{paddingBottom:"1px"}}>{obj.brand}</b><br/>
+                                        <p style={{fontSize:"12px", paddingBottom:"0.2px"}}>{obj.desc}</p>
+                                    </div>
+                                    <div className="card-body-section-two" style={{paddingTop:"10px"}}>
+                                        <small className="card-body-section-two">Rs {product.PRICE}</small>
+                                    </div>
+                                    <div className="card-body-section-three" style={{paddingTop:"10px"}}>
+                                     
+                                        {count.map((i)=>
+                                            {
+                                            if(i<= obj.rating)
+                                            {   
+                                                return(
+                                                    <small ><StarFill className="star-color"/></small>
+                                                )
+                                            }
+                                            else
+                                            {
+                                                return(
+                                                    <small><Star/></small>
+                                                )
+                                            }
+                            
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="card" >
-                      '  <img src= "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/12222114/2020/8/13/1988f347-afd1-4e05-b210-2f31f20c2f531597298558197-SASSAFRAS-Women-Mint-Green-Solid-Wide-Leg-Track-Pants-761597-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="card" >
-                      '  <img src= "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/13581134/2021/2/24/bb6b124a-5335-4b89-83fc-69cf792b2cf91614146589759-SASSAFRAS-Women-Dusty-Pink-Self-Design-Dobby-Weave-Wrap-Dres-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="card" >
-                      '  <img src= "https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/2314457/2018/4/24/11524547946133-HRX-by-Hrithik-Roshan-Men-Black-Printed-Round-Neck-T-shirt-8401524547945966-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
-                        </div>
-                    </div>
-                </div>
-
+                        )
+                    }) : null}
             </div>
 
-            <div className= "text-center headings">
+            <div className="text-center headings">
                 <h2>NEW ARRIVALS</h2>
             </div>
             <div className="row">
-                <div className="col">
-                    <div className="card">
-                      '  <img src= "https://assets.myntassets.com/h_1440,q_90,w_1080/v1/assets/images/10604484/2019/9/13/6ab71496-74d6-4258-9310-a34c75f7be441568374869936-SASSAFRAS-Women-Jeans-2881568374868311-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
+                {newP ?
+                    newP.map((product) => {
+                        let obj = productDetails(product);
+                        return(
+                            <div className="col mb-4">
+                            <div className="card box-shadow">
+                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
+                                <div className="card-body" style={{height:"120px"}}>
+                                    <div className="card-body-section-one ">
+                                        <b style={{paddingBottom:"1px"}}>{obj.brand}</b><br/>
+                                        <p style={{fontSize:"12px", paddingBottom:"0.2px"}}>{obj.desc}</p>
+                                    </div>
+                                    <div className="card-body-section-two" style={{paddingTop:"10px"}}>
+                                        <small className="card-body-section-two">Rs {product.PRICE}</small>
+                                    </div>
+                                    <div className="card-body-section-three" style={{paddingTop:"10px"}}>
+                                     
+                                        {count.map((i)=>
+                                            {
+                                            if(i<= obj.rating)
+                                            {   
+                                                return(
+                                                    <small ><StarFill className="star-color"/></small>
+                                                )
+                                            }
+                                            else
+                                            {
+                                                return(
+                                                    <small><Star/></small>
+                                                )
+                                            }
+                            
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="card" >
-                      '  <img src= "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/12222114/2020/8/13/1988f347-afd1-4e05-b210-2f31f20c2f531597298558197-SASSAFRAS-Women-Mint-Green-Solid-Wide-Leg-Track-Pants-761597-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="card" >
-                      '  <img src= "https://assets.myntassets.com/f_webp,dpr_1.5,q_60,w_210,c_limit,fl_progressive/assets/images/13581134/2021/2/24/bb6b124a-5335-4b89-83fc-69cf792b2cf91614146589759-SASSAFRAS-Women-Dusty-Pink-Self-Design-Dobby-Weave-Wrap-Dres-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col">
-                    <div className="card" >
-                      '  <img src= "https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/2314457/2018/4/24/11524547946133-HRX-by-Hrithik-Roshan-Men-Black-Printed-Round-Neck-T-shirt-8401524547945966-1.jpg" className="card-img-top" height="340px" width="210px" alt="..."/>
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example.</p>
-                            <p>price</p>
-                        </div>
-                    </div>
-                </div>
-
+                        )
+                      
+                    }) : null}
             </div>
 
         </div>
