@@ -13,18 +13,19 @@ function Products()
     let query = useQuery();
     
     // let {category} = useParams();
-    const [data, setdata] = useState();
-    const [color, setColor] = useState();
-    const [brand, setBrand] = useState();
-    const [fabric, setFabric] = useState();   
-    const [Size, setSize] = useState();
-    const [category, setCategory] = useState();
+    const [data, setData] = useState();
+    const [color, setColor] = useState([]);
+    const [brand, setBrand] = useState([]);
+    const [fabric, setFabric] = useState([]);   
+    const [Size, setSize] = useState([]);
+    const [category, setCategory] = useState([]);
+    const [price, setPrice] = useState([]);
 
 
     const [count,setCount] = useState([1,2,3,4,5]);
-    const cat =['men-swimwear', 'Jeans'];
-    const price = ['919','2000'];
-    const size = ['Regular Fit','Slim fit']
+    // const cat = ['men-swimwear', 'Jeans'];
+    // const price = ['919','2000'];
+    // const size = ['Regular Fit','Slim fit']
     useEffect(() => 
     {
         let category =query.get("category")
@@ -44,17 +45,17 @@ function Products()
         // axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories/${url}`)
         //     .then((res)=>
         //     {
-        //         setdata(res.data.products);
+        //         setData(res.data.products);
         //     })
         //     .catch((err)=>
         //     {
         //         console.log(err);
         //     })
 
-            axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${category}&price=${price}&size=${size}`)
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${category}&price=${price}&size=${Size}`)
             .then((res)=>
             {
-                setdata(res.data.products);
+                setData(res.data.products);
             })
             .catch((err)=>
             {
@@ -75,6 +76,55 @@ function Products()
         desc = arr[arr.length-2].replace("Buy ", "").replace(" Online in India", "").replace(brand.trim(),"").replace(size.split(" ")[0],"").replace(/fit/gi,"").replace("-", "").replace(/\s+/g,' ');
         // console.log(desc);
         return {brand,desc, rating}
+        
+    }
+
+    const checkColor =(color) =>
+    {
+
+    }
+
+    const checkCategory =(val) =>
+    {
+        const ind = category.indexOf(val);
+        if(ind == -1)
+        {
+            category.push(val);
+        }
+        else
+        {
+            category.splice(ind, 1);
+        }
+    }
+
+    const checkPrice =(val) =>
+    {
+        const ind = price.indexOf(val);
+        if(ind == -1)
+        {
+            price.push(val);
+        }
+        else
+        {
+            price.splice(ind, 1);
+        }
+    }
+
+    const checkSize =(val) =>
+    {
+        const ind = Size.indexOf(val);
+        if(ind == -1)
+        {
+            Size.push(val);
+        }
+        else
+        {
+            Size.splice(ind, 1);
+        }
+    }
+
+    const apply = ()=>
+    {
         
     }
 
@@ -99,7 +149,11 @@ function Products()
                     <div style={{height:"80vh", width:"250px" }} className="overflow-auto sidebar">
                     <div className="container d-flex justify-content-between align-items-center py-3">
                         <b>FILTERS</b> 
+                        {/* <button className ="btn btn-outline-secondary btn-sm">Reset All</button> */}
+                    </div>
+                    <div className="container d-flex justify-content-between align-items-center py-3">
                         <button className ="btn btn-outline-secondary btn-sm">Reset All</button>
+                        <button className ="btn btn-outline-secondary btn-sm" onClick={(e)=>apply}>APPLY</button>
                     </div>
                         <div className="accordion" id="accordionPanelsStayOpenExample">
 
@@ -113,65 +167,72 @@ function Products()
                             <div className="accordion-body ps-4">
                                 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" />
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkCategory("Innerwear & Sleapwear")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         Innerwear
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" />
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkCategory("accessories")} />
                                     <label className="form-check-label" for="flexCheckDefault">
-                                        Loungewear
+                                    accessories
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkCategory("shirts")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
-                                        Kurtas
+                                    shirts
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkCategory("trousers")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
-                                        Shoes
+                                    trousers
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkCategory("Jeans")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
-                                        Slippers
+                                    Jeans
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkCategory(" men-jackets-coats")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
-                                        Suits
+                                    men-jackets-coats
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkCategory("men-suits")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
-                                        T-Shirts
+                                    men-suits
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkCategory(" men-swimwear")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
-                                        Trackpants
+                                    men-swimwear
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkCategory("T-Shirts")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
-                                        Trousers
+                                    T-Shirts
+                                    </label>
+                                </div>
+
+                                <div className="form-check ps-">
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkCategory("track-pants")}/>
+                                    <label className="form-check-label" for="flexCheckDefault">
+                                    track-pants
                                     </label>
                                 </div>
                             </div>
@@ -347,28 +408,28 @@ function Products()
                             <div className="accordion-body ps-4">
                             
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkPrice("100-2000")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         100-2000
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkPrice("2001-7000")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         2001-7000
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkPrice("7001-20000")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         7001-20000
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkPrice( "20000-50000")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         20000-50000
                                     </label>
@@ -387,28 +448,28 @@ function Products()
                             <div id="panelsStayOpen-collapseFive" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
                             <div className="accordion-body ps-4">
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkSize("Regular-Fit")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
-                                        Regular-fit
+                                        Regular-Fit
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkSize("Slim-fit")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         Slim-fit
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkSize("Skinny-fit")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         Skinny-fit
                                     </label>
                                 </div>
 
                                 <div className="form-check ps-">
-                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault"/>
+                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e)=> checkSize("Narrow-fit")}/>
                                     <label className="form-check-label" for="flexCheckDefault">
                                         Narrow-fit
                                     </label>
