@@ -10,15 +10,10 @@ function HomePage() {
     const [popularP, setPopularP] = useState();
     const [count,setCount] = useState([1,2,3,4,5]);
 
-    function useQuery() 
+   
+    useEffect(() => 
     {
-        return new URLSearchParams(useLocation().search);    
-    }
-    let query = useQuery();
-    
-    useEffect(() => {
 
-        console.log(query.get("data"));
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/new`)
             .then((res) => {
                 setNewP(res.data.products);
@@ -63,10 +58,10 @@ function HomePage() {
                   <Link to="/product?category=accessories"><img src="images/accessories.jpg" className="img-fluid"></img> </Link> 
                 </div>
                 <div className ="col">
-                <Link to="/product?category=shirts"><img src="images/shirts.jpg" className="img-fluid"></img></Link>
+                <Link to="/product?category=casual-shirts,formal-shirts"><img src="images/shirts.jpg" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
-                <Link to="/product?category=trousers"><img src="images/trousers.jpg" className="img-fluid" ></img></Link>
+                <Link to="/product?category=Men-Casual-Trousers,Men-Formal-Trousers"><img src="images/trousers.jpg" className="img-fluid" ></img></Link>
                 </div>
                 <div className ="col">
                 <Link to="/product?category=Jeans"><img src="images/jeans.jpg" className="img-fluid"></img></Link>

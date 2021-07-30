@@ -4,7 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-function Products() {
+function Products(props) {
     function useQuery() {
         return new URLSearchParams(useLocation().search);
     }
@@ -12,6 +12,7 @@ function Products() {
 
     // let {category} = useParams();
     const [data, setData] = useState();
+    const [url, setURL] =  useState();
     const [color, setColor] = useState([]);
     const [brand, setBrand] = useState([]);
     const [fabric, setFabric] = useState([]);
@@ -21,42 +22,27 @@ function Products() {
 
 
     const [count, setCount] = useState([1, 2, 3, 4, 5]);
-    // const cat = ['men-swimwear', 'Jeans'];
-    // const price = ['919','2000'];
-    // const size = ['Regular Fit','Slim fit']
-    useEffect(() => {
-        let category = query.get("category")
-        let url = ""
-        // if(category == 'shirts')
-        // {   
-        //     url = `casual-${category}-or-formal-${category}`
-        // }
-        // else if(category == 'Trousers')
-        // {
-        //     url = `Men-Casual-${category}-or-Men-Formal-${category}`
-        // }
-        // else
-        // {
-        //     url = category;
-        // }
-        // axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories/${url}`)
-        //     .then((res)=>
-        //     {
-        //         setData(res.data.products);
-        //     })
-        //     .catch((err)=>
-        //     {
-        //         console.log(err);
-        //     })
+    
+    useEffect(() => 
+    {
+        let categoryU = query.get("category")
+        let priceU = query.get("price")
+        let fabricU = query.get("fab")
+        let colorU = query.get("color")
+        let brandU = query.get("brand")
+        let sizeU = query.get("size")
 
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${category}&price=${price}&size=${Size}`)
+        console.log(url);
+        console.log(categoryU, priceU, fabricU, colorU, brandU, sizeU);
+     
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}`) // backend url, not frontend url
             .then((res) => {
                 setData(res.data.products);
             })
             .catch((err) => {
                 console.log(err);
             })
-    }, [])
+    }, [url]);
 
     const productDetails = (product) => {
         let brand = "";
@@ -157,8 +143,13 @@ function Products() {
         }
     }
 
-    const apply = () => {
-        console.log(category,color,brand,fabric,price);
+    const apply = () => 
+    {
+        //console.log(category,color,brand,fabric,price);
+        let strURL = `?category=${category.join(",")}&price=${price.join(",")}&size=${Size.join(",")}&fab=${fabric.join(",")}&color=${color.join(",")}&brand=${brand.join(",")}`
+        setURL(strURL);
+        props.history.push(strURL);
+
     }
 
     return (
@@ -236,7 +227,7 @@ function Products() {
                                         </div>
 
                                         <div className="form-check ps-">
-                                            <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkCategory(" men-jackets-coats")} />
+                                            <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkCategory("men-jackets-coats")} />
                                             <label className="form-check-label" for="flexCheckDefault">
                                                 men-jackets-coats
                                             </label>
