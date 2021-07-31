@@ -4,6 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
+
 function Products(props) {
     function useQuery() {
         return new URLSearchParams(useLocation().search);
@@ -13,31 +14,59 @@ function Products(props) {
     // let {category} = useParams();
     const [data, setData] = useState();
     const [url, setURL] =  useState();
+
     const [color, setColor] = useState([]);
     const [brand, setBrand] = useState([]);
     const [fabric, setFabric] = useState([]);
     const [Size, setSize] = useState([]);
     const [category, setCategory] = useState([]);
     const [price, setPrice] = useState([]);
+    
+
+    const [colorA, setColorA] = useState([]);
+    const [brandA, setBrandA] = useState([]);
+    const [fabricA, setFabricA] = useState([]);
+    const [SizeA, setSizeA] = useState([]);
+    const [categoryA, setCategoryA] = useState([]);
+    const [priceA, setPriceA] = useState([]);
 
 
     const [count, setCount] = useState([1, 2, 3, 4, 5]);
     
-    useEffect(() => 
+    useEffect(async() => 
     {
-        let categoryU = query.get("category")
-        let priceU = query.get("price")
-        let fabricU = query.get("fab")
-        let colorU = query.get("color")
-        let brandU = query.get("brand")
-        let sizeU = query.get("size")
+        let categoryU;
+        let sizeU;
+        let brandU;
+        let fabricU;
+        let colorU;
+        let priceU;
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/distinct`)
+        .then((result)=>{
+            setCategoryA(result.data.category);
+            setBrandA(result.data.brand);
+            setSizeA(result.data.size);
+            setFabricA(result.data.fabric);
+            // console.log(result.data.brand)
 
-        console.log(url);
+             categoryU = query.get("category")
+             priceU = query.get("price")
+             fabricU = query.get("fab")
+             colorU = query.get("color")
+             brandU = query.get("brand")
+             sizeU = query.get("size")
+        })
+        .catch((e)=>{
+            console.log(e)
+        })
+       
+
         console.log(categoryU, priceU, fabricU, colorU, brandU, sizeU);
      
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}`) // backend url, not frontend url
             .then((res) => {
                 setData(res.data.products);
+                // console.log(data)
             })
             .catch((err) => {
                 console.log(err);
@@ -69,8 +98,10 @@ function Products(props) {
         }
     }
 
-    const checkCategory = (val) => {
-        if(val==="shirts"){
+    const checkCategory = (val) => 
+    {
+        if(val==="shirts")
+        {
             const index1 = category.indexOf("casual-shirts")
             const index2 = category.indexOf("formal-shirts")
             if(index1===-1 || index2===-1){
@@ -152,6 +183,17 @@ function Products(props) {
 
     }
 
+    const resetAll =()=>
+    {
+        document.getElementById("reset").reset();
+        setCategory([]);
+        setColor([]);
+        setPrice([]);
+        setBrand([]);
+        setFabric([]);
+        setSize([]);
+    }
+
     return (
         <div>
             <div className="container py-4">
@@ -176,11 +218,11 @@ function Products(props) {
                             {/* <button className ="btn btn-outline-secondary btn-sm">Reset All</button> */}
                         </div>
                         <div className="container d-flex justify-content-between align-items-center py-3">
-                            <button className="btn btn-outline-secondary btn-sm">Reset All</button>
+                            <button className="btn btn-outline-secondary btn-sm" onClick={(e)=>resetAll()}>Reset All</button>
                             <button className="btn btn-outline-secondary btn-sm" onClick={(e) => apply()}>APPLY</button>
                         </div>
                         <div className="accordion" id="accordionPanelsStayOpenExample">
-
+                        <form id ="reset">
                         {/* //Categories */}
                             <div className="accordion-item">
                                 <h2 className="accordion-header" id="panelsStayOpen-headingOne">
@@ -192,9 +234,9 @@ function Products(props) {
                                     <div className="accordion-body ps-4">
 
                                         <div className="form-check ps-">
-                                            <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkCategory("Innerwear & Sleapwear")} />
+                                            <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkCategory("Innerwear_Sleapwear")} />
                                             <label className="form-check-label" for="flexCheckDefault">
-                                                Innerwear
+                                                Innerwear & Sleepwear
                                             </label>
                                         </div>
 
@@ -213,7 +255,7 @@ function Products(props) {
                                         </div>
 
                                         <div className="form-check ps-">
-                                            <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkCategory("trousers")} />
+                                            <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkCategory("trousers")}  />
                                             <label className="form-check-label" for="flexCheckDefault">
                                                 trousers
                                             </label>
@@ -562,7 +604,7 @@ function Products(props) {
                                     </div>
                                 </div>
                             </div>
-
+                        </form>
                         </div>
                     </div>
                 </div>
