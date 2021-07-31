@@ -30,21 +30,40 @@ function Products(props) {
 
     const [count, setCount] = useState([1, 2, 3, 4, 5]);
     
-    useEffect(() => 
+    useEffect(async() => 
     {
-        let categoryU = query.get("category")
-        let priceU = query.get("price")?query.get("price"):"0-50000"
-        let fabricU = query.get("fab")?query.get("fab"):["Cotton", "Polyester","Wool","Spandex","Elastane","Viscous"]
-        let colorU = query.get("color")
-        let brandU = query.get("brand")
-        let sizeU = query.get("size")
+        let categoryU;
+        let sizeU;
+        let brandU;
+        let fabricU;
+        let colorU;
+        let priceU;
+        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/distinct`)
+        .then((result)=>{
+            setCategoryA(result.data.category);
+            setBrandA(result.data.brand);
+            setSizeA(result.data.size);
+            setFabricA(result.data.fabric);
+            // console.log(result.data.brand)
 
-        console.log(url);
+            categoryU = query.get("category")
+             priceU = query.get("price")
+             fabricU = query.get("fab")
+             colorU = query.get("color")
+             brandU = query.get("brand")
+             sizeU = query.get("size")
+        })
+        .catch((e)=>{
+            console.log(e)
+        })
+       
+
         console.log(categoryU, priceU, fabricU, colorU, brandU, sizeU);
      
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}`) // backend url, not frontend url
             .then((res) => {
                 setData(res.data.products);
+                // console.log(data)
             })
             .catch((err) => {
                 console.log(err);
@@ -199,9 +218,9 @@ function Products(props) {
                                     <div className="accordion-body ps-4">
 
                                         <div className="form-check ps-">
-                                            <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkCategory("Innerwear & Sleapwear")} />
+                                            <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkCategory("Innerwear_Sleapwear")} />
                                             <label className="form-check-label" for="flexCheckDefault">
-                                                Innerwear
+                                                Innerwear & Sleepwear
                                             </label>
                                         </div>
 

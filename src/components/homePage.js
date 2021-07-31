@@ -72,7 +72,7 @@ function HomePage() {
            </div>
            <div className ="row">
                 <div className ="col">
-                <Link to="/product?category=Innerwear & Sleapwear"><img src="images/innerwear.jpg" className="img-fluid"></img></Link>
+                <Link to="/product?category=Innerwear_Sleapwear"><img src="images/innerwear.jpg" className="img-fluid"></img></Link>
                 </div>
                 <div className ="col">
                 <Link to="/product?category=men-suits"> <img src="images/suits.jpg" className="img-fluid"></img></Link>  
