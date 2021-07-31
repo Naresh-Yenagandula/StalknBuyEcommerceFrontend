@@ -26,6 +26,7 @@ function Products() {
     // const size = ['Regular Fit','Slim fit']
     useEffect(() => {
         let category = query.get("category")
+        console.log(category);
         let url = ""
         // if(category == 'shirts')
         // {   
