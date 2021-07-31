@@ -37,3 +37,6 @@
     position:sticky;
     top:0;
 }
+.form-check-label{
+    font-size: small;
+}
