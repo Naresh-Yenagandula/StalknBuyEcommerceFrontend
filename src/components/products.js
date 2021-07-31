@@ -26,8 +26,8 @@ function Products(props) {
     useEffect(() => 
     {
         let categoryU = query.get("category")
-        let priceU = query.get("price")
-        let fabricU = query.get("fab")
+        let priceU = query.get("price")?query.get("price"):"0-50000"
+        let fabricU = query.get("fab")?query.get("fab"):["Cotton", "Polyester","Wool","Spandex","Elastane","Viscous"]
         let colorU = query.get("color")
         let brandU = query.get("brand")
         let sizeU = query.get("size")
