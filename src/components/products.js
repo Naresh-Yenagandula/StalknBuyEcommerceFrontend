@@ -20,6 +20,13 @@ function Products(props) {
     const [category, setCategory] = useState([]);
     const [price, setPrice] = useState([]);
 
+    const [colorA, setColorA] = useState([]);
+    const [brandA, setBrandA] = useState([]);
+    const [fabricA, setFabricA] = useState([]);
+    const [SizeA, setSizeA] = useState([]);
+    const [categoryA, setCategoryA] = useState([]);
+    const [priceA, setPriceA] = useState([]);
+
 
     const [count, setCount] = useState([1, 2, 3, 4, 5]);
     
