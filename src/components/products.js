@@ -30,9 +30,8 @@ function Products(props) {
     const [categoryA, setCategoryA] = useState([]);
     const [priceA, setPriceA] = useState([]);
 
-    const [minPrice, setminPrice] = useState()
-    const [maxPrice, setmaxPrice] = useState()
-
+    const [minmaxPrice, setminmaxPrice] = useState([]);
+    
 
 
     const [count, setCount] = useState([1, 2, 3, 4, 5]);
@@ -135,35 +134,48 @@ function Products(props) {
         }
     }
 
-    const checkPrice = (val) => {
+    const checkPrice = async(val) => {
         const ind = price.indexOf(val);
         
-        if (ind == -1) {
-            price.push(val);
-            finMinMax(val.split("-")[0],val.split("-")[1],price)
-            
+        if (ind == -1) 
+        {
+            price.push(val); 
+                 
         }
         else {
             price.splice(ind, 1);
         }
-
+        let min = findMinMax(price);
+        console.log(min);
+        //setminPrice(min_max.localMin);
+        //console.log(minPrice);
     }
+    
 
-    const finMinMax=(min,max,array)=>{
+    const findMinMax= async(array)=>{
 
-        for(let i=0;i<array.length;i++){
-            console.log(array[i])
-            if(array[i].split("-")[0]>=min){ 
-                console.log(min);
-
-                setminPrice(min)
+        let min = array[0].split('-')[0];
+        let max = array[0].split('-')[1];
+        
+        for(let i=1;i<array.length;i++) 
+        {
+            //console.log(array);
+            //console.log(i, array[i].split("-")[1],max)
+            if(parseInt(array[i].split("-")[0]) < parseInt(min))
+            { 
+                min = array[i].split("-")[0]
             }
-            if(array[i].split("-")[1]<=max){
-                console.log(max)
-                setmaxPrice(max)
-            }  
+            if(parseInt(array[i].split("-")[1]) > parseInt(max))
+            {
+                console.log("true");
+                max = array[i].split("-")[1];
+            }
+            
         }
-        console.log(minPrice,maxPrice)
+        console.log("min:",min, "max:", max);
+        setminmaxPrice([min,max]);
+       
+        
     }
     
 
@@ -199,7 +211,7 @@ function Products(props) {
 
     const apply = () => {
         //console.log(category,color,brand,fabric,price);
-        let strURL = `?category=${category.join(",")}&price=${price.join(",")}&size=${Size.join(",")}&fab=${fabric.join(",")}&color=${color.join(",")}&brand=${brand.join(",")}`
+        let strURL = `?category=${category.join(",")}&price=${minmaxPrice.join(',')}&size=${Size.join(",")}&fab=${fabric.join(",")}&color=${color.join(",")}&brand=${brand.join(",")}`
         setURL(strURL);
         props.history.push(strURL);
 
@@ -419,7 +431,7 @@ function Products(props) {
                                             <div className="form-check ps-">
                                                 <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkPrice("100-2000")} />
                                                 <label className="form-check-label" for="flexCheckDefault">
-                                                    100-2000
+                                                    100-2000 {minmaxPrice}
                                                 </label>
                                             </div>
 
