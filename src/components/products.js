@@ -1,8 +1,10 @@
 import React from 'react'
-import { CircleFill, StarFill, Star } from 'react-bootstrap-icons'
-import { useParams, useLocation } from 'react-router-dom';
+import { CircleFill, StarFill,Star, SuitHeartFill } from 'react-bootstrap-icons'
+import {useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import ReactPaginate from 'react-paginate';
+
 
 
 function Products(props) {
@@ -33,9 +35,13 @@ function Products(props) {
     const [minmaxPrice, setminmaxPrice] = useState([]);
     
 
-
     const [count, setCount] = useState([1, 2, 3, 4, 5]);
+    const [currPage, setcurrPage] = useState(0);
+    const [totalProducts,setTotalProducts] = useState(0);
+    const offset = currPage*50;
 
+    const [sort, setSort] = useState("high")
+    let pageCount = Math.ceil(totalProducts/50);
     useEffect(async () => {
         let categoryU;
         let sizeU;
@@ -65,15 +71,17 @@ function Products(props) {
 
         console.log(categoryU, priceU, fabricU, colorU, brandU, sizeU);
 
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}`) // backend url, not frontend url
+        axios.get( `${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${sort}` ) // backend url, not frontend url
             .then((res) => {
                 setData(res.data.products);
+                console.log(res.data.totalProducts);
+                setTotalProducts(res.data.totalProducts);
                 // console.log(data)
             })
             .catch((err) => {
                 console.log(err);
             })
-    }, [url]);
+    }, [url, offset, sort]);
 
     const productDetails = (product) => {
         let brand = "";
@@ -225,6 +233,11 @@ function Products(props) {
         setBrand([]);
         setFabric([]);
         setSize([]);
+    }
+
+    const pageChange = ({selected:current}) =>
+    {
+        setcurrPage(current);
     }
 
     return (
@@ -431,7 +444,7 @@ function Products(props) {
                                             <div className="form-check ps-">
                                                 <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkPrice("100-2000")} />
                                                 <label className="form-check-label" for="flexCheckDefault">
-                                                    100-2000 {minmaxPrice}
+                                                    100-2000
                                                 </label>
                                             </div>
 
@@ -567,9 +580,9 @@ function Products(props) {
                                 Sort by
                             </button>
                             <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a className="dropdown-item" href="#">Price: High to Low</a></li>
-                                <li><a className="dropdown-item" href="#">Price: Low to High</a></li>
-                                <li><a className="dropdown-item" href="#">Customer Ratings</a></li>
+                                <li onClick={e => setSort("high")}><a className="dropdown-item" href="#">Price: High to Low</a></li>
+                                <li onClick={e => setSort("low")}><a className="dropdown-item" href="#">Price: Low to High</a></li>
+                                <li onClick={e => setSort("rating")}><a className="dropdown-item" href="#">Customer Ratings</a></li>
                             </ul>
                         </div>
                     </div>
@@ -582,6 +595,7 @@ function Products(props) {
                                     <div className="col mb-4">
                                         <div className="card box-shadow">
                                             <img src={product.IMAGE} className="card-img-top" height="280px" width="210px" alt="..." />
+                                            <button className="btn btn-sm wishlist"> <SuitHeartFill /></button>
                                             <div className="card-body" style={{ height: "120px" }}>
                                                 <div className="card-body-section-one ">
                                                     <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -600,7 +614,7 @@ function Products(props) {
                                                         }
                                                         else {
                                                             return (
-                                                                <small><Star /></small>
+                                                                <small><Star/></small>
                                                             )
                                                         }
 
@@ -611,9 +625,74 @@ function Products(props) {
                                     </div>
                                 )
                             }) : null}
-                    </div>
-                </div>
 
+                    </div>
+
+                    < ReactPaginate
+
+                    previousLabel = 
+                    {
+                        "Prev"
+                    }
+
+
+                    nextLabel = 
+                    {
+                        "Next"
+                    }
+
+
+                    pageCount = 
+                    {
+                        pageCount
+                    }
+
+
+                    onPageChange = 
+                    {
+                        pageChange
+                    }
+
+
+                    containerClassName = 
+                    {
+                        "pagination pagination-sm justify-content-center"
+                    }
+
+
+                    pageLinkClassName = 
+                    {
+                        "page-link"
+                    }
+
+
+                    previousLinkClassName = 
+                    {
+                        "page-link"
+                    }
+
+
+                    nextLinkClassName = 
+                    {
+                        "page-link"
+                    }
+
+
+                    disabledClassName = 
+                    {
+                        "page-item disabled"
+                    }
+
+
+                    activeClassName = 
+                    {
+                        "page-item active"
+                    }
+
+                    />
+                </div>
+                
+                
             </div>
 
         </div>

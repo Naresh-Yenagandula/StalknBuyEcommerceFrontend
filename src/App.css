@@ -40,3 +40,8 @@
 .form-check-label{
     font-size: small;
 }
+.wishlist
+{
+    position: absolute;
+    right: 0;  
+}
