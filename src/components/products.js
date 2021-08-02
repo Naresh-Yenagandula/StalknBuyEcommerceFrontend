@@ -1,6 +1,6 @@
 import React from 'react'
-import { CircleFill, StarFill,Star, SuitHeartFill } from 'react-bootstrap-icons'
-import {useLocation } from 'react-router-dom';
+import { CircleFill, StarFill, Star, SuitHeartFill } from 'react-bootstrap-icons'
+import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
@@ -11,6 +11,7 @@ function Products(props) {
     function useQuery() {
         return new URLSearchParams(useLocation().search);
     }
+    const [modalData, setmodalData] = useState()
     let query = useQuery();
 
     // let {category} = useParams();
@@ -33,15 +34,15 @@ function Products(props) {
     const [priceA, setPriceA] = useState([]);
 
     const [minmaxPrice, setminmaxPrice] = useState([]);
-    
+
 
     const [count, setCount] = useState([1, 2, 3, 4, 5]);
     const [currPage, setcurrPage] = useState(0);
-    const [totalProducts,setTotalProducts] = useState(0);
-    const offset = currPage*50;
+    const [totalProducts, setTotalProducts] = useState(0);
+    const offset = currPage * 50;
 
     const [sort, setSort] = useState("high")
-    let pageCount = Math.ceil(totalProducts/50);
+    let pageCount = Math.ceil(totalProducts / 50);
     useEffect(async () => {
         let categoryU;
         let sizeU;
@@ -71,7 +72,7 @@ function Products(props) {
 
         console.log(categoryU, priceU, fabricU, colorU, brandU, sizeU);
 
-        axios.get( `${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${sort}` ) // backend url, not frontend url
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${sort}`) // backend url, not frontend url
             .then((res) => {
                 setData(res.data.products);
                 console.log(res.data.totalProducts);
@@ -142,13 +143,12 @@ function Products(props) {
         }
     }
 
-    const checkPrice = async(val) => {
+    const checkPrice = async (val) => {
         const ind = price.indexOf(val);
-        
-        if (ind == -1) 
-        {
-            price.push(val); 
-                 
+
+        if (ind == -1) {
+            price.push(val);
+
         }
         else {
             price.splice(ind, 1);
@@ -158,34 +158,31 @@ function Products(props) {
         //setminPrice(min_max.localMin);
         //console.log(minPrice);
     }
-    
 
-    const findMinMax= async(array)=>{
+
+    const findMinMax = async (array) => {
 
         let min = array[0].split('-')[0];
         let max = array[0].split('-')[1];
-        
-        for(let i=1;i<array.length;i++) 
-        {
+
+        for (let i = 1; i < array.length; i++) {
             //console.log(array);
             //console.log(i, array[i].split("-")[1],max)
-            if(parseInt(array[i].split("-")[0]) < parseInt(min))
-            { 
+            if (parseInt(array[i].split("-")[0]) < parseInt(min)) {
                 min = array[i].split("-")[0]
             }
-            if(parseInt(array[i].split("-")[1]) > parseInt(max))
-            {
+            if (parseInt(array[i].split("-")[1]) > parseInt(max)) {
                 console.log("true");
                 max = array[i].split("-")[1];
             }
-            
+
         }
-        console.log("min:",min, "max:", max);
-        setminmaxPrice([min,max]);
-       
-        
+        console.log("min:", min, "max:", max);
+        setminmaxPrice([min, max]);
+
+
     }
-    
+
 
     const checkBrand = (val) => {
         const ind = brand.indexOf(val);
@@ -235,13 +232,43 @@ function Products(props) {
         setSize([]);
     }
 
-    const pageChange = ({selected:current}) =>
-    {
+    const pageChange = ({ selected: current }) => {
         setcurrPage(current);
     }
 
     return (
         <div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div className="container-fluid">
+                            <div className="row">
+                                {modalData?
+                                <>
+                                <div className="col-md-6 col-sm-6">
+                                    <img className="img-fluid modal-image"  src={modalData.IMAGE}/>
+                                </div>
+                                <div className="col-md-6 col-sm-6">
+                                 <h3>{modalData.BRAND}</h3>
+                                 <h4>{modalData.NAME}</h4>                               
+                                </div></>:null}
+
+                            </div>
+                            </div>
+                        </div>
+                        {/* <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save change</button>
+                        </div> */}
+                    </div>
+                </div>
+            </div>
             <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasBottomLabel">All Brands</h5>
@@ -255,7 +282,7 @@ function Products(props) {
                                     <div className="form-check ps-">
                                         <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkBrand(brand)} />
                                         <label className="form-check-label" for="flexCheckDefault">
-                                            {brand}     
+                                            {brand}
                                         </label>
                                     </div>
                                 </div>
@@ -305,7 +332,7 @@ function Products(props) {
                                                     <div className="form-check ps-">
                                                         <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkCategory(category)} />
                                                         <label className="form-check-label" for="flexCheckDefault">
-                                                            {category.replace(/men-/gi,"").toLowerCase()}
+                                                            {category.replace(/men-/gi, "").toLowerCase()}
                                                         </label>
                                                     </div>
                                                 )
@@ -595,6 +622,10 @@ function Products(props) {
                                     <div className="col mb-4">
                                         <div className="card box-shadow">
                                             <img src={product.IMAGE} className="card-img-top" height="280px" width="210px" alt="..." />
+                                            <button type="button" className="btn  quick-look " data-bs-toggle="modal"  onClick={(e)=>setmodalData(product)} data-bs-target="#exampleModal" >
+                                                <strong>Quick Look</strong>
+                                            </button>
+
                                             <button className="btn btn-sm wishlist"> <SuitHeartFill /></button>
                                             <div className="card-body" style={{ height: "120px" }}>
                                                 <div className="card-body-section-one ">
@@ -614,7 +645,7 @@ function Products(props) {
                                                         }
                                                         else {
                                                             return (
-                                                                <small><Star/></small>
+                                                                <small><Star /></small>
                                                             )
                                                         }
 
@@ -630,69 +661,69 @@ function Products(props) {
 
                     < ReactPaginate
 
-                    previousLabel = 
-                    {
-                        "Prev"
-                    }
+                        previousLabel=
+                        {
+                            "Prev"
+                        }
 
 
-                    nextLabel = 
-                    {
-                        "Next"
-                    }
+                        nextLabel=
+                        {
+                            "Next"
+                        }
 
 
-                    pageCount = 
-                    {
-                        pageCount
-                    }
+                        pageCount=
+                        {
+                            pageCount
+                        }
 
 
-                    onPageChange = 
-                    {
-                        pageChange
-                    }
+                        onPageChange=
+                        {
+                            pageChange
+                        }
 
 
-                    containerClassName = 
-                    {
-                        "pagination pagination-sm justify-content-center"
-                    }
+                        containerClassName=
+                        {
+                            "pagination pagination-sm justify-content-center"
+                        }
 
 
-                    pageLinkClassName = 
-                    {
-                        "page-link"
-                    }
+                        pageLinkClassName=
+                        {
+                            "page-link"
+                        }
 
 
-                    previousLinkClassName = 
-                    {
-                        "page-link"
-                    }
+                        previousLinkClassName=
+                        {
+                            "page-link"
+                        }
 
 
-                    nextLinkClassName = 
-                    {
-                        "page-link"
-                    }
+                        nextLinkClassName=
+                        {
+                            "page-link"
+                        }
 
 
-                    disabledClassName = 
-                    {
-                        "page-item disabled"
-                    }
+                        disabledClassName=
+                        {
+                            "page-item disabled"
+                        }
 
 
-                    activeClassName = 
-                    {
-                        "page-item active"
-                    }
+                        activeClassName=
+                        {
+                            "page-item active"
+                        }
 
                     />
                 </div>
-                
-                
+
+
             </div>
 
         </div>
