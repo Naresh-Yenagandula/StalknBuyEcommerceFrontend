@@ -273,7 +273,8 @@ function Products(props) {
                                  </div>    
 
                                  <button className="btn bag-button mt-5">ADD TO BAG</button>   
-                                 <Link to="/productDetails" ><button className="btn product-button mt-4">PRODUCT DETAILS</button> </Link>                   
+                                 
+                                 <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4">PRODUCT DETAILS</button> </Link>                   
                                 </div></>:null}
 
                             </div>
