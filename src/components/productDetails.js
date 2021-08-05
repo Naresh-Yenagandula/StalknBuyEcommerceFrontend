@@ -1,28 +1,31 @@
 import axios from 'axios';
-import React,{useEffect,useState} from 'react'
-import {useParams} from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
+import { ProductContext } from '../App';
 
-function ProductDetails() 
-{
-    const {id} = useParams();
-    console.log(id);
-    
+function ProductDetails() {
+    const value = useContext(ProductContext)
+    const { id } = useParams();
     const [idData, setidData] = useState()
-    useEffect(() => 
-    {
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/id`)
-        .then((res)=>
-        {
-            console.log(res.data.products);
-        })
-        .catch((err)=>
-        {
-            console.log(err);
-        })
-    },[])
+
+    useEffect(() => {
+        if (!value.FilterProducts) {
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/id`)
+                .then((res) => {
+                    setidData(res.data.products)
+                    console.log(res.data.products);
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+        }else{
+            const productData = value.FilterProducts.filter(e=>{return e.PRODUCT_ID===parseInt(id)})
+            setidData(productData)
+        }
+    }, [])
     return (
         <div>
-            
+
         </div>
     )
 }

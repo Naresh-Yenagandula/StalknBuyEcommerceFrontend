@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { CircleFill, StarFill, Star, SuitHeartFill, Circle } from 'react-bootstrap-icons'
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
+import { ProductContext } from '../App';
 
 
 
@@ -15,6 +16,7 @@ function Products(props) {
     let query = useQuery();
 
     // let {category} = useParams();
+    const value = useContext(ProductContext)
     const [data, setData] = useState();
     const [url, setURL] = useState();
 
@@ -70,37 +72,17 @@ function Products(props) {
                 console.log(e)
             })
 
-
-        console.log(categoryU, priceU, fabricU, colorU, brandU, sizeU);
-
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${sort}`) // backend url, not frontend url
             .then((res) => {
                 setData(res.data.products);
-                console.log(res.data.totalProducts);
                 setTotalProducts(res.data.totalProducts);
-                // console.log(data)
+                value.setFilterProductData(res.data.products)
             })
             .catch((err) => {
                 console.log(err);
             })
         
-        return true;
     }, [url, offset, sort]);
-
-    const productDetails = (product) => {
-        let brand = "";
-        let desc = "";
-        let rating = product.RATING;
-        // console.log(rating);
-        brand = product.DESCRIPTION_COLOR.split(",")[1];
-        let size = product.SIZE;
-        // console.log(size);
-        let arr = product.DESCRIPTION_COLOR.split(",");
-        desc = arr[arr.length - 2].replace("Buy ", "").replace(" Online in India", "").replace(brand.trim(), "").replace(size.split(" ")[0], "").replace(/fit/gi, "").replace("-", "").replace(/\s+/g, ' ');
-        // console.log(desc);
-        return { brand, desc, rating }
-
-    }
 
     const checkColor = (val) => {
         const ind = color.indexOf(val);
@@ -162,7 +144,6 @@ function Products(props) {
         //console.log(minPrice);
     }
 
-
     const findMinMax = async (array) => {
 
         let min = array[0].split('-')[0];
@@ -185,7 +166,6 @@ function Products(props) {
 
 
     }
-
 
     const checkBrand = (val) => {
         const ind = brand.indexOf(val);
@@ -261,7 +241,7 @@ function Products(props) {
                                 </div>
                                 <div className="col-md-6 col-sm-6 offset-md-1 text-center mt-5">
                                  <h3>{modalData.BRAND}</h3>
-                                 <p>{productDetails(modalData).desc}</p>    
+                                 <p>{value.extractData(modalData).desc}</p>    
                                  <h5>Rs. {modalData.PRICE}</h5>    
                                  <p className="mt-5"> Select size</p>  
                                  <div>
@@ -635,7 +615,7 @@ function Products(props) {
                     <div className="row mt-3 row-cols-4">
                         {data ?
                             data.map((product) => {
-                                let obj = productDetails(product);
+                                let obj = value.extractData(product);
                                 return (
                                     <div className="col mb-4">
                                         <div className="card box-shadow">
