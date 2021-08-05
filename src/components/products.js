@@ -1,6 +1,6 @@
 import React from 'react'
-import { CircleFill, StarFill, Star, SuitHeartFill } from 'react-bootstrap-icons'
-import { useLocation } from 'react-router-dom';
+import { CircleFill, StarFill, Star, SuitHeartFill, Circle } from 'react-bootstrap-icons'
+import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
@@ -43,6 +43,7 @@ function Products(props) {
 
     const [sort, setSort] = useState("high")
     let pageCount = Math.ceil(totalProducts / 50);
+
     useEffect(async () => {
         let categoryU;
         let sizeU;
@@ -82,6 +83,8 @@ function Products(props) {
             .catch((err) => {
                 console.log(err);
             })
+        
+        return true;
     }, [url, offset, sort]);
 
     const productDetails = (product) => {
@@ -250,13 +253,27 @@ function Products(props) {
                             <div className="container-fluid">
                             <div className="row">
                                 {modalData?
+                                
                                 <>
-                                <div className="col-md-6 col-sm-6">
+                                
+                                <div className="col-md-4 offset-md-1 col-sm-6">
                                     <img className="img-fluid modal-image"  src={modalData.IMAGE}/>
                                 </div>
-                                <div className="col-md-6 col-sm-6">
+                                <div className="col-md-6 col-sm-6 offset-md-1 text-center mt-5">
                                  <h3>{modalData.BRAND}</h3>
-                                 <h4>{modalData.NAME}</h4>                               
+                                 <p>{productDetails(modalData).desc}</p>    
+                                 <h5>Rs. {modalData.PRICE}</h5>    
+                                 <p className="mt-5"> Select size</p>  
+                                 <div>
+                                     <button className="btn btn-secondary rounded-circle size-button">S</button>
+                                     <button className="btn btn-secondary rounded-circle size-button">M</button>
+                                     <button className="btn btn-secondary rounded-circle size-button">L</button>
+                                     <button className="btn btn-secondary rounded-circle size-button">XL</button>
+                                     {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
+                                 </div>    
+
+                                 <button className="btn bag-button mt-5">ADD TO BAG</button>   
+                                 <Link to="/productDetails" ><button className="btn product-button mt-4">PRODUCT DETAILS</button> </Link>                   
                                 </div></>:null}
 
                             </div>

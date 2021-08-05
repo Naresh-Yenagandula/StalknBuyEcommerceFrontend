@@ -6,20 +6,24 @@ import Navbar from './components/navbar';
 import HomePage from './components/homePage';
 import Products from './components/products';
 import {BrowserRouter as Router,Switch, Route } from 'react-router-dom';
+import ProductDetails from './components/productDetails';
 
-function App() {
 
+function App() 
+{
   
   return (
     <div className="App">
       <Navbar/>
+    
       <Router>
         <Switch>
           <Route path="/" exact component={HomePage} />
           <Route path="/product" exact component={Products}/>
+          <Route path="/productDetails" exact component={ProductDetails}/>
         </Switch>
       </Router>
-      
+
       <Footer/>
     </div>
   );

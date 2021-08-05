@@ -62,3 +62,23 @@
 .modal-image{
     height: 500px !important;
 }
+.size-button
+{
+    height: 40px;
+    width: 40px;
+    margin-right: 8px;
+}
+.bag-button
+{
+    width: 70%;
+    color: blueviolet;
+    background-color: rgb(189, 104, 65) !important;
+    
+}
+.product-button
+{
+    width: 70%;
+    color: blueviolet;
+    background-color: rgb(204, 109, 55) !important;
+    
+}
