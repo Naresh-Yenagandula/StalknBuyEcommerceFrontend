@@ -17,7 +17,7 @@ function App() {
   const [NewProducts, setNewProducts] = useState()
   const [PopularProducts, setPopularProducts] = useState()
   const [FilterProducts, setFilterProducts] = useState()
-
+  const [count, setCount] = useState([1, 2, 3, 4, 5]);
   useEffect(() => {
 
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/new`)
@@ -57,7 +57,7 @@ const setFilterProductData=(data)=>{
   return (
     <div className="App">
       <Navbar />
-      <ProductContext.Provider value={{newProducts:NewProducts,popularProducts:PopularProducts,extractData:extractData,setFilterProductData:setFilterProductData,FilterProducts:FilterProducts}}>
+      <ProductContext.Provider value={{count:count,newProducts:NewProducts,popularProducts:PopularProducts,extractData:extractData,setFilterProductData:setFilterProductData,FilterProducts:FilterProducts}}>
         <Router>
           <Switch>
             <Route path="/" exact component={HomePage} />
