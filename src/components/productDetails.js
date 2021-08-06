@@ -10,7 +10,7 @@ function ProductDetails() {
 
     useEffect(() => {
         if (!value.FilterProducts) {
-            axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/${id}`)
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/product/${id}`)
                 .then((res) => {
                     setidData(res.data.products[0])
                     console.log(res.data.products[0]);
@@ -20,7 +20,8 @@ function ProductDetails() {
                 })
         }else{
             const productData = value.FilterProducts.filter(e=>{return e.PRODUCT_ID===parseInt(id)})
-            setidData(productData)
+            setidData(productData[0])
+            console.log(productData);
         }
     }, [])
     return (
