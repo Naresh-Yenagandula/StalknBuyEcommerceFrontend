@@ -10,7 +10,7 @@ function ProductDetails() {
 
     useEffect(() => {
         if (!value.FilterProducts) {
-            axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/id`)
+            axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/${id}`)
                 .then((res) => {
                     setidData(res.data.products)
                     console.log(res.data.products);
