@@ -81,7 +81,7 @@ function Products(props) {
             .catch((err) => {
                 console.log(err);
             })
-        
+
     }, [url, offset, sort]);
 
     const checkColor = (val) => {
@@ -225,39 +225,36 @@ function Products(props) {
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
                         <div class="modal-body">
+                            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
                             <div className="container-fluid">
-                            <div className="row">
-                                {modalData?
-                                
-                                <>
-                                
-                                <div className="col-md-4 offset-md-1 col-sm-6">
-                                    <img className="img-fluid modal-image"  src={modalData.IMAGE}/>
+                                <div className="row">
+                                    {modalData ?
+
+                                        <>
+
+                                            <div className="col-md-4 offset-md-1 col-sm-6">
+                                                <img className="img-fluid modal-image" src={modalData.IMAGE} />
+                                            </div>
+                                            <div className="col-md-6 col-sm-6 offset-md-1 text-center mt-5">
+                                                <h3>{modalData.BRAND}</h3>
+                                                <p>{value.extractData(modalData).desc}</p>
+                                                <h5>Rs. {modalData.PRICE}</h5>
+                                                <p className="mt-5"> Select size</p>
+                                                <div>
+                                                    <button className="btn btn-secondary rounded-circle size-button">S</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">M</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">L</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">XL</button>
+                                                    {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
+                                                </div>
+
+                                                <button className="btn bag-button mt-5">ADD TO BAG</button>
+
+                                                <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4" data-bs-dismiss="modal">PRODUCT DETAILS</button> </Link>
+                                            </div></> : null}
+
                                 </div>
-                                <div className="col-md-6 col-sm-6 offset-md-1 text-center mt-5">
-                                 <h3>{modalData.BRAND}</h3>
-                                 <p>{value.extractData(modalData).desc}</p>    
-                                 <h5>Rs. {modalData.PRICE}</h5>    
-                                 <p className="mt-5"> Select size</p>  
-                                 <div>
-                                     <button className="btn btn-secondary rounded-circle size-button">S</button>
-                                     <button className="btn btn-secondary rounded-circle size-button">M</button>
-                                     <button className="btn btn-secondary rounded-circle size-button">L</button>
-                                     <button className="btn btn-secondary rounded-circle size-button">XL</button>
-                                     {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
-                                 </div>    
-
-                                 <button className="btn bag-button mt-5">ADD TO BAG</button>   
-                                 
-                                 <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4" data-bs-dismiss="modal">PRODUCT DETAILS</button> </Link>                   
-                                </div></>:null}
-
-                            </div>
                             </div>
                         </div>
                         {/* <div class="modal-footer">
@@ -620,7 +617,7 @@ function Products(props) {
                                     <div className="col mb-4">
                                         <div className="card box-shadow">
                                             <img src={product.IMAGE} className="card-img-top" height="280px" width="210px" alt="..." />
-                                            <button type="button" className="btn  quick-look " data-bs-toggle="modal"  onClick={(e)=>setmodalData(product)} data-bs-target="#exampleModal" >
+                                            <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                 <strong>Quick Look</strong>
                                             </button>
 
