@@ -9,7 +9,7 @@ const Navbar = () => {
           <div className ="navbar-text float-end ">
             <form className="d-flex " >
                 <div className="input-group me-5">
-                    <input className="form-control" type="search" placeholder="Search" aria-label="Search"/>
+                    <input className="form-control" type="search" placeholder="Search for products, brands and more" aria-label="Search"/>
                     <button className="btn btn-dark " type="submit"><Search/></button>
               </div>
               <Router>

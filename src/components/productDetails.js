@@ -42,7 +42,7 @@ function ProductDetails() {
         //CATEGORY
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${productData.CATEGORY}`)
             .then((res) => {
-                console.log(res.data.products);
+                // console.log(res.data.products);
                 setCatData(res.data.products.filter((e) => { return e.PRODUCT_ID != productData.PRODUCT_ID }));
             })
             .catch((err) => {
@@ -52,7 +52,7 @@ function ProductDetails() {
         //CATGEORY + BRAND
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${productData.CATEGORY}&brand=${productData.BRAND}`)
             .then((res) => {
-                console.log(res.data.products);
+                // console.log(res.data.products);
                 setBrandData(res.data.products.filter((e) => { return e.PRODUCT_ID != productData.PRODUCT_ID }));
             })
             .catch((err) => {
@@ -60,16 +60,16 @@ function ProductDetails() {
             })
 
         //CATGEORY + COLOR
-        // axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${productData.CATEGORY}&color=${productData.COLOR}`)
-        // .then((res)=>
-        // {
-        //     console.log(res.data.products);
-        //     setColorData(res.data.products.filter((e)=>{return e.PRODUCT_ID != productData.PRODUCT_ID}));
-        // })
-        // .catch((err)=>
-        // {
-        //     console.log(err);
-        // })
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${productData.CATEGORY}&color=${productData.COLOR}`)
+        .then((res)=>
+        {
+            // console.log(res.data.products);
+            setColorData(res.data.products.filter((e)=>{return e.PRODUCT_ID != productData.PRODUCT_ID}));
+        })
+        .catch((err)=>
+        {
+            console.log(err);
+        })
 
 
     }
@@ -80,7 +80,7 @@ function ProductDetails() {
                     {idData ?
                         <>
                             <div className="col-md-4 offset-md-1 col-sm-6 py-3">
-                                <img className="img-fluid modal-image" src={idData.IMAGE} />
+                                <img className="img-fluid modal-image" src={idData.IMAGE} alt={idData.NAME} />
                             </div>
                             <div className="col-md-6 col-sm-6 offset-md-1 text-center">
                                 <h3>{idData.BRAND}</h3>
@@ -112,9 +112,9 @@ function ProductDetails() {
                                 colorData.slice(0, 4).map((product) => {
                                     let obj = value.extractData(product);
                                     return (
-                                        <div className="col mb-4">
+                                        <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
-                                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
+                                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -148,7 +148,7 @@ function ProductDetails() {
 
                 {/* shop by brand & category */}
                 {brandData && brandData.length>0?
-                    <>
+                        <>
                         <div className="text-center headings">
                             <h2>SHOP BY BRAND</h2>
                         </div>
@@ -157,9 +157,9 @@ function ProductDetails() {
                                 brandData.slice(0, 4).map((product) => {
                                     let obj = value.extractData(product);
                                     return (
-                                        <div className="col mb-4">
+                                        <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
-                                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
+                                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -202,9 +202,9 @@ function ProductDetails() {
                                 catData.slice(0, 4).map((product) => {
                                     let obj = value.extractData(product);
                                     return (
-                                        <div className="col mb-4">
+                                        <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
-                                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
+                                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
