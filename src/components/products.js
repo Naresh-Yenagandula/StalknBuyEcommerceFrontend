@@ -223,7 +223,7 @@ function Products(props) {
         <div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
+                <div class="modal-dialog modal-xl modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
@@ -254,7 +254,7 @@ function Products(props) {
 
                                  <button className="btn bag-button mt-5">ADD TO BAG</button>   
                                  
-                                 <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4">PRODUCT DETAILS</button> </Link>                   
+                                 <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4" data-bs-dismiss="modal">PRODUCT DETAILS</button> </Link>                   
                                 </div></>:null}
 
                             </div>
