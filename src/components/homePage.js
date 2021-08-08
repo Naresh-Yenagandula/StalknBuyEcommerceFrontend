@@ -193,8 +193,9 @@ function HomePage() {
 </div>
             
             </div>
-
-
+            <div className="text-center">
+            <Link to="/product/popular"><button className="btn btn-sm btn-primary ">See More...</button></Link>
+            </div>
             {/* New Arrival */}
 
             <div className="text-center headings">
@@ -284,6 +285,7 @@ function HomePage() {
                     }) : null}
             </div>
     </div>
+
     <div class="carousel-item" data-bs-interval="5000">
     <div className="row">
                 {value.newProducts ?

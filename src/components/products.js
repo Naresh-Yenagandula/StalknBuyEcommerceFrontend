@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { CircleFill, StarFill, Star, SuitHeartFill, Circle } from 'react-bootstrap-icons'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation,useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
@@ -15,7 +15,8 @@ function Products(props) {
     const [modalData, setmodalData] = useState()
     let query = useQuery();
 
-    // let {category} = useParams();
+    let {popular} = useParams();
+    
     const value = useContext(ProductContext)
     const [data, setData] = useState();
     const [url, setURL] = useState();
@@ -53,6 +54,7 @@ function Products(props) {
         let fabricU;
         let colorU;
         let priceU;
+        let axiosUrl
         setData()
         setTotalProducts()
         await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/distinct`)
@@ -74,7 +76,16 @@ function Products(props) {
                 console.log(e)
             })
 
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${sort}`) // backend url, not frontend url
+            if(popular){
+                axiosUrl=`${process.env.REACT_APP_BACKEND_URL}/product/popular/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=rating`
+            }
+            else
+            {
+                axiosUrl=`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${sort}`
+            }
+
+
+        axios.get(axiosUrl) // backend url, not frontend url
             .then((res) => {
                 setData(res.data.products);
                 setTotalProducts(res.data.totalProducts);
