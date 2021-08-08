@@ -86,3 +86,15 @@
     background-color: rgb(204, 109, 55) !important;
     
 }
+.preview{
+    margin-left: -65px;
+    
+}
+.next{
+    margin-right: -60px;
+}
+.carousel-inner{
+    padding-right: 50px;
+    padding-left: 50px;
+    
+}

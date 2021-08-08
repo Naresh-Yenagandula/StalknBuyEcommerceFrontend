@@ -9,6 +9,7 @@ function HomePage() {
     const [count, setCount] = useState([1, 2, 3, 4, 5]);
 
     return (
+        <>
         <div className="container pb-5">
             <div className="text-center headings">
                 <h2>CATEGORIES</h2>
@@ -47,12 +48,20 @@ function HomePage() {
                     <Link to="/product?category=T-Shirts"><img src="images/Tshirts.jpg" className="img-fluid" alt="t-shirts"></img></Link>
                 </div>
             </div>
+</div>
+
+{/* Popular Product */}
+
 
             <div className="text-center headings">
                 <h2>POPULAR PRODUCTS</h2>
             </div>
-            <div className="row">
-                {value.popularProducts ?
+           
+            <div id="carouselExampleFade" class="carousel slide carousel-fade carousel-dark" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="5000" >
+    <div className="row">
+    {value.popularProducts ?
                     value.popularProducts.slice(0,4).map((product) => {
                         let obj = value.extractData(product);
                         return (
@@ -88,12 +97,113 @@ function HomePage() {
                             </div>
                         )
                     }) : null}
+                    </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="5000">
+        <div className="row">
+    {value.popularProducts ?
+                    value.popularProducts.slice(5,9).map((product) => {
+                        let obj = value.extractData(product);
+                        return (
+                            <div className="col mb-4" key={product.PRODUCT_ID}>
+                                <div className="card box-shadow">
+                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                    <div className="card-body" style={{ height: "120px" }}>
+                                        <div className="card-body-section-one ">
+                                            <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
+                                            <p style={{ fontSize: "12px", paddingBottom: "0.2px" }}>{obj.desc}</p>
+                                        </div>
+                                        <div className="card-body-section-two" style={{ paddingTop: "10px" }}>
+                                            <small className="card-body-section-two">Rs {product.PRICE}</small>
+                                        </div>
+                                        <div className="card-body-section-three" style={{ paddingTop: "10px" }}>
+
+                                            {count.map((i) => {
+                                                if (i <= obj.rating) {
+                                                    return (
+                                                        <small ><StarFill className="star-color" /></small>
+                                                    )
+                                                }
+                                                else {
+                                                    return (
+                                                        <small><Star /></small>
+                                                    )
+                                                }
+
+                                            })}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }) : null}
+                    </div>
+      
+    </div>
+    <div class="carousel-item" data-bs-interval="5000">
+        <div className="row">
+    {value.popularProducts ?
+                    value.popularProducts.slice(0,4).map((product) => {
+                        let obj = value.extractData(product);
+                        return (
+                            <div className="col mb-4" key={product.PRODUCT_ID}>
+                                <div className="card box-shadow">
+                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                    <div className="card-body" style={{ height: "120px" }}>
+                                        <div className="card-body-section-one ">
+                                            <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
+                                            <p style={{ fontSize: "12px", paddingBottom: "0.2px" }}>{obj.desc}</p>
+                                        </div>
+                                        <div className="card-body-section-two" style={{ paddingTop: "10px" }}>
+                                            <small className="card-body-section-two">Rs {product.PRICE}</small>
+                                        </div>
+                                        <div className="card-body-section-three" style={{ paddingTop: "10px" }}>
+
+                                            {count.map((i) => {
+                                                if (i <= obj.rating) {
+                                                    return (
+                                                        <small ><StarFill className="star-color" /></small>
+                                                    )
+                                                }
+                                                else {
+                                                    return (
+                                                        <small><Star /></small>
+                                                    )
+                                                }
+
+                                            })}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }) : null}
+                    </div>
+
+    </div>
+  
+  <button class="carousel-control-prev preview" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+            
             </div>
+
+
+            {/* New Arrival */}
 
             <div className="text-center headings">
                 <h2>NEW ARRIVALS</h2>
             </div>
-            <div className="row">
+            <div id="carouselExampleFade2" class="carousel slide carousel-fade carousel-dark" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="5000">
+    <div className="row">
                 {value.newProducts ?
                     value.newProducts.slice(0,4).map((product) => {
                         let obj = value.extractData(product);
@@ -132,8 +242,102 @@ function HomePage() {
 
                     }) : null}
             </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="5000">
+    <div className="row">
+                {value.newProducts ?
+                    value.newProducts.slice(5,9).map((product) => {
+                        let obj = value.extractData(product);
+                        return (
+                            <div className="col mb-4" key={product.PRODUCT_ID}>
+                                <div className="card box-shadow">
+                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                    <div className="card-body" style={{ height: "120px" }}>
+                                        <div className="card-body-section-one ">
+                                            <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
+                                            <p style={{ fontSize: "12px", paddingBottom: "0.2px" }}>{obj.desc}</p>
+                                        </div>
+                                        <div className="card-body-section-two" style={{ paddingTop: "10px" }}>
+                                            <small className="card-body-section-two">Rs {product.PRICE}</small>
+                                        </div>
+                                        <div className="card-body-section-three" style={{ paddingTop: "10px" }}>
 
-        </div>
+                                            {count.map((i) => {
+                                                if (i <= obj.rating) {
+                                                    return (
+                                                        <small ><StarFill className="star-color" /></small>
+                                                    )
+                                                }
+                                                else {
+                                                    return (
+                                                        <small><Star /></small>
+                                                    )
+                                                }
+
+                                            })}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+
+                    }) : null}
+            </div>
+    </div>
+    <div class="carousel-item" data-bs-interval="5000">
+    <div className="row">
+                {value.newProducts ?
+                    value.newProducts.slice(10,14).map((product) => {
+                        let obj = value.extractData(product);
+                        return (
+                            <div className="col mb-4" key={product.PRODUCT_ID}>
+                                <div className="card box-shadow">
+                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                    <div className="card-body" style={{ height: "120px" }}>
+                                        <div className="card-body-section-one ">
+                                            <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
+                                            <p style={{ fontSize: "12px", paddingBottom: "0.2px" }}>{obj.desc}</p>
+                                        </div>
+                                        <div className="card-body-section-two" style={{ paddingTop: "10px" }}>
+                                            <small className="card-body-section-two">Rs {product.PRICE}</small>
+                                        </div>
+                                        <div className="card-body-section-three" style={{ paddingTop: "10px" }}>
+
+                                            {count.map((i) => {
+                                                if (i <= obj.rating) {
+                                                    return (
+                                                        <small ><StarFill className="star-color" /></small>
+                                                    )
+                                                }
+                                                else {
+                                                    return (
+                                                        <small><Star /></small>
+                                                    )
+                                                }
+
+                                            })}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+
+                    }) : null}
+            </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev preview" type="button" data-bs-target="#carouselExampleFade2" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next next" type="button" data-bs-target="#carouselExampleFade2" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+           
+
+        </>
     )
 }
 
