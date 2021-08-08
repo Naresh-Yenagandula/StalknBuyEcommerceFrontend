@@ -15,36 +15,36 @@ function HomePage() {
             </div>
             <div className="row">
                 <div className="col">
-                    <Link to="/product?category=accessories"><img src="images/accessories.jpg" className="img-fluid"></img> </Link>
+                    <Link to="/product?category=accessories"><img src="images/accessories.jpg" className="img-fluid" alt="accessories"></img> </Link>
                 </div>
                 <div className="col">
-                    <Link to="/product?category=casual-shirts,formal-shirts"><img src="images/shirts.jpg" className="img-fluid"></img></Link>
+                    <Link to="/product?category=casual-shirts,formal-shirts"><img src="images/shirts.jpg" className="img-fluid" alt="shirts"></img></Link>
                 </div>
                 <div className="col">
-                    <Link to="/product?category=Men-Casual-Trousers,Men-Formal-Trousers"><img src="images/trousers.jpg" className="img-fluid" ></img></Link>
+                    <Link to="/product?category=Men-Casual-Trousers,Men-Formal-Trousers"><img src="images/trousers.jpg" className="img-fluid" alt="trousers"></img></Link>
                 </div>
                 <div className="col">
-                    <Link to="/product?category=Jeans"><img src="images/jeans.jpg" className="img-fluid"></img></Link>
+                    <Link to="/product?category=Jeans"><img src="images/jeans.jpg" className="img-fluid" alt="jeans"></img></Link>
                 </div>
                 <div className="col">
-                    <Link to="/product?category=men-jackets-coats"><img src="images/jackets.jpg" className="img-fluid"></img></Link>
+                    <Link to="/product?category=men-jackets-coats"><img src="images/jackets.jpg" className="img-fluid" alt="jackets"></img></Link>
                 </div>
             </div>
             <div className="row">
                 <div className="col">
-                    <Link to="/product?category=Innerwear_Sleapwear"><img src="images/innerwear.jpg" className="img-fluid"></img></Link>
+                    <Link to="/product?category=Innerwear_Sleapwear"><img src="images/innerwear.jpg" className="img-fluid" alt="innerwear"></img></Link>
                 </div>
                 <div className="col">
-                    <Link to="/product?category=men-suits"> <img src="images/suits.jpg" className="img-fluid"></img></Link>
+                    <Link to="/product?category=men-suits"> <img src="images/suits.jpg" className="img-fluid" alt="suits"></img></Link>
                 </div>
                 <div className="col">
-                    <Link to="/product?category=men-swimwear"><img src="images/swimwear.jpg" className="img-fluid" ></img></Link>
+                    <Link to="/product?category=men-swimwear"><img src="images/swimwear.jpg" className="img-fluid" alt="swimwear"></img></Link>
                 </div>
                 <div className="col">
-                    <Link to="/product?category=track-pants"><img src="images/trackpants.jpg" className="img-fluid"></img></Link>
+                    <Link to="/product?category=track-pants"><img src="images/trackpants.jpg" className="img-fluid" alt="trackpants"></img></Link>
                 </div>
                 <div className="col">
-                    <Link to="/product?category=T-Shirts"><img src="images/Tshirts.jpg" className="img-fluid"></img></Link>
+                    <Link to="/product?category=T-Shirts"><img src="images/Tshirts.jpg" className="img-fluid" alt="t-shirts"></img></Link>
                 </div>
             </div>
 
@@ -56,9 +56,9 @@ function HomePage() {
                     value.popularProducts.slice(0,4).map((product) => {
                         let obj = value.extractData(product);
                         return (
-                            <div className="col mb-4">
+                            <div className="col mb-4" key={product.PRODUCT_ID}>
                                 <div className="card box-shadow">
-                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
+                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
                                     <div className="card-body" style={{ height: "120px" }}>
                                         <div className="card-body-section-one ">
                                             <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -98,9 +98,9 @@ function HomePage() {
                     value.newProducts.slice(0,4).map((product) => {
                         let obj = value.extractData(product);
                         return (
-                            <div className="col mb-4">
+                            <div className="col mb-4" key={product.PRODUCT_ID}>
                                 <div className="card box-shadow">
-                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt="..." />
+                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
                                     <div className="card-body" style={{ height: "120px" }}>
                                         <div className="card-body-section-one ">
                                             <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />

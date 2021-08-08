@@ -17,7 +17,7 @@ function App() {
   const [NewProducts, setNewProducts] = useState()
   const [PopularProducts, setPopularProducts] = useState()
   const [FilterProducts, setFilterProducts] = useState()
-
+  const [count, setCount] = useState([1, 2, 3, 4, 5]);
   useEffect(() => {
 
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/new`)
@@ -48,17 +48,17 @@ function App() {
     desc = arr[arr.length - 2].replace("Buy ", "").replace(" Online in India", "").replace(brand.trim(), "").replace(size.split(" ")[0], "").replace(/fit/gi, "").replace("-", "").replace(/\s+/g, ' ');
     return { brand, desc, rating }
 
-}
+  }
 
-const setFilterProductData=(data)=>{
-  setFilterProducts(data)
-}
+  const setFilterProductData = (data) => {
+    setFilterProducts(data)
+  }
 
   return (
     <div className="App">
-      <Navbar />
-      <ProductContext.Provider value={{newProducts:NewProducts,popularProducts:PopularProducts,extractData:extractData,setFilterProductData:setFilterProductData,FilterProducts:FilterProducts}}>
+      <ProductContext.Provider value={{ count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts }}>
         <Router>
+          <Navbar />
           <Switch>
             <Route path="/" exact component={HomePage} />
             <Route path="/product" exact component={Products} />
