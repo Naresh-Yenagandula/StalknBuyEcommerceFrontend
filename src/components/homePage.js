@@ -143,7 +143,7 @@ function HomePage() {
     <div class="carousel-item" data-bs-interval="5000">
         <div className="row">
     {value.popularProducts ?
-                    value.popularProducts.slice(0,4).map((product) => {
+                    value.popularProducts.slice(10,14).map((product) => {
                         let obj = value.extractData(product);
                         return (
                             <div className="col mb-4" key={product.PRODUCT_ID}>

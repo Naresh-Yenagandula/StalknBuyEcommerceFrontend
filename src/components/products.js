@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { CircleFill, StarFill, Star, SuitHeartFill, Circle } from 'react-bootstrap-icons'
-import { Link, useLocation,useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
@@ -15,8 +15,8 @@ function Products(props) {
     const [modalData, setmodalData] = useState()
     let query = useQuery();
 
-    let {popular} = useParams();
-    
+    let { popular } = useParams();
+
     const value = useContext(ProductContext)
     const [data, setData] = useState();
     const [url, setURL] = useState();
@@ -48,41 +48,33 @@ function Products(props) {
     let pageCount = Math.ceil(totalProducts / 50);
 
     useEffect(async () => {
-        let categoryU;
-        let sizeU;
-        let brandU;
-        let fabricU;
-        let colorU;
-        let priceU;
-        let axiosUrl
+        let categoryU = query.get("category")
+        let priceU = query.get("price")
+        let fabricU = query.get("fab")
+        let colorU = query.get("color")
+        let brandU = query.get("brand")
+        let sizeU = query.get("size")
+        let axiosUrl;
         setData()
         setTotalProducts()
-        await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/distinct`)
+         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/distinct`)
             .then((result) => {
                 setCategoryA(result.data.category);
                 setBrandA(result.data.brand);
                 setSizeA(result.data.size);
                 setFabricA(result.data.fabric);
                 // console.log(result.data.brand)
-
-                categoryU = query.get("category")
-                priceU = query.get("price")
-                fabricU = query.get("fab")
-                colorU = query.get("color")
-                brandU = query.get("brand")
-                sizeU = query.get("size")
             })
             .catch((e) => {
                 console.log(e)
             })
 
-            if(popular){
-                axiosUrl=`${process.env.REACT_APP_BACKEND_URL}/product/popular/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=rating`
-            }
-            else
-            {
-                axiosUrl=`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${sort}`
-            }
+        if (popular) {
+            axiosUrl = `${process.env.REACT_APP_BACKEND_URL}/product/popular/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=rating`
+        }
+        else {
+            axiosUrl = `${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${sort}`
+        }
 
 
         axios.get(axiosUrl) // backend url, not frontend url
@@ -212,6 +204,7 @@ function Products(props) {
 
     const apply = () => {
         //console.log(category,color,brand,fabric,price);
+        setcurrPage(0)
         let strURL = `?category=${category.join(",")}&price=${minmaxPrice.join(',')}&size=${Size.join(",")}&fab=${fabric.join(",")}&color=${color.join(",")}&brand=${brand.join(",")}`
         setURL(strURL);
         props.history.push(strURL);
@@ -630,8 +623,8 @@ function Products(props) {
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
-                                            <Link to={`/productDetails/${product.PRODUCT_ID}`}>    <img src={product.IMAGE} className="card-img-top" height="280px" width="210px" alt={product.NAME} />
-                                               </Link>
+                                                <Link to={`/productDetails/${product.PRODUCT_ID}`}>    <img src={product.IMAGE} className="card-img-top" height="280px" width="210px" alt={product.NAME} />
+                                                </Link>
                                                 <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
