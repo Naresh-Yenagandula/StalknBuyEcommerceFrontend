@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useParams,Link } from 'react-router-dom';
 import { ProductContext } from '../App';
 import { Star, StarFill } from 'react-bootstrap-icons';
+
 
 function ProductDetails() {
     const value = useContext(ProductContext)
@@ -204,7 +205,7 @@ function ProductDetails() {
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
-                                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                                <Link to={`/productDetails/${product.PRODUCT_ID}`}><img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} /></Link>
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />

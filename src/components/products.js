@@ -619,7 +619,8 @@ function Products(props) {
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
-                                                <img src={product.IMAGE} className="card-img-top" height="280px" width="210px" alt={product.NAME} />
+                                            <Link to={`/productDetails/${product.PRODUCT_ID}`}>    <img src={product.IMAGE} className="card-img-top" height="280px" width="210px" alt={product.NAME} />
+                                               </Link>
                                                 <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
