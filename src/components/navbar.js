@@ -5,15 +5,11 @@ const Navbar = () => {
     return ( 
         <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">Navbar</a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-         
+          <Link to="/" className="navbar-brand"><span>Navbar</span></Link>
           <div className ="navbar-text float-end ">
             <form className="d-flex " >
                 <div className="input-group me-5">
-                    <input className="form-control" type="search" placeholder="Search" aria-label="Search"/>
+                    <input className="form-control" type="search" placeholder="Search for products, brands and more" aria-label="Search"/>
                     <button className="btn btn-dark " type="submit"><Search/></button>
               </div>
               <Router>

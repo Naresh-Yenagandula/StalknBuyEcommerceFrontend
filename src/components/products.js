@@ -53,6 +53,8 @@ function Products(props) {
         let fabricU;
         let colorU;
         let priceU;
+        setData()
+        setTotalProducts()
         await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/distinct`)
             .then((result) => {
                 setCategoryA(result.data.category);
@@ -81,12 +83,12 @@ function Products(props) {
             .catch((err) => {
                 console.log(err);
             })
-        
+
     }, [url, offset, sort]);
 
     const checkColor = (val) => {
         const ind = color.indexOf(val);
-        if (ind == -1) {
+        if (ind === -1) {
             color.push(val);
         }
         else {
@@ -120,7 +122,7 @@ function Products(props) {
         }
 
         const ind = category.indexOf(val);
-        if (ind == -1) {
+        if (ind === -1) {
             category.push(val);
         }
         else {
@@ -131,7 +133,7 @@ function Products(props) {
     const checkPrice = async (val) => {
         const ind = price.indexOf(val);
 
-        if (ind == -1) {
+        if (ind === -1) {
             price.push(val);
 
         }
@@ -169,7 +171,7 @@ function Products(props) {
 
     const checkBrand = (val) => {
         const ind = brand.indexOf(val);
-        if (ind == -1) {
+        if (ind === -1) {
             brand.push(val);
         }
         else {
@@ -179,7 +181,7 @@ function Products(props) {
 
     const checkSize = (val) => {
         const ind = Size.indexOf(val);
-        if (ind == -1) {
+        if (ind === -1) {
             Size.push(val);
         }
         else {
@@ -189,7 +191,7 @@ function Products(props) {
 
     const checkFabric = (val) => {
         const ind = fabric.indexOf(val);
-        if (ind == -1) {
+        if (ind === -1) {
             fabric.push(val);
         }
         else {
@@ -223,41 +225,38 @@ function Products(props) {
         <div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-xl">
+                <div class="modal-dialog modal-xl modal-dialog-centered">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
                         <div class="modal-body">
+                            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
                             <div className="container-fluid">
-                            <div className="row">
-                                {modalData?
-                                
-                                <>
-                                
-                                <div className="col-md-4 offset-md-1 col-sm-6">
-                                    <img className="img-fluid modal-image"  src={modalData.IMAGE}/>
+                                <div className="row">
+                                    {modalData ?
+
+                                        <>
+
+                                            <div className="col-md-4 offset-md-1 col-sm-6">
+                                                <img className="img-fluid modal-image" src={modalData.IMAGE} alt={modalData.NAME} />
+                                            </div>
+                                            <div className="col-md-6 col-sm-6 offset-md-1 text-center mt-5">
+                                                <h3>{modalData.BRAND}</h3>
+                                                <p>{value.extractData(modalData).desc}</p>
+                                                <h5>Rs. {modalData.PRICE}</h5>
+                                                <p className="mt-5"> Select size</p>
+                                                <div>
+                                                    <button className="btn btn-secondary rounded-circle size-button">S</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">M</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">L</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">XL</button>
+                                                    {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
+                                                </div>
+
+                                                <button className="btn bag-button mt-5">ADD TO BAG</button>
+
+                                                <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4" data-bs-dismiss="modal">PRODUCT DETAILS</button> </Link>
+                                            </div></> : null}
+
                                 </div>
-                                <div className="col-md-6 col-sm-6 offset-md-1 text-center mt-5">
-                                 <h3>{modalData.BRAND}</h3>
-                                 <p>{value.extractData(modalData).desc}</p>    
-                                 <h5>Rs. {modalData.PRICE}</h5>    
-                                 <p className="mt-5"> Select size</p>  
-                                 <div>
-                                     <button className="btn btn-secondary rounded-circle size-button">S</button>
-                                     <button className="btn btn-secondary rounded-circle size-button">M</button>
-                                     <button className="btn btn-secondary rounded-circle size-button">L</button>
-                                     <button className="btn btn-secondary rounded-circle size-button">XL</button>
-                                     {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
-                                 </div>    
-
-                                 <button className="btn bag-button mt-5">ADD TO BAG</button>   
-                                 
-                                 <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4">PRODUCT DETAILS</button> </Link>                   
-                                </div></>:null}
-
-                            </div>
                             </div>
                         </div>
                         {/* <div class="modal-footer">
@@ -276,7 +275,7 @@ function Products(props) {
                     <div className="row row-cols-5">
                         {brandA ? brandA.map((brand) => {
                             return (
-                                <div className="col">
+                                <div className="col" key={brand}>
                                     <div className="form-check ps-">
                                         <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkBrand(brand)} />
                                         <label className="form-check-label" for="flexCheckDefault">
@@ -295,435 +294,436 @@ function Products(props) {
                 </h4>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <Link to="/" className="breadcrumb-item">Home</Link>
                         <li class="breadcrumb-item"><a href="#">Products</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Data</li>
                     </ol>
                 </nav>
             </div>
-            <div className="row">
+            <div className="container-fluid">
+                <div className="row">
 
-                <div className="col-md-3">
+                    <div className="col-md-3">
 
-                    <div style={{ height: "80vh", width: "250px" }} className="overflow-auto sidebar">
-                        <div className="container d-flex justify-content-between align-items-center py-3">
-                            <b>FILTERS</b>
-                            {/* <button className ="btn btn-outline-secondary btn-sm">Reset All</button> */}
-                        </div>
-                        <div className="container d-flex justify-content-between align-items-center py-3">
-                            <button className="btn btn-outline-secondary btn-sm" onClick={(e) => resetAll()}>Reset All</button>
-                            <button className="btn btn-outline-secondary btn-sm" onClick={(e) => apply()}>APPLY</button>
-                        </div>
-                        <div className="accordion" id="accordionPanelsStayOpenExample">
-                            <form id="reset">
-                                {/* //Categories */}
-                                <div className="accordion-item">
-                                    <h2 className="accordion-header" id="panelsStayOpen-headingOne">
-                                        <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                                            Categories
-                                        </button>
-                                    </h2>
-                                    <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                                        <div className="accordion-body ps-4">
-                                            {categoryA ? categoryA.slice(0, 10).map((category) => {
-                                                return (
-                                                    <div className="form-check ps-">
-                                                        <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkCategory(category)} />
-                                                        <label className="form-check-label" for="flexCheckDefault">
-                                                            {category.replace(/men-/gi, "").toLowerCase()}
-                                                        </label>
-                                                    </div>
-                                                )
-                                            }) : null}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* //Color */}
-                                <div className="accordion-item">
-                                    <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
-                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                                            color
-                                        </button>
-                                    </h2>
-                                    <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                                        <div className="accordion-body ps-4">
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Black")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    <CircleFill className="me-2" style={{ color: "black" }} /> Black
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("White")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    <CircleFill className="me-2" style={{ color: "#f5f5f5" }} /> White
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Red")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    <CircleFill className="me-2" style={{ color: "red" }} /> Red
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Teal")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    <CircleFill className="me-2" style={{ color: "teal" }} /> Teal
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Blue")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    <CircleFill className="me-2" style={{ color: "blue" }} /> Blue
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Green")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    <CircleFill className="me-2" style={{ color: "Green" }} /> Green
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Orange")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    <CircleFill className="me-2" style={{ color: "orange" }} /> Orange
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Brown")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    <CircleFill className="me-2" style={{ color: "brown" }} /> Brown
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Navy Blue")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    <CircleFill className="me-2" style={{ color: "#000080" }} /> Navy Blue
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Grey")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    <CircleFill className="me-2" style={{ color: "grey" }} /> Grey
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Purple")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    <CircleFill className="me-2" style={{ color: "purple" }} /> Purple
-                                                </label>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* //Brands */}
-                                <div className="accordion-item">
-                                    <h2 className="accordion-header" id="panelsStayOpen-headingThree">
-                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                                            Brands
-                                        </button>
-                                    </h2>
-                                    <div id="panelsStayOpen-collapseThree" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                                        <div className="accordion-body ps-4">
-                                            {brandA ? brandA.slice(0, 10).map((brand) => {
-                                                return (
-                                                    <div className="form-check ps-">
-                                                        <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkBrand(brand)} />
-                                                        <label className="form-check-label" for="flexCheckDefault">
-                                                            {brand.toLowerCase()}
-                                                        </label>
-                                                    </div>
-                                                )
-                                            }) : null}
-                                            <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">..more</button>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* //price */}
-                                <div className="accordion-item">
-                                    <h2 className="accordion-header" id="panelsStayOpen-headingFour">
-                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
-                                            Price
-                                        </button>
-                                    </h2>
-                                    <div id="panelsStayOpen-collapseFour" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
-                                        <div className="accordion-body ps-4">
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkPrice("100-2000")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    100-2000
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkPrice("2001-7000")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    2001-7000
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkPrice("7001-20000")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    7001-20000
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkPrice("20000-50000")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    20000-50000
-                                                </label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                                {/* //Size */}
-                                <div className="accordion-item">
-                                    <h2 className="accordion-header" id="panelsStayOpen-headingFive">
-                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
-                                            Size
-                                        </button>
-                                    </h2>
-                                    <div id="panelsStayOpen-collapseFive" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
-                                        <div className="accordion-body ps-4">
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkSize("Regular-Fit")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    Regular-Fit
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkSize("Slim-fit")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    Slim-fit
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkSize("Skinny-fit")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    Skinny-fit
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkSize("Narrow-fit")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    Narrow-fit
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="accordion-item">
-                                    <h2 className="accordion-header" id="panelsStayOpen-headingSix">
-                                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
-                                            Fabric
-                                        </button>
-                                    </h2>
-                                    <div id="panelsStayOpen-collapseSix" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
-                                        <div className="accordion-body ps-4">
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Cotton")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    Cotton
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Polyester")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    Polyester
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Wool")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    Wool
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Spandex")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    Spandex
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Elastane")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    Elastane
-                                                </label>
-                                            </div>
-
-                                            <div className="form-check ps-">
-                                                <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Viscous")} />
-                                                <label className="form-check-label" for="flexCheckDefault">
-                                                    Viscous
-                                                </label>
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-md-9">
-                    <div className="d-flex justify-content-end pe-5">
-                        <div className="dropdown">
-                            <button className="btn dropdown-toggle btn-outline-secondary " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                Sort by
-                            </button>
-                            <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li onClick={e => setSort("high")}><a className="dropdown-item" href="#">Price: High to Low</a></li>
-                                <li onClick={e => setSort("low")}><a className="dropdown-item" href="#">Price: Low to High</a></li>
-                                <li onClick={e => setSort("rating")}><a className="dropdown-item" href="#">Customer Ratings</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div className="row mt-3 row-cols-4">
-                        {data ?
-                            data.map((product) => {
-                                let obj = value.extractData(product);
-                                return (
-                                    <div className="col mb-4">
-                                        <div className="card box-shadow">
-                                            <img src={product.IMAGE} className="card-img-top" height="280px" width="210px" alt="..." />
-                                            <button type="button" className="btn  quick-look " data-bs-toggle="modal"  onClick={(e)=>setmodalData(product)} data-bs-target="#exampleModal" >
-                                                <strong>Quick Look</strong>
+                        <div style={{ height: "80vh", width: "250px" }} className="overflow-auto sidebar">
+                            <div className="container d-flex justify-content-between align-items-center py-3">
+                                <b>FILTERS</b>
+                                {/* <button className ="btn btn-outline-secondary btn-sm">Reset All</button> */}
+                            </div>
+                            <div className="container d-flex justify-content-between align-items-center py-3">
+                                <button className="btn btn-outline-secondary btn-sm" onClick={(e) => resetAll()}>Reset All</button>
+                                <button className="btn btn-outline-secondary btn-sm" onClick={(e) => apply()}>APPLY</button>
+                            </div>
+                            <div className="accordion" id="accordionPanelsStayOpenExample">
+                                <form id="reset">
+                                    {/* //Categories */}
+                                    <div className="accordion-item">
+                                        <h2 className="accordion-header" id="panelsStayOpen-headingOne">
+                                            <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                                                Categories
                                             </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                                            <div className="accordion-body ps-4">
+                                                {categoryA ? categoryA.slice(0, 10).map((category) => {
+                                                    return (
+                                                        <div className="form-check ps-" key={category}>
+                                                            <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkCategory(category)} />
+                                                            <label className="form-check-label" for="flexCheckDefault">
+                                                                {category.replace(/men-/gi, "").toLowerCase()}
+                                                            </label>
+                                                        </div>
+                                                    )
+                                                }) : null}
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                            <button className="btn btn-sm wishlist"> <SuitHeartFill /></button>
-                                            <div className="card-body" style={{ height: "120px" }}>
-                                                <div className="card-body-section-one ">
-                                                    <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
-                                                    <p style={{ fontSize: "12px", paddingBottom: "0.2px" }}>{obj.desc}</p>
+                                    {/* //Color */}
+                                    <div className="accordion-item">
+                                        <h2 className="accordion-header" id="panelsStayOpen-headingTwo">
+                                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                                color
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                                            <div className="accordion-body ps-4">
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Black")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        <CircleFill className="me-2" style={{ color: "black" }} /> Black
+                                                    </label>
                                                 </div>
-                                                <div className="card-body-section-two" style={{ paddingTop: "10px" }}>
-                                                    <small className="card-body-section-two">Rs {product.PRICE}</small>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("White")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        <CircleFill className="me-2" style={{ color: "#f5f5f5" }} /> White
+                                                    </label>
                                                 </div>
-                                                <div className="card-body-section-three" style={{ paddingTop: "10px" }}>
 
-                                                    {count.map((i) => {
-                                                        if (i <= obj.rating) {
-                                                            return (
-                                                                <small ><StarFill className="star-color" /></small>
-                                                            )
-                                                        }
-                                                        else {
-                                                            return (
-                                                                <small><Star /></small>
-                                                            )
-                                                        }
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Red")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        <CircleFill className="me-2" style={{ color: "red" }} /> Red
+                                                    </label>
+                                                </div>
 
-                                                    })}
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Teal")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        <CircleFill className="me-2" style={{ color: "teal" }} /> Teal
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Blue")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        <CircleFill className="me-2" style={{ color: "blue" }} /> Blue
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Green")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        <CircleFill className="me-2" style={{ color: "Green" }} /> Green
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Orange")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        <CircleFill className="me-2" style={{ color: "orange" }} /> Orange
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Brown")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        <CircleFill className="me-2" style={{ color: "brown" }} /> Brown
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Navy Blue")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        <CircleFill className="me-2" style={{ color: "#000080" }} /> Navy Blue
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Grey")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        <CircleFill className="me-2" style={{ color: "grey" }} /> Grey
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkColor("Purple")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        <CircleFill className="me-2" style={{ color: "purple" }} /> Purple
+                                                    </label>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* //Brands */}
+                                    <div className="accordion-item">
+                                        <h2 className="accordion-header" id="panelsStayOpen-headingThree">
+                                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                                Brands
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseThree" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                                            <div className="accordion-body ps-4">
+                                                {brandA ? brandA.slice(0, 10).map((brand) => {
+                                                    return (
+                                                        <div className="form-check ps-" key={brand}>
+                                                            <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkBrand(brand)} />
+                                                            <label className="form-check-label" for="flexCheckDefault">
+                                                                {brand.toLowerCase()}
+                                                            </label>
+                                                        </div>
+                                                    )
+                                                }) : null}
+                                                <button class="btn btn-primary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">..more</button>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* //price */}
+                                    <div className="accordion-item">
+                                        <h2 className="accordion-header" id="panelsStayOpen-headingFour">
+                                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                                                Price
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseFour" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFour">
+                                            <div className="accordion-body ps-4">
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkPrice("100-2000")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        100-2000
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkPrice("2001-7000")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        2001-7000
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkPrice("7001-20000")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        7001-20000
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkPrice("20000-50000")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        20000-50000
+                                                    </label>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    {/* //Size */}
+                                    <div className="accordion-item">
+                                        <h2 className="accordion-header" id="panelsStayOpen-headingFive">
+                                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+                                                Size
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseFive" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingFive">
+                                            <div className="accordion-body ps-4">
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkSize("Regular-Fit")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        Regular-Fit
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkSize("Slim-fit")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        Slim-fit
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkSize("Skinny-fit")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        Skinny-fit
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={(e) => checkSize("Narrow-fit")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        Narrow-fit
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                )
-                            }) : null}
 
+                                    <div className="accordion-item">
+                                        <h2 className="accordion-header" id="panelsStayOpen-headingSix">
+                                            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+                                                Fabric
+                                            </button>
+                                        </h2>
+                                        <div id="panelsStayOpen-collapseSix" className="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingSix">
+                                            <div className="accordion-body ps-4">
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Cotton")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        Cotton
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Polyester")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        Polyester
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Wool")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        Wool
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Spandex")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        Spandex
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Elastane")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        Elastane
+                                                    </label>
+                                                </div>
+
+                                                <div className="form-check ps-">
+                                                    <input className="form-check-input me-4" type="checkbox" value="" id="flexCheckDefault" onClick={e => checkFabric("Viscous")} />
+                                                    <label className="form-check-label" for="flexCheckDefault">
+                                                        Viscous
+                                                    </label>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
 
-                    < ReactPaginate
+                    <div className="col-md-9">
+                        <div className="d-flex justify-content-end pe-5">
+                            <div className="dropdown">
+                                <button className="btn dropdown-toggle btn-outline-secondary " type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Sort by
+                                </button>
+                                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li onClick={e => setSort("high")}><a className="dropdown-item" href="#">Price: High to Low</a></li>
+                                    <li onClick={e => setSort("low")}><a className="dropdown-item" href="#">Price: Low to High</a></li>
+                                    <li onClick={e => setSort("rating")}><a className="dropdown-item" href="#">Customer Ratings</a></li>
+                                </ul>
+                            </div>
+                        </div>
 
-                        previousLabel=
-                        {
-                            "Prev"
-                        }
+                        <div className="row mt-3 row-cols-4">
+                            {data ?
+                                data.map((product) => {
+                                    let obj = value.extractData(product);
+                                    return (
+                                        <div className="col mb-4" key={product.PRODUCT_ID}>
+                                            <div className="card box-shadow">
+                                                <img src={product.IMAGE} className="card-img-top" height="280px" width="210px" alt={product.NAME} />
+                                                <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
+                                                    <strong>Quick Look</strong>
+                                                </button>
+
+                                                <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+                                                <div className="card-body" style={{ height: "120px" }}>
+                                                    <div className="card-body-section-one ">
+                                                        <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
+                                                        <p style={{ fontSize: "12px", paddingBottom: "0.2px" }}>{obj.desc}</p>
+                                                    </div>
+                                                    <div className="card-body-section-two" style={{ paddingTop: "10px" }}>
+                                                        <small className="card-body-section-two">Rs {product.PRICE}</small>
+                                                    </div>
+                                                    <div className="card-body-section-three" style={{ paddingTop: "10px" }}>
+
+                                                        {count.map((i) => {
+                                                            if (i <= obj.rating) {
+                                                                return (
+                                                                    <small ><StarFill className="star-color" /></small>
+                                                                )
+                                                            }
+                                                            else {
+                                                                return (
+                                                                    <small><Star /></small>
+                                                                )
+                                                            }
+
+                                                        })}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )
+                                }) : null}
+
+                        </div>
+
+                        < ReactPaginate
+
+                            previousLabel=
+                            {
+                                "Prev"
+                            }
 
 
-                        nextLabel=
-                        {
-                            "Next"
-                        }
+                            nextLabel=
+                            {
+                                "Next"
+                            }
 
 
-                        pageCount=
-                        {
-                            pageCount
-                        }
+                            pageCount=
+                            {
+                                pageCount
+                            }
 
 
-                        onPageChange=
-                        {
-                            pageChange
-                        }
+                            onPageChange=
+                            {
+                                pageChange
+                            }
 
 
-                        containerClassName=
-                        {
-                            "pagination pagination-sm justify-content-center"
-                        }
+                            containerClassName=
+                            {
+                                "pagination pagination-sm justify-content-center"
+                            }
 
 
-                        pageLinkClassName=
-                        {
-                            "page-link"
-                        }
+                            pageLinkClassName=
+                            {
+                                "page-link"
+                            }
 
 
-                        previousLinkClassName=
-                        {
-                            "page-link"
-                        }
+                            previousLinkClassName=
+                            {
+                                "page-link"
+                            }
 
 
-                        nextLinkClassName=
-                        {
-                            "page-link"
-                        }
+                            nextLinkClassName=
+                            {
+                                "page-link"
+                            }
 
 
-                        disabledClassName=
-                        {
-                            "page-item disabled"
-                        }
+                            disabledClassName=
+                            {
+                                "page-item disabled"
+                            }
 
 
-                        activeClassName=
-                        {
-                            "page-item active"
-                        }
+                            activeClassName=
+                            {
+                                "page-item active"
+                            }
 
-                    />
+                        />
+                    </div>
+
+
                 </div>
-
-
             </div>
-
         </div>
 
     )
