@@ -69,15 +69,18 @@ function Products(props) {
                 console.log(e)
             })
 
-        if (popular) {
-            axiosUrl = `${process.env.REACT_APP_BACKEND_URL}/product/popular/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=rating`
-        }
-        else {
-            axiosUrl = `${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${sort}`
-        }
+        if (popular==="popular" && sort==="high") {
+            setSort("rating")
+       }
+        else if(popular==="new" && sort==="high"){
+            setSort("natural")
 
+       }
+       
+        
+     
 
-        axios.get(axiosUrl) // backend url, not frontend url
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${sort}`) // backend url, not frontend url
             .then((res) => {
                 setData(res.data.products);
                 setTotalProducts(res.data.totalProducts);

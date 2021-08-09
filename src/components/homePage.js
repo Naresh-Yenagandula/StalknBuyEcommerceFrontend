@@ -338,7 +338,9 @@ function HomePage() {
   </button>
 </div>
            
-
+<div className="text-center">
+            <Link to="/product/new"><button className="btn btn-sm btn-primary ">See More...</button></Link>
+            </div>
         </>
     )
 }
