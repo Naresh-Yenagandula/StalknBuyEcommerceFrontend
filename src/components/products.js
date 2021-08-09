@@ -18,6 +18,7 @@ function Products(props) {
     let { popular } = useParams();
 
     const value = useContext(ProductContext)
+    console.log(value.searchValue)
     const [data, setData] = useState();
     const [url, setURL] = useState();
 
@@ -68,7 +69,7 @@ function Products(props) {
                 console.log(e)
             })     
 
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${popular},${sort}`) // backend url, not frontend url
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&search=${value.searchValue}&sort=${popular},${sort}`) // backend url, not frontend url
             .then((res) => {
                 setData(res.data.products);
                 setTotalProducts(res.data.totalProducts);
@@ -78,7 +79,7 @@ function Products(props) {
                 console.log(err);
             })
 
-    }, [url, offset, sort]);
+    }, [url, offset, sort,value.searchValue]);
 
     const checkColor = (val) => {
         const ind = color.indexOf(val);

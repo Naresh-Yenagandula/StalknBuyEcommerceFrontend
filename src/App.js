@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ProductDetails from './components/productDetails';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Search } from 'react-bootstrap-icons';
 
 export const ProductContext = React.createContext()
 
@@ -18,6 +19,14 @@ function App() {
   const [PopularProducts, setPopularProducts] = useState()
   const [FilterProducts, setFilterProducts] = useState()
   const [count, setCount] = useState([1, 2, 3, 4, 5]);
+  const [searchValue, setsearchValue] = useState();
+ 
+  const search = (searchValue,e)=>{
+        // e.preventDefault();
+        setsearchValue(searchValue);
+
+  }
+
   useEffect(() => {
 
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/new`)
@@ -56,7 +65,7 @@ function App() {
 
   return (
     <div className="App">
-      <ProductContext.Provider value={{ count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts }}>
+      <ProductContext.Provider value={{search:search,searchValue:searchValue,count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts }}>
         <Router>
           <Navbar />
           <Switch>
