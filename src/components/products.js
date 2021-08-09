@@ -54,7 +54,6 @@ function Products(props) {
         let colorU = query.get("color")
         let brandU = query.get("brand")
         let sizeU = query.get("size")
-        let axiosUrl;
         setData()
         setTotalProducts()
          axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/distinct`)
@@ -67,20 +66,9 @@ function Products(props) {
             })
             .catch((e) => {
                 console.log(e)
-            })
+            })     
 
-        if (popular==="popular" && sort==="high") {
-            setSort("rating")
-       }
-        else if(popular==="new" && sort==="high"){
-            setSort("natural")
-
-       }
-       
-        
-     
-
-        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${sort}`) // backend url, not frontend url
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&sort=${popular},${sort}`) // backend url, not frontend url
             .then((res) => {
                 setData(res.data.products);
                 setTotalProducts(res.data.totalProducts);
