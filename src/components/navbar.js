@@ -22,7 +22,7 @@ const Navbar = () => {
                     <Link to="/product/search"><button className="btn btn-dark " onClick={e=>value.search(searchValue,e)} type="submit"><Search/></button></Link>
               </div>
               <Router>
-                <Link to = "/viewProfile" className="pe-4 fs-4" >
+                <Link to = "/signup" className="pe-4 fs-4" >
                     <PersonBoundingBox/>
                 </Link>
                 <Link to = "/wishlist" className="pe-4 fs-4">
@@ -31,6 +31,7 @@ const Navbar = () => {
                 <Link to = "/cart" className="pe-4 fs-4">
                     <Cart/>
                 </Link>
+                 
                 </Router>
             </form>   
                 

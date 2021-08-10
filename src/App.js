@@ -10,6 +10,7 @@ import ProductDetails from './components/productDetails';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Search } from 'react-bootstrap-icons';
+import SignUp from './components/signup';
 
 export const ProductContext = React.createContext()
 
@@ -73,6 +74,7 @@ function App() {
             <Route path="/product" exact component={Products} />
             <Route path="/product/:popular" exact component={Products} />
             <Route path="/productDetails/:id" exact component={ProductDetails} />
+            <Route path="/signup" exact component={SignUp} />
           </Switch>
         </Router>
       </ProductContext.Provider>
