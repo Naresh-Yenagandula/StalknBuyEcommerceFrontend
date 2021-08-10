@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams,Link } from 'react-router-dom';
 import { ProductContext } from '../App';
-import { Star, StarFill } from 'react-bootstrap-icons';
+import { Star, StarFill, SuitHeartFill } from 'react-bootstrap-icons';
 
 
 function ProductDetails() {
@@ -12,10 +12,12 @@ function ProductDetails() {
     const [brandData, setBrandData] = useState();
     const [colorData, setColorData] = useState();
     const [catData, setCatData] = useState();
+    const [modalData, setmodalData] = useState()
 
 
     useEffect(async () => {
-        if (!value.FilterProducts) {
+        // if (!value.FilterProducts) {
+            window.scrollTo({top:0})
             await axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/product/${id}`)
                 .then((res) => {
                     setidData(res.data.products[0])
@@ -25,19 +27,19 @@ function ProductDetails() {
                 .catch((err) => {
                     console.log(err);
                 })
-        }
-        else {
-            const productData = await value.FilterProducts.filter(e => { return e.PRODUCT_ID === parseInt(id) })
-            setidData(productData[0])
-            //console.log(idData)
-            //console.log(productData);
-            axiosCalls(productData[0])
-        }
+        // }
+        // else {
+        //     const productData = await value.FilterProducts.filter(e => { return e.PRODUCT_ID === parseInt(id) })
+        //     setidData(productData[0])
+        //     //console.log(idData)
+        //     //console.log(productData);
+        //     axiosCalls(productData[0])
+        // }
 
         console.log(idData);
 
 
-    }, [])
+    }, [id])
 
     const axiosCalls = (productData) => {
         //CATEGORY
@@ -76,6 +78,48 @@ function ProductDetails() {
     }
     return (
         <div>
+             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div className="container-fluid">
+                                <div className="row">
+                                    {modalData ?
+
+                                        <>
+
+                                            <div className="col-md-4 offset-md-1 col-sm-6">
+                                                <img className="img-fluid modal-image" src={modalData.IMAGE} alt={modalData.NAME} />
+                                            </div>
+                                            <div className="col-md-6 col-sm-6 offset-md-1 text-center mt-5">
+                                                <h3>{modalData.BRAND}</h3>
+                                                <p>{value.extractData(modalData).desc}</p>
+                                                <h5>Rs. {modalData.PRICE}</h5>
+                                                <p className="mt-5"> Select size</p>
+                                                <div>
+                                                    <button className="btn btn-secondary rounded-circle size-button">S</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">M</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">L</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">XL</button>
+                                                    {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
+                                                </div>
+
+                                                <button className="btn bag-button mt-5">ADD TO BAG</button>
+
+                                                <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4" data-bs-dismiss="modal">PRODUCT DETAILS</button> </Link>
+                                            </div></> : null}
+
+                                </div>
+                            </div>
+                        </div>
+                        {/* <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save change</button>
+                        </div> */}
+                    </div>
+                </div>
+            </div>
             <div className="container">
                 <div className="row vh-90 align-items-center">
                     {idData ?
@@ -115,7 +159,12 @@ function ProductDetails() {
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
-                                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                            <Link to={`/productDetails/${product.PRODUCT_ID}`}> <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} /></Link>
+                                            <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
+                                                    <strong>Quick Look</strong>
+                                                </button>
+                                            <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -160,7 +209,12 @@ function ProductDetails() {
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
-                                                <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                            <Link to={`/productDetails/${product.PRODUCT_ID}`}><img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} /></Link>
+                                            <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
+                                                    <strong>Quick Look</strong>
+                                                </button>
+                                            <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -206,6 +260,11 @@ function ProductDetails() {
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
                                                 <Link to={`/productDetails/${product.PRODUCT_ID}`}><img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} /></Link>
+                                                <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
+                                                    <strong>Quick Look</strong>
+                                                </button>
+                                                <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />

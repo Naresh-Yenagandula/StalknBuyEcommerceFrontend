@@ -1,15 +1,57 @@
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
-import { StarFill, Star } from 'react-bootstrap-icons'
+import { StarFill, Star,SuitHeartFill } from 'react-bootstrap-icons'
 import { ProductContext } from '../App';
 
 function HomePage() {
-
+    const [modalData, setmodalData] = useState()
     const value = useContext(ProductContext)
     const [count, setCount] = useState([1, 2, 3, 4, 5]);
 
     return (
         <>
+         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div className="container-fluid">
+                                <div className="row">
+                                    {modalData ?
+
+                                        <>
+
+                                            <div className="col-md-4 offset-md-1 col-sm-6">
+                                                <img className="img-fluid modal-image" src={modalData.IMAGE} alt={modalData.NAME} />
+                                            </div>
+                                            <div className="col-md-6 col-sm-6 offset-md-1 text-center mt-5">
+                                                <h3>{modalData.BRAND}</h3>
+                                                <p>{value.extractData(modalData).desc}</p>
+                                                <h5>Rs. {modalData.PRICE}</h5>
+                                                <p className="mt-5"> Select size</p>
+                                                <div>
+                                                    <button className="btn btn-secondary rounded-circle size-button">S</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">M</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">L</button>
+                                                    <button className="btn btn-secondary rounded-circle size-button">XL</button>
+                                                    {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
+                                                </div>
+
+                                                <button className="btn bag-button mt-5">ADD TO BAG</button>
+
+                                                <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4" data-bs-dismiss="modal">PRODUCT DETAILS</button> </Link>
+                                            </div></> : null}
+
+                                </div>
+                            </div>
+                        </div>
+                        {/* <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save change</button>
+                        </div> */}
+                    </div>
+                </div>
+            </div>
         <div className="container pb-5">
             <div className="text-center headings">
                 <h2>CATEGORIES</h2>
@@ -67,7 +109,12 @@ function HomePage() {
                         return (
                             <div className="col mb-4" key={product.PRODUCT_ID}>
                                 <div className="card box-shadow">
-                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                <Link to={`/productDetails/${product.PRODUCT_ID}`}><img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} /></Link>
+                                <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
+                                                    <strong>Quick Look</strong>
+                                </button>
+                                <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+
                                     <div className="card-body" style={{ height: "120px" }}>
                                         <div className="card-body-section-one ">
                                             <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -107,7 +154,12 @@ function HomePage() {
                         return (
                             <div className="col mb-4" key={product.PRODUCT_ID}>
                                 <div className="card box-shadow">
-                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                <Link to={`/productDetails/${product.PRODUCT_ID}`}> <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} /></Link>
+                                <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
+                                                    <strong>Quick Look</strong>
+                                                </button>
+                                <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+
                                     <div className="card-body" style={{ height: "120px" }}>
                                         <div className="card-body-section-one ">
                                             <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -148,7 +200,12 @@ function HomePage() {
                         return (
                             <div className="col mb-4" key={product.PRODUCT_ID}>
                                 <div className="card box-shadow">
-                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                <Link to={`/productDetails/${product.PRODUCT_ID}`}> <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} /></Link>
+                                <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
+                                                    <strong>Quick Look</strong>
+                                                </button>
+                                <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+
                                     <div className="card-body" style={{ height: "120px" }}>
                                         <div className="card-body-section-one ">
                                             <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -211,7 +268,12 @@ function HomePage() {
                         return (
                             <div className="col mb-4" key={product.PRODUCT_ID}>
                                 <div className="card box-shadow">
-                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                <Link to={`/productDetails/${product.PRODUCT_ID}`}> <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} /></Link>
+                                <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
+                                                    <strong>Quick Look</strong>
+                                                </button>
+                                <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+
                                     <div className="card-body" style={{ height: "120px" }}>
                                         <div className="card-body-section-one ">
                                             <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -252,7 +314,12 @@ function HomePage() {
                         return (
                             <div className="col mb-4" key={product.PRODUCT_ID}>
                                 <div className="card box-shadow">
-                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                <Link to={`/productDetails/${product.PRODUCT_ID}`}><img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} /></Link>
+                                <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
+                                                    <strong>Quick Look</strong>
+                                                </button>
+                                <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+
                                     <div className="card-body" style={{ height: "120px" }}>
                                         <div className="card-body-section-one ">
                                             <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -294,7 +361,12 @@ function HomePage() {
                         return (
                             <div className="col mb-4" key={product.PRODUCT_ID}>
                                 <div className="card box-shadow">
-                                    <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} />
+                                <Link to={`/productDetails/${product.PRODUCT_ID}`}> <img src={product.IMAGE} className="card-img-top" height="340px" width="210px" alt={product.NAME} /></Link>
+                                <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
+                                                    <strong>Quick Look</strong>
+                                                </button>
+                                <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+
                                     <div className="card-body" style={{ height: "120px" }}>
                                         <div className="card-body-section-one ">
                                             <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
