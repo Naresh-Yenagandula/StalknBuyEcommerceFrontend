@@ -1,7 +1,7 @@
 function SignUp(){
     return(
         <div className="form d-flex justify-content-center align-items-center card-body">
-            <div className="card p-3 v-100" style={{width:"30rem"}}>
+            <div className="card p-3 v-100" style={{width:"25rem"}}>
                 <div className="">
                     <h4 className="text-center mb-4">SIGN-UP</h4>
                  <form>
