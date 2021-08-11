@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ReactPaginate from 'react-paginate';
 import { ProductContext } from '../App';
+import Navbar from './navbar';
 
 
 
@@ -219,6 +220,7 @@ function Products(props) {
 
     return (
         <div>
+            <Navbar></Navbar>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-dialog-centered">

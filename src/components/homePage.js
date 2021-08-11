@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { StarFill, Star,SuitHeartFill } from 'react-bootstrap-icons'
 import { ProductContext } from '../App';
+import Navbar from './navbar';
 
 function HomePage() {
     const [modalData, setmodalData] = useState()
@@ -10,6 +11,7 @@ function HomePage() {
 
     return (
         <>
+        <Navbar/>
          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-dialog-centered">
                     <div class="modal-content">

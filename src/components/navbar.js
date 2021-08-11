@@ -18,7 +18,7 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
             <div className="container-fluid">
-                <Link to="/" className="navbar-brand"><span>Navbar</span></Link>
+                <Link to="/" className="navbar-brand"><span>StalknBuy</span></Link>
                 <div className="navbar-text float-end ">
                     <form className="d-flex " >
                         <div className="input-group me-5">

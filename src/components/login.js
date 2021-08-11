@@ -1,7 +1,8 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useContext } from 'react'
 import {useState} from 'react';
 import {Link} from 'react-router-dom'
+import { ProductContext } from '../App';
 
 function Login(props)
 {
@@ -41,6 +42,7 @@ function Login(props)
                             <button type="submit" className="btn btn-primary mb-4 "  onClick={SubmitLoginData}> Login </button>
                         </div>
                         <p className="text-center">Not an Existing User? <Link to = "/signup">SignUp</Link></p>
+                        <p className="text-center">Have trouble logging in ? <Link to = "/forgotpass">Forgot Password</Link></p>
                     </form>
                 </div>
             </div>

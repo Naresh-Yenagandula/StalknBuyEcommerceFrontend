@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams,Link } from 'react-router-dom';
 import { ProductContext } from '../App';
 import { Star, StarFill, SuitHeartFill } from 'react-bootstrap-icons';
+import Navbar from './navbar';
 
 
 function ProductDetails() {
@@ -78,6 +79,7 @@ function ProductDetails() {
     }
     return (
         <div>
+            <Navbar/>
              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl modal-dialog-centered">
                     <div class="modal-content">

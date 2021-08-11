@@ -12,6 +12,7 @@ import axios from 'axios';
 import { Search } from 'react-bootstrap-icons';
 import SignUp from './components/signup';
 import Login from './components/login'
+import Forgotpassword from './components/forgotpassword';
 
 export const ProductContext = React.createContext()
 
@@ -79,9 +80,9 @@ function App() {
 
   return (
     <div className="App">
-      <ProductContext.Provider value={{search:search,searchValue:searchValue,count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts }}>
+      <ProductContext.Provider value={{search:search,searchValue:searchValue,count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts,authToken:authToken }}>
         <Router>
-          <Navbar />
+          
           <Switch>
             <Route path="/" exact component={HomePage} />
             <Route path="/product" exact component={Products} />
@@ -89,6 +90,7 @@ function App() {
             <Route path="/productDetails/:id" exact component={ProductDetails} />
             <Route path="/signup" exact component={SignUp} />
             <Route path="/login" exact component={Login}/>
+            <Route path="/forgotpass" exact component={Forgotpassword}/>
           </Switch>
         </Router>
       </ProductContext.Provider>
