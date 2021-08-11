@@ -10,6 +10,10 @@ const Navbar = () => {
     const [searchValue, setsearchValue] = useState();
     const value = useContext(ProductContext)
 
+    const logout=()=>{
+        localStorage.removeItem('token')
+    }
+
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
@@ -29,12 +33,23 @@ const Navbar = () => {
                                 <ul class="dropdown-menu p-3" aria-labelledby="dropdownMenuLink">
                                     <div>
                                         <small><b>Welcome</b></small><br />
+                                        {!localStorage.getItem('token')?
+                                        <>
                                         <small>To access account and manage orders</small><br />
                                         <Link to="/login"><button className="btn btn-outline-warning mt-3">Login / SignUp</button></Link>
-                                    </div><hr />
+                                        </>
+                                        :<p>Hello,</p>
+                                        }                                 
+                                        </div><hr />
                                     <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    {localStorage.getItem('token')?
+                                        <>
+                                        <button className="btn btn-outline-warning mt-3" onClick={logout}>Logout</button>
+                                        </>
+                                        :null
+                                        }   
                                 </ul>
                             </div>
                             <Link to="/wishlist" className="pe-4 fs-4">

@@ -7,7 +7,7 @@ import HomePage from './components/homePage';
 import Products from './components/products';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ProductDetails from './components/productDetails';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import axios from 'axios';
 import { Search } from 'react-bootstrap-icons';
 import SignUp from './components/signup';
@@ -22,14 +22,25 @@ function App() {
   const [FilterProducts, setFilterProducts] = useState()
   const [count, setCount] = useState([1, 2, 3, 4, 5]);
   const [searchValue, setsearchValue] = useState();
+  const [userData, setuserData] = useState()
  
   const search = (searchValue,e)=>{
         // e.preventDefault();
         setsearchValue(searchValue);
-
   }
-
+  const authToken = useCallback(()=>{
+    const token = localStorage.getItem('token')
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/verify?token=${token}`)
+    .then((res) => {
+      setuserData(res.data.user);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  },[])
   useEffect(() => {
+
+    authToken();
 
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/new`)
       .then((res) => {
@@ -39,6 +50,7 @@ function App() {
         console.log(err);
       })
 
+
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/popular`)
       .then((res) => {
         setPopularProducts(res.data.products);
@@ -47,7 +59,7 @@ function App() {
         console.log(err);
       })
 
-  }, [])
+  }, [authToken])
 
   const extractData = (product) => {
     let brand = "";

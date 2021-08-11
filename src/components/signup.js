@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom'
 
-function SignUp()
+function SignUp(props)
 {
     const SubmitSignUpData = (e)=>
     {
@@ -10,6 +11,8 @@ function SignUp()
         .then((res)=>
         {
             console.log(res.data.message);
+            props.history.push("/login")
+
         })
         .catch((err)=>
         {
@@ -23,15 +26,16 @@ function SignUp()
         <div className="form d-flex justify-content-center align-items-center card-body">
             <div className="card p-3 v-100" style={{width:"25rem"}}>
                 <div className="">
-                    <h4 className="text-center mb-4">SIGN-UP</h4>
+                    <h4 className="text-center mb-4">SIGN UP</h4>
                  <form>
                 <input type="text" className="form-control mb-3" placeholder="Enter your Name" onChange={e=> setsignUpData({...signUpData, name: e.target.value})}/>
                 <input type="email" className="form-control mb-3" placeholder="Enter your Email" onChange={e=> setsignUpData({...signUpData, email: e.target.value})}/>
                 <input type="password" className="form-control mb-3" placeholder="Enter your Password" onChange={e=> setsignUpData({...signUpData, password: e.target.value})}/>
                 <input type="password" className="form-control mb-3" placeholder="Confirm your Password" onChange={e=> setsignUpData({...signUpData, newPassword: e.target.value})}/>
                 <div className="d-grid">
-                <button type="submit" className="btn btn-primary " onClick={SubmitSignUpData}>Register</button>
+                <button type="submit" className="btn btn-primary mb-4 " onClick={SubmitSignUpData}>Register</button>
                 </div>
+                <p className="text-center">Already have an account? <Link to = "/login">Login</Link></p>
             </form>
             </div>
             </div>
