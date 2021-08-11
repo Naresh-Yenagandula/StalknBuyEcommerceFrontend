@@ -1,16 +1,36 @@
-function SignUp(){
+import axios from 'axios';
+import {useEffect, useState} from 'react';
+
+function SignUp()
+{
+    const SubmitSignUpData = (e)=>
+    {
+        e.preventDefault();
+        axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/createAcc`,signUpData)
+        .then((res)=>
+        {
+            console.log(res.data.message);
+        })
+        .catch((err)=>
+        {
+            console.log("error occured while signing up")
+        })
+    }
+    
+    const [signUpData, setsignUpData] = useState()
+
     return(
         <div className="form d-flex justify-content-center align-items-center card-body">
             <div className="card p-3 v-100" style={{width:"25rem"}}>
                 <div className="">
                     <h4 className="text-center mb-4">SIGN-UP</h4>
                  <form>
-                <input type="text" className="form-control mb-3" placeholder="Enter your Name"/>
-                <input type="email" className="form-control mb-3" placeholder="Enter your Email"/>
-                <input type="password" className="form-control mb-3" placeholder="Enter your Password"/>
-                <input type="password" className="form-control mb-3" placeholder="Confirm your Password"/>
+                <input type="text" className="form-control mb-3" placeholder="Enter your Name" onChange={e=> setsignUpData({...signUpData, name: e.target.value})}/>
+                <input type="email" className="form-control mb-3" placeholder="Enter your Email" onChange={e=> setsignUpData({...signUpData, email: e.target.value})}/>
+                <input type="password" className="form-control mb-3" placeholder="Enter your Password" onChange={e=> setsignUpData({...signUpData, password: e.target.value})}/>
+                <input type="password" className="form-control mb-3" placeholder="Confirm your Password" onChange={e=> setsignUpData({...signUpData, newPassword: e.target.value})}/>
                 <div className="d-grid">
-                <button type="submit" className="btn btn-primary " placeholder="User Id">Register</button>
+                <button type="submit" className="btn btn-primary " onClick={SubmitSignUpData}>Register</button>
                 </div>
             </form>
             </div>

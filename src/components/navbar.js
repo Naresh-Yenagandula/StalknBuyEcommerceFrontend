@@ -30,7 +30,7 @@ const Navbar = () => {
                                     <div>
                                         <small><b>Welcome</b></small><br />
                                         <small>To access account and manage orders</small><br />
-                                        <Link to="/signup"><button className="btn btn-outline-warning mt-3">Login / SignUp</button></Link>
+                                        <Link to="/login"><button className="btn btn-outline-warning mt-3">Login / SignUp</button></Link>
                                     </div><hr />
                                     <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
