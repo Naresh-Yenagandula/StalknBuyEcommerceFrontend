@@ -29,13 +29,12 @@ function Login(props)
     }
     
     return (
-        <div>
+    <div>
         <div className="form d-flex flex-column justify-content-center align-items-center card-body">
             <div className="card p-3 v-100" style={{width:"25rem"}}>
                 <div className="">
                     <h4 className="text-center mb-4">LOGIN</h4>
                     <form>
-                       
                         <input type="email" className="form-control mb-3" placeholder="Enter your Email" onChange={e=> setloginData({...loginData, email: e.target.value})}/>
                         <input type="password" className="form-control mb-3" placeholder="Enter your Password" onChange={e=> setloginData({...loginData, password: e.target.value})}/>
                         <div className="d-grid">
@@ -45,10 +44,8 @@ function Login(props)
                         <p className="text-center">Have trouble logging in ? <Link to = "/forgotpass">Forgot Password</Link></p>
                     </form>
                 </div>
-            </div>
-           
+            </div>   
         </div>
-        
     </div>    
     )
 }

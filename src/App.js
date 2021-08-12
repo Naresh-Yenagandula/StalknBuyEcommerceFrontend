@@ -29,11 +29,13 @@ function App() {
         // e.preventDefault();
         setsearchValue(searchValue);
   }
-  const authToken = useCallback(()=>{
+  const authToken = useCallback(()=>
+  {
     const token = localStorage.getItem('token')
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/verify?token=${token}`)
     .then((res) => {
       setuserData(res.data.user);
+      console.log(res.data.user)
     })
     .catch((err) => {
       console.log(err);
@@ -80,7 +82,7 @@ function App() {
 
   return (
     <div className="App">
-      <ProductContext.Provider value={{search:search,searchValue:searchValue,count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts,authToken:authToken }}>
+      <ProductContext.Provider value={{search:search,searchValue:searchValue,count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts,authToken:authToken, userData: userData}}>
         <Router>
           
           <Switch>
