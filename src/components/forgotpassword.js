@@ -74,6 +74,8 @@ function Forgotpassword(props)
                         </>
                         :
                         <>
+                        
+                            <input type="hidden"/>
                             <input type="password" className="form-control mb-3" placeholder="New Password"  onChange={e=>setEmail({...email,nPassword:e.target.value})}></input>
                             <input type="password" className="form-control mb-3" placeholder="Confirm Password" onChange={e=>setEmail({...email,cPassword:e.target.value})}></input>
                             <div className="d-grid">
