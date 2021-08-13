@@ -13,6 +13,7 @@ import { Search } from 'react-bootstrap-icons';
 import SignUp from './components/signup';
 import Login from './components/login'
 import Forgotpassword from './components/forgotpassword';
+import Wishlist from './components/wishlist';
 
 export const ProductContext = React.createContext()
 
@@ -24,6 +25,7 @@ function App() {
   const [count, setCount] = useState([1, 2, 3, 4, 5]);
   const [searchValue, setsearchValue] = useState();
   const [userData, setuserData] = useState()
+  const [Wishlists, setWishlist] = useState([])
  
   const search = (searchValue,e)=>{
         // e.preventDefault();
@@ -35,12 +37,35 @@ function App() {
     axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/verify?token=${token}`)
     .then((res) => {
       setuserData(res.data.user);
-      console.log(res.data.user)
+      setWishlist(res.data.user[0].WISHLIST)
+      
+      console.log(res.data.user[0].WISHLIST)
     })
     .catch((err) => {
       console.log(err);
     })
   },[])
+
+
+
+  const updateWishlist=(product)=>{
+    let temp=Wishlists
+    console.log(Wishlists)
+    let index=Wishlists.findIndex(p=>p._id===product._id)
+    console.log(index)
+    if(index===-1)
+    {
+      temp.push(product)
+    }
+    else{
+      temp.splice(index,1)
+      
+    }
+    setWishlist(temp);
+  }
+
+
+
   useEffect(() => {
 
     authToken();
@@ -82,7 +107,7 @@ function App() {
 
   return (
     <div className="App">
-      <ProductContext.Provider value={{search:search,searchValue:searchValue,count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts,authToken:authToken, userData: userData}}>
+      <ProductContext.Provider value={{search:search,searchValue:searchValue,count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts,authToken:authToken, userData: userData, Wishlist:Wishlists,updateWishlist:updateWishlist}}>
         <Router>
           
           <Switch>
@@ -93,6 +118,7 @@ function App() {
             <Route path="/signup" exact component={SignUp} />
             <Route path="/login" exact component={Login}/>
             <Route path="/forgotpass" exact component={Forgotpassword}/>
+            <Route path="/wishlist" exact component={Wishlist}/>
           </Switch>
         </Router>
       </ProductContext.Provider>

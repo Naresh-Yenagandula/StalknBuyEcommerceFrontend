@@ -165,7 +165,7 @@ function ProductDetails() {
                                             <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
-                                            <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+                                            <button className="btn btn-sm wishlist" onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button>
 
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
@@ -215,7 +215,7 @@ function ProductDetails() {
                                             <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
-                                            <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+                                            <button className="btn btn-sm wishlist" onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button>
 
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
@@ -265,7 +265,7 @@ function ProductDetails() {
                                                 <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
-                                                <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+                                                <button className="btn btn-sm wishlist" onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button>
 
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">

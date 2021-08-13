@@ -60,7 +60,7 @@
 {
     display: block !important;
 }
-.box-shadow:hover .wishlist-icon{
+.wishlist-selected{
     color: red;
 }
 .modal-image{
