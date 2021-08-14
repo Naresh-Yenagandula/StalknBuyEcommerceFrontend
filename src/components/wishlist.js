@@ -8,9 +8,11 @@ import { Star, StarFill,XCircleFill} from 'react-bootstrap-icons';
 function Wishlist()
  {
     const value=useContext(ProductContext)
-    //console.log(value.Wishlist)
     
-    const [myWishlist, setmyWishlist] = useState(value.Wishlist);
+    const [myWishlist, setmyWishlist] = useState();
+    useEffect(() => {
+        setmyWishlist(value.Wishlist)
+    }, [value.Wishlist])
    
     const updateProducts = (product)=>
     {
@@ -23,6 +25,7 @@ function Wishlist()
          <Navbar/>
          {/* <button onClick={e=> console.log(value.Wishlist)}> HI </button> */}
         <div className="container">
+            <h3 className="mt-4">My Wishlist</h3>
               <div className="row mt-3 row-cols-4">
                             {myWishlist ?
                                 myWishlist.map((product) => {

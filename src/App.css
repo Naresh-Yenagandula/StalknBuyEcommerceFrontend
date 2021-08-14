@@ -101,3 +101,9 @@
 .form{
     height: 90vh;
 }
+.dropdown-menu{
+    left: -3rem !important;
+}
+.top-10{
+    top: 6rem;
+}

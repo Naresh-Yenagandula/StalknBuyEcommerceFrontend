@@ -7,13 +7,14 @@ import HomePage from './components/homePage';
 import Products from './components/products';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ProductDetails from './components/productDetails';
-import React, { useEffect, useState,useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { Search } from 'react-bootstrap-icons';
 import SignUp from './components/signup';
 import Login from './components/login'
 import Forgotpassword from './components/forgotpassword';
 import Wishlist from './components/wishlist';
+import Toast from 'react-bootstrap/Toast'
 
 export const ProductContext = React.createContext()
 
@@ -27,64 +28,56 @@ function App() {
   const [userData, setuserData] = useState()
   const [Wishlists, setWishlist] = useState([])
   const [myToken, setMyToken] = useState(localStorage.getItem('token'));
+  const [showToast, setshowToast] = useState({show:false,message:""})
 
-  const search = (searchValue,e)=>{
-        // e.preventDefault();
-        setsearchValue(searchValue);
+  const search = (searchValue, e) => {
+    // e.preventDefault();
+    setsearchValue(searchValue);
   }
-  const authToken = useCallback(()=>
-  {
-     axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/verify?token=${myToken}`)
-    .then((res) => {
-      setuserData(res.data.user);
-      setWishlist(res.data.user[0].WISHLIST)
-      
-      console.log(res.data.user[0].WISHLIST)
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  },[myToken]);
+  const authToken = useCallback(() => {
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/verify?token=${myToken}`)
+      .then((res) => {
+        setuserData(res.data.user);
+        setWishlist(res.data.user[0].WISHLIST)
 
-  const updateToken = (token)=>
-  {
+        console.log(res.data.user[0].WISHLIST)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, [myToken]);
+
+  const updateToken = (token) => {
     localStorage.setItem('token', token)
     setMyToken(token);
   }
 
-  const updateWishlist=(product)=>
-  {
-    let temp=Wishlists
-    console.log(Wishlists)
-    let index=Wishlists.findIndex(p=>p._id===product._id)
-    console.log(index)
-    if(index===-1)
-    {
+  const updateWishlist = (product) => {
+    let temp = Wishlists
+    let index = Wishlists.findIndex(p => p._id === product._id)
+    if (index === -1) {
       temp.push(product)
+      setshowToast({show:true,message:"Item added to wishlist"})
     }
-    else
-    {
-      console.log(temp, "to be removed");
-      temp.splice(index,1)
-      
+    else {
+      temp.splice(index, 1)
+      setshowToast({show:true,message:"Item removed from Wishlist"})
+
     }
     setWishlist(temp);
 
     axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/updateWishlist?id=${userData[0]._id}`, temp)
-    .then((res)=>
-    {
+      .then((res) => {
         alert("Product added to wishlist");
-    })
-    .catch((err)=>
-    {
+      })
+      .catch((err) => {
         alert("Sorry, there is an error");
-    })
+      })
   }
 
 
 
-  useEffect(() => 
-  {
+  useEffect(() => {
 
     authToken();
 
@@ -125,18 +118,23 @@ function App() {
 
   return (
     <div className="App">
-      <ProductContext.Provider value={{updateToken:updateToken, search:search, searchValue:searchValue, count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts,authToken:authToken, userData: userData, Wishlist:Wishlists,updateWishlist:updateWishlist}}>
+      <div className="toast-container position-fixed top-10 end-0" style={{zIndex:"1000"}}>
+        <Toast className="bg-success text-light" onClose={e => setshowToast({...showToast,show:false})} delay={3000} show={showToast.show} autohide>
+          <Toast.Body>{showToast.message}</Toast.Body>
+        </Toast>
+      </div>
+      <ProductContext.Provider value={{ updateToken: updateToken, search: search, searchValue: searchValue, count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts, authToken: authToken, userData: userData, Wishlist: Wishlists, updateWishlist: updateWishlist }}>
         <Router>
-          
+
           <Switch>
             <Route path="/" exact component={HomePage} />
             <Route path="/product" exact component={Products} />
             <Route path="/product/:popular" exact component={Products} />
             <Route path="/productDetails/:id" exact component={ProductDetails} />
             <Route path="/signup" exact component={SignUp} />
-            <Route path="/login" exact component={Login}/>
-            <Route path="/forgotpass" exact component={Forgotpassword}/>
-            <Route path="/wishlist" exact component={Wishlist}/>
+            <Route path="/login" exact component={Login} />
+            <Route path="/forgotpass" exact component={Forgotpassword} />
+            <Route path="/wishlist" exact component={Wishlist} />
           </Switch>
         </Router>
       </ProductContext.Provider>
