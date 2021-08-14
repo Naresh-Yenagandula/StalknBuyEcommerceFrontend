@@ -1,4 +1,4 @@
-import { PersonBoundingBox, SuitHeart, Cart, Search } from "react-bootstrap-icons";
+import { PersonCircle, SuitHeart, Cart, Search } from "react-bootstrap-icons";
 import { Link, BrowserRouter as Router } from 'react-router-dom';
 import { ProductContext } from '../App';
 import React, { useContext, useState } from 'react';
@@ -30,9 +30,9 @@ const Navbar = () =>
 
                             <div class="dropdown">
                                 <a class=" dropdown-toggle pe-4 fs-4" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <PersonBoundingBox />
+                                    <PersonCircle />
                                 </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuLink">
                                     <div className="px-3">
                                         <small> <b>Welcome</b> </small> <br/>
                                         {!localStorage.getItem('token')?

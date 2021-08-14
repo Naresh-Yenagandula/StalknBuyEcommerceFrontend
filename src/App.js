@@ -116,7 +116,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="toast-container position-fixed top-10 end-0" style={{zIndex:"1000"}}>
+      <div className="toast-container position-fixed top-10 end-1" style={{zIndex:"1000"}}>
         <Toast className="bg-success text-light" onClose={e => setshowToast({...showToast,show:false})} delay={3000} show={showToast.show} autohide>
           <Toast.Body>{showToast.message}</Toast.Body>
         </Toast>
