@@ -10,7 +10,6 @@ const Navbar = () =>
 
     const [searchValue, setsearchValue] = useState();
     const value = useContext(ProductContext)
-    console.log(value.userData);
 
     const logout=()=>
     {
@@ -33,8 +32,8 @@ const Navbar = () =>
                                 <a class=" dropdown-toggle pe-4 fs-4" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                     <PersonBoundingBox />
                                 </a>
-                                <ul class="dropdown-menu p-3" aria-labelledby="dropdownMenuLink">
-                                    <div>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <div className="px-3">
                                         <small> <b>Welcome</b> </small> <br/>
                                         {!localStorage.getItem('token')?
                                             <>
@@ -51,9 +50,9 @@ const Navbar = () =>
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                                     {localStorage.getItem('token')?
-                                        <>
-                                        <button className="btn btn-outline-warning mt-3" onClick={logout}>Logout</button>
-                                        </>
+                                        <div className="d-grid">
+                                        <button className="btn btn-outline-warning btn-sm mt-3" onClick={logout}>Logout</button>
+                                        </div>
                                         :null
                                     }   
                                 </ul>

@@ -19,7 +19,6 @@ function Products(props) {
     let { popular } = useParams();
 
     const value = useContext(ProductContext)
-    console.log(value.searchValue)
     const [data, setData] = useState();
     const [url, setURL] = useState();
 

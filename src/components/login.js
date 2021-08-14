@@ -24,7 +24,7 @@ function Login(props)
         .catch((err)=>
         {
             console.log("error occured while logging");
-            alert(err.message);
+
         }) 
     }
     

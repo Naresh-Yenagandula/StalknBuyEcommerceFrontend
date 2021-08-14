@@ -10,7 +10,6 @@ function SignUp(props)
         axios.post(`${process.env.REACT_APP_BACKEND_URL}/user/createAcc`,signUpData)
         .then((res)=>
         {
-            console.log(res.data.message);
             props.history.push("/login")
 
         })

@@ -39,8 +39,6 @@ function App() {
       .then((res) => {
         setuserData(res.data.user);
         setWishlist(res.data.user[0].WISHLIST)
-
-        console.log(res.data.user[0].WISHLIST)
       })
       .catch((err) => {
         console.log(err);
@@ -68,7 +66,7 @@ function App() {
 
     axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/updateWishlist?id=${userData[0]._id}`, temp)
       .then((res) => {
-        alert("Product added to wishlist");
+        console.log("Updated wishlist")
       })
       .catch((err) => {
         alert("Sorry, there is an error");
