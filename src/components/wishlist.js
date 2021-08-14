@@ -1,20 +1,31 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Navbar from './navbar';
 import { Link } from 'react-router-dom';
 import { ProductContext } from '../App';
-import { Star, StarFill, SuitHeartFill } from 'react-bootstrap-icons';
+import { Star, StarFill,XCircleFill} from 'react-bootstrap-icons';
 
 
-function Wishlist() {
+function Wishlist()
+ {
     const value=useContext(ProductContext)
-        return (
+    //console.log(value.Wishlist)
+    
+    const [myWishlist, setmyWishlist] = useState(value.Wishlist);
+   
+    const updateProducts = (product)=>
+    {
+        const temp = myWishlist.filter(p => p._id !== product._id)
+        setmyWishlist(temp);
+        value.updateWishlist(product);
+    }
+    return (
      <div className="">
          <Navbar/>
-
+         {/* <button onClick={e=> console.log(value.Wishlist)}> HI </button> */}
         <div className="container">
               <div className="row mt-3 row-cols-4">
-                            {value.Wishlist ?
-                                value.Wishlist.map((product) => {
+                            {myWishlist ?
+                                myWishlist.map((product) => {
                                     let obj = value.extractData(product);
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
@@ -23,7 +34,7 @@ function Wishlist() {
                                                 </Link>
                                                
 
-                                                <button className="btn btn-sm wishlist"> <SuitHeartFill className="wishlist-icon" /></button>
+                                                <button className="btn btn-sm wishlist" onClick={e => updateProducts(product)}> <XCircleFill className="wishlist-icon" /></button>
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />

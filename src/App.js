@@ -26,15 +26,15 @@ function App() {
   const [searchValue, setsearchValue] = useState();
   const [userData, setuserData] = useState()
   const [Wishlists, setWishlist] = useState([])
- 
+  const [myToken, setMyToken] = useState(localStorage.getItem('token'));
+
   const search = (searchValue,e)=>{
         // e.preventDefault();
         setsearchValue(searchValue);
   }
   const authToken = useCallback(()=>
   {
-    const token = localStorage.getItem('token')
-    axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/verify?token=${token}`)
+     axios.get(`${process.env.REACT_APP_BACKEND_URL}/user/verify?token=${myToken}`)
     .then((res) => {
       setuserData(res.data.user);
       setWishlist(res.data.user[0].WISHLIST)
@@ -44,11 +44,16 @@ function App() {
     .catch((err) => {
       console.log(err);
     })
-  },[])
+  },[myToken]);
 
+  const updateToken = (token)=>
+  {
+    localStorage.setItem('token', token)
+    setMyToken(token);
+  }
 
-
-  const updateWishlist=(product)=>{
+  const updateWishlist=(product)=>
+  {
     let temp=Wishlists
     console.log(Wishlists)
     let index=Wishlists.findIndex(p=>p._id===product._id)
@@ -57,16 +62,29 @@ function App() {
     {
       temp.push(product)
     }
-    else{
+    else
+    {
+      console.log(temp, "to be removed");
       temp.splice(index,1)
       
     }
     setWishlist(temp);
+
+    axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/updateWishlist?id=${userData[0]._id}`, temp)
+    .then((res)=>
+    {
+        alert("Product added to wishlist");
+    })
+    .catch((err)=>
+    {
+        alert("Sorry, there is an error");
+    })
   }
 
 
 
-  useEffect(() => {
+  useEffect(() => 
+  {
 
     authToken();
 
@@ -107,7 +125,7 @@ function App() {
 
   return (
     <div className="App">
-      <ProductContext.Provider value={{search:search,searchValue:searchValue,count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts,authToken:authToken, userData: userData, Wishlist:Wishlists,updateWishlist:updateWishlist}}>
+      <ProductContext.Provider value={{updateToken:updateToken, search:search, searchValue:searchValue, count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts,authToken:authToken, userData: userData, Wishlist:Wishlists,updateWishlist:updateWishlist}}>
         <Router>
           
           <Switch>

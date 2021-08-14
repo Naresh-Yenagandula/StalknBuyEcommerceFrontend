@@ -614,7 +614,7 @@ function Products(props) {
                             {data ?
                                 data.map((product) => {
                                     let obj = value.extractData(product);
-                                    const index=value.Wishlist.findIndex(p=>p._id===product._id)
+                                    const index= value.Wishlist.findIndex(p=>p._id===product._id)
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">

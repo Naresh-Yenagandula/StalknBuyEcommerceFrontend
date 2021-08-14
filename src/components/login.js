@@ -6,7 +6,7 @@ import { ProductContext } from '../App';
 
 function Login(props)
 {
-
+    const value = useContext(ProductContext);
     const [loginData, setloginData] = useState();
 
     const SubmitLoginData =(e)=>
@@ -17,8 +17,8 @@ function Login(props)
         .then((res)=>
         {
             console.log(res.data.message)
-            localStorage.setItem('token', res.data.myToken);
-            // alert(res.data.message);
+            //localStorage.setItem('token', res.data.myToken);
+            value.updateToken(res.data.myToken);
             props.history.push("/")
         })  
         .catch((err)=>
