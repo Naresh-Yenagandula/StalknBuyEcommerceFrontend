@@ -625,6 +625,7 @@ function Products(props) {
                                                 {index===-1?
                                                 <button className="btn btn-sm wishlist" onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button>
                                                 :<button className="btn btn-sm wishlist " onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>}
+                                                
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />

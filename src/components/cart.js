@@ -1,7 +1,9 @@
 import React, {useContext} from 'react'
 import Navbar from './navbar'
+import {  SuitHeartFill, XCircleFill } from 'react-bootstrap-icons'
 import {ProductContext} from '../App'
-import {Plus,Dash} from 'react-bootstrap-icons'
+
+
 
 function Cart() {
     const value = useContext(ProductContext)
@@ -15,6 +17,11 @@ function Cart() {
                 <div className="row">
                     <div className="col-md-8 border">
                     <table className="table">
+                        <colgroup>
+                        <col />
+                        <col style={{width:"150px"}}/>
+                        <col style={{width:"120px"}}/>
+                        </colgroup>
                 <thead>
                     <th>Product</th>
                     <th>Quantity</th>
@@ -40,14 +47,19 @@ function Cart() {
                         </td>
                         <td>
                             <div>
-                                {/* <button  className="btn btn-sm"><Dash/></button>
-                                <button  className="btn btn-sm"><Plus/></button> */}
-                                <input  defaultValue="1" type="number" className="w-25 form-control" min="1" />
+                                
+                                <input  defaultValue="1" type="number" className="w-50 form-control" min="1" />
                                 
                             </div>
                         </td>
+                        <td className="pe-5 ">
+                            {product.PRICE} 
+
+                        </td>
                         <td>
-                            {product.PRICE}
+                        <button className="btn btn-sm btn-secondary " onClick={e=>value.updateWishlist(product)}> Move to Wishlist</button>
+                        <button className="btn  "> <XCircleFill className="wishlist-icon" /></button>
+                                                                     
                         </td>
                         </tr>
                         )

@@ -38,6 +38,8 @@ function Wishlist()
                                                
 
                                                 <button className="btn btn-sm wishlist" onClick={e => updateProducts(product)}> <XCircleFill className="wishlist-icon" /></button>
+                                              
+                                              
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
