@@ -1,19 +1,28 @@
-import React, {useContext} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import Navbar from './navbar'
-import {  SuitHeartFill, XCircleFill } from 'react-bootstrap-icons'
+import {XCircleFill } from 'react-bootstrap-icons'
 import {ProductContext} from '../App'
 
 
 
-function Cart() {
+function Carts() 
+{
     const value = useContext(ProductContext)
+    const [myCart, setmyCart] = useState();
+    useEffect(() => {
+        console.log(value.Cart);
+        //console.log(myCart);
+        setmyCart(value.Cart)
+    }, [value.Cart])
+   
+
     return (
         <div>
             <Navbar/>
             <div className="mt-5 mb-5"><h3>Shopping Cart</h3></div>
             <div className="container">
                 {
-                      value.Wishlist ?
+                      myCart ?
                 <div className="row">
                     <div className="col-md-8 border">
                     <table className="table">
@@ -32,7 +41,7 @@ function Cart() {
                    
                     
                   
-                   { value.Wishlist.map((product)=>{
+                   { myCart.map((product)=>{
                         let prodDes= value.extractData(product)
                         return(
                             <tr>
@@ -57,8 +66,8 @@ function Cart() {
 
                         </td>
                         <td>
-                        <button className="btn btn-sm btn-secondary " onClick={e=>value.updateWishlist(product)}> Move to Wishlist</button>
-                        <button className="btn  "> <XCircleFill className="wishlist-icon" /></button>
+                        <button className="btn btn-sm btn-secondary " onClick={e=>value.updateCart(product)}> Move to Cart</button>
+                        <button className="btn  "> <XCircleFill className="Cart-icon" /></button>
                                                                      
                         </td>
                         </tr>
@@ -112,4 +121,4 @@ function Cart() {
     )
 }
 
-export default Cart
+export default Carts

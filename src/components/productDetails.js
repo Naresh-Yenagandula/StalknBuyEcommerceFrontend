@@ -142,8 +142,8 @@ function ProductDetails() {
                                     {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
                                 </div>
 
-                                <button className="btn bag-button mt-5">ADD TO BAG</button>
-                                <button className="btn bag-button mt-4">ADD TO WISHLIST</button>
+                                <button className="btn bag-button mt-5" onClick={e=>value.updateCart(idData)}> ADD TO BAG</button>
+                                <button className="btn bag-button mt-4"onClick={e=>value.updateWishlist(idData)}> ADD TO WISHLIST</button>
 
                             </div></> : null}
                 </div>

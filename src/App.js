@@ -15,7 +15,7 @@ import Login from './components/login'
 import Forgotpassword from './components/forgotpassword';
 import Wishlist from './components/wishlist';
 import Toast from 'react-bootstrap/Toast'
-import Cart from './components/cart';
+import Carts from './components/cart';
 
 export const ProductContext = React.createContext()
 
@@ -28,6 +28,7 @@ function App() {
   const [searchValue, setsearchValue] = useState();
   const [userData, setuserData] = useState()
   const [Wishlists, setWishlist] = useState([])
+  const [Cart, setCart] = useState([]);
   const [myToken, setMyToken] = useState(localStorage.getItem('token'));
   const [showToast, setshowToast] = useState({show:false,message:""})
 
@@ -40,6 +41,7 @@ function App() {
       .then((res) => {
         setuserData(res.data.user);
         setWishlist(res.data.user[0].WISHLIST)
+        setCart(res.data.user[0].CART);
       })
       .catch((err) => {
         console.log(err);
@@ -74,7 +76,28 @@ function App() {
       })
   }
 
+  const updateCart = (product) => {
+    let temp = Cart
+    let index = Cart.findIndex(p => p._id === product._id)
+    if (index === -1) {
+      temp.push(product)
+      setshowToast({show:true,message:"Item added to cart"})
+    }
+    else {
+      temp.splice(index, 1)
+      setshowToast({show:true,message:"Item removed from cart"})
 
+    }
+    setCart(temp);
+
+    axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/updateCart?id=${userData[0]._id}`, temp)
+      .then((res) => {
+        console.log("Updated cart")
+      })
+      .catch((err) => {
+        alert("Sorry, there is an error");
+      })
+  }
 
   useEffect(() => {
 
@@ -122,7 +145,7 @@ function App() {
           <Toast.Body>{showToast.message}</Toast.Body>
         </Toast>
       </div>
-      <ProductContext.Provider value={{ updateToken: updateToken, search: search, searchValue: searchValue, count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts, authToken: authToken, userData: userData, Wishlist: Wishlists, updateWishlist: updateWishlist }}>
+      <ProductContext.Provider value={{ updateToken: updateToken, search: search, searchValue: searchValue, count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts, authToken: authToken, userData: userData, Wishlist: Wishlists, Cart: Cart,  updateWishlist: updateWishlist, updateCart: updateCart }}>
         <Router>
 
           <Switch>
@@ -134,7 +157,7 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/forgotpass" exact component={Forgotpassword} />
             <Route path="/wishlist" exact component={Wishlist} />
-            <Route path="/cart" exact component={Cart} />
+            <Route path="/cart" exact component={Carts} />
           </Switch>
         </Router>
       </ProductContext.Provider>
