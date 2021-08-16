@@ -15,6 +15,7 @@ import Login from './components/login'
 import Forgotpassword from './components/forgotpassword';
 import Wishlist from './components/wishlist';
 import Toast from 'react-bootstrap/Toast'
+import Cart from './components/cart';
 
 export const ProductContext = React.createContext()
 
@@ -133,6 +134,7 @@ function App() {
             <Route path="/login" exact component={Login} />
             <Route path="/forgotpass" exact component={Forgotpassword} />
             <Route path="/wishlist" exact component={Wishlist} />
+            <Route path="/cart" exact component={Cart} />
           </Switch>
         </Router>
       </ProductContext.Provider>
