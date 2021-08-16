@@ -47,6 +47,7 @@ function Carts()
                   
                    { myCart.map((product)=>{
                         let prodDes= value.extractData(product)
+                        let index1= value.Wishlist.findIndex( p=> p._id=== product._id)
                         return(
                             <tr>
                         <td>
@@ -70,8 +71,9 @@ function Carts()
 
                         </td>
                         <td>
-                        <button className="btn btn-sm btn-secondary " onClick={e=>value.updateCart(product)}> Move to Cart</button>
-                        <button className="btn  "> <XCircleFill className="Cart-icon" /></button>
+                        <button className="btn btn-sm btn-secondary " onClick={e=>value.updateWishlist(product)}> {index1 == -1? "ADD TO WISHLIST":"WISHLISTED ITEM" }</button>
+                        
+                        <button className="btn "  onClick={e=>value.updateCart(product)}> <XCircleFill className="Cart-icon" /></button>
                                                                      
                         </td>
                         </tr>
