@@ -42,7 +42,8 @@ function ProductDetails() {
 
     }, [id])
 
-    const axiosCalls = (productData) => {
+    const axiosCalls = (productData) => 
+    {
         //CATEGORY
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${productData.CATEGORY}`)
             .then((res) => {
@@ -74,9 +75,22 @@ function ProductDetails() {
         {
             console.log(err);
         })
-
-
+      
+       
     }
+
+    let index2 =-1;
+    if(idData)
+    {
+        index2 = value.Cart.findIndex(p => p._id === idData._id)
+    }
+    let index1 =-1;
+    if(idData)
+    {
+        index1 = value.Wishlist.findIndex(p => p._id === idData._id)
+    }
+    
+
     return (
         <div>
             <Navbar/>
@@ -142,8 +156,10 @@ function ProductDetails() {
                                     {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
                                 </div>
 
-                                <button className="btn bag-button mt-5" onClick={e=>value.updateCart(idData)}> ADD TO BAG</button>
-                                <button className="btn bag-button mt-4"onClick={e=>value.updateWishlist(idData)}> ADD TO WISHLIST</button>
+                                <button className="btn bag-button mt-5" onClick={e=>value.updateCart(idData)}> {index2 == -1? "ADD TO CART":" REMOVE FROM CART" } </button>
+                                
+                                <button className="btn bag-button mt-4"onClick={e=>value.updateWishlist(idData)}>{index1 == -1? "ADD TO WISHLIST":"WISHLISTED ITEM" } </button>
+                                
 
                             </div></> : null}
                 </div>

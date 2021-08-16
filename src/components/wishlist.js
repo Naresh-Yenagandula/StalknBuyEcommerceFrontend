@@ -20,6 +20,8 @@ function Wishlist()
         setmyWishlist(temp);
         value.updateWishlist(product);
     }
+
+   
     return (
      <div className="">
          <Navbar/>
@@ -30,6 +32,8 @@ function Wishlist()
                             {myWishlist ?
                                 myWishlist.map((product) => {
                                     let obj = value.extractData(product);
+                                    let index2 = value.Cart.findIndex(p => p._id === product._id);
+                                    
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
@@ -68,7 +72,7 @@ function Wishlist()
                                                     
                                             
                                                 </div>
-                                                <div className="d-grid" > <button className="btn bag-button " style={{width:"100%"}}>ADD TO BAG</button></div>
+                                                <div className="d-grid" > <button className="btn bag-button " style={{width:"100%"}} onClick={e => value.updateCart(product)}>{index2==-1? "ADD TO CART": "REMOVE FROM CART"}</button></div>
                                             </div>
                                         </div>
                                         
