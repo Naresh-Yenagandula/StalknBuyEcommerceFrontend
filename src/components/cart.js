@@ -19,13 +19,17 @@ function Carts()
     return (
         <div>
             <Navbar/>
-            <div className="mt-5 mb-5"><h3>Shopping Cart</h3></div>
-            <div className="container">
+            <div className="bg-light py-4">
+                <div className="container">
+                <h3>Shopping Cart</h3>
+                </div>
+            </div>
+            <div className="container mt-5">
                 {
                       myCart ?
                 <div className="row">
                     <div className="col-md-8 border">
-                    <table className="table">
+                    <table className="table table-borderless p-3">
                         <colgroup>
                         <col />
                         <col style={{width:"150px"}}/>
