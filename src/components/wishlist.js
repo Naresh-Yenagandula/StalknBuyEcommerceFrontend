@@ -20,7 +20,11 @@ function Wishlist()
         setmyWishlist(temp);
         value.updateWishlist(product);
     }
-
+   const moveToCart = (product)=>
+   {
+       value.updateWishlist(product)
+       value.updateCart(product)
+   }
    
     return (
      <div className="">
@@ -72,7 +76,7 @@ function Wishlist()
                                                     
                                             
                                                 </div>
-                                                <div className="d-grid" > <button className="btn bag-button " style={{width:"100%"}} onClick={e => value.updateCart(product)}>{index2==-1? "ADD TO CART": "REMOVE FROM CART"}</button></div>
+                                                <div className="d-grid" > <button className="btn bag-button " style={{width:"100%"}} onClick={e => moveToCart(product)}>ADD TO CART</button></div>
                                             </div>
                                         </div>
                                         
