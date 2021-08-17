@@ -9,16 +9,24 @@ function Carts()
 {
     const value = useContext(ProductContext)
     const [myCart, setmyCart] = useState();
-    useEffect(() => {
+
+    useEffect(() => 
+    {
         console.log(value.Cart);
         //console.log(myCart);
         setmyCart(value.Cart)
     }, [value.Cart])
    
+    const moveToWishList = (product) =>
+    {
+        value.updateWishlist(product);
+        value.updateCart(product);
+    }
 
     return (
         <div>
             <Navbar/>
+
             <div className="bg-light py-4">
                 <div className="container">
                 <h3>Shopping Cart</h3>
@@ -47,10 +55,10 @@ function Carts()
                   
                    { myCart.map((product)=>{
                         let prodDes= value.extractData(product)
-                        let index1= value.Wishlist.findIndex( p=> p._id=== product._id)
+                        let index1 = value.Wishlist.findIndex( p => p._id=== product._id)
                         return(
                             <tr>
-                        <td>
+                           <td>
                             <div className="float-start ms-3 me-5">
                                 <img src={product.IMAGE} height="100px" width="75px"/>
                             </div>
@@ -71,10 +79,11 @@ function Carts()
 
                         </td>
                         <td>
-                        <button className="btn btn-sm btn-secondary " onClick={e=>value.updateWishlist(product)}> {index1 == -1? "ADD TO WISHLIST":"WISHLISTED ITEM" }</button>
-                        
-                        <button className="btn "  onClick={e=>value.updateCart(product)}> <XCircleFill className="Cart-icon" /></button>
-                                                                     
+                            {index1 ==-1 ?<button className="btn btn-sm btn-secondary " onClick={e=> moveToWishList(product)}><small>ADD TO WISHLIST</small></button> : null}
+                                                                    
+                        </td>
+                        <td>
+                            <button className="btn "  onClick={e=>value.updateCart(product)}> <XCircleFill className="Cart-icon" /></button>
                         </td>
                         </tr>
                         )
