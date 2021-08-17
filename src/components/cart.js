@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import Navbar from './navbar'
 import {XCircleFill } from 'react-bootstrap-icons'
 import {ProductContext} from '../App'
+import axios from 'axios'
 
 
 
@@ -9,6 +10,7 @@ function Carts()
 {
     const value = useContext(ProductContext)
     const [myCart, setmyCart] = useState();
+    let TotalPrice=0
 
     useEffect(() => 
     {
@@ -19,8 +21,32 @@ function Carts()
    
     const moveToWishList = (product) =>
     {
+        product['QTY']=1
+        console.log(product)
         value.updateWishlist(product);
         value.updateCart(product);
+    }
+      
+    const quantityPrice=(product,quantity)=>{
+        let temp=[]
+        myCart.map((p)=>{
+            if(p._id===product._id)
+            {
+                p['QTY']=quantity
+                
+            }
+            temp.push(p)
+        })
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/updateCart?id=${value.userData[0]._id}`, temp)
+        .then((res) => {
+          value.updateCartQuantity(temp)
+        })
+        .catch((err) => {
+          alert("Sorry, there is an error");
+        })
+    
+        setmyCart(temp)
+
     }
 
     return (
@@ -54,7 +80,12 @@ function Carts()
                     
                   
                    { myCart.map((product)=>{
-                        let prodDes= value.extractData(product)
+                       
+                        TotalPrice+=(product.QTY*product.PRICE)
+                        console.log(TotalPrice)
+                       
+                       
+                         let prodDes= value.extractData(product)
                         let index1 = value.Wishlist.findIndex( p => p._id=== product._id)
                         return(
                             <tr>
@@ -64,18 +95,19 @@ function Carts()
                             </div>
                             <div className="float-right">
                                 <h6>{product.BRAND}</h6>
-                               <p>{prodDes.desc}</p>
+                                <p>{prodDes.desc}</p> 
                             </div>
                         </td>
                         <td>
                             <div>
                                 
-                                <input  defaultValue="1" type="number" className="w-50 form-control" min="1" />
+                                <input  onChange={e=>quantityPrice(product,e.target.value)}  defaultValue="1" value={product.QTY} type="number" className="w-50 form-control" min="1" />
                                 
                             </div>
                         </td>
+                        {console.log(product.QTY)}
                         <td className="pe-5 ">
-                            {product.PRICE} 
+                          {product.QTY*product.PRICE} 
 
                         </td>
                         <td>
@@ -92,16 +124,11 @@ function Carts()
                 }
                 </tbody>
 
-                <tfoot className="float-end">
-                    <tr >
-                        <th >
-                            Total= 555424
-                        </th>
-                    </tr>
-                </tfoot>
+             
                 
                 
             </table>
+          
                     </div >
                     <div className="col-md-4 ">
                         <div className="border p-3">
@@ -119,9 +146,13 @@ function Carts()
                                 <button className="btn btn-dark "  type="submit">Apply</button>
                             </div>
                             <div className="border p-3" >
-                                <p>Total Price=12545</p>
+                                
+                                <p>Total Price={TotalPrice}
+                                    
+                                </p>
+
                                 <p>Discount=10000</p>
-                                <p>Net=2545</p>
+                                <p>Net Price={TotalPrice-500}</p>
                         </div>
 
                         </div>

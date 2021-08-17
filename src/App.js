@@ -98,6 +98,10 @@ function App() {
         alert("Sorry, there is an error");
       })
   }
+  const updateCartQuantity=(product)=>{
+    setCart(product)
+
+  }
 
   useEffect(() => {
 
@@ -145,7 +149,7 @@ function App() {
           <Toast.Body>{showToast.message}</Toast.Body>
         </Toast>
       </div>
-      <ProductContext.Provider value={{ updateToken: updateToken, search: search, searchValue: searchValue, count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts, authToken: authToken, userData: userData, Wishlist: Wishlists, Cart: Cart,  updateWishlist: updateWishlist, updateCart: updateCart }}>
+      <ProductContext.Provider value={{ updateToken: updateToken, search: search, searchValue: searchValue, count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts, authToken: authToken, userData: userData, Wishlist: Wishlists, Cart: Cart,  updateWishlist: updateWishlist, updateCart: updateCart, updateCartQuantity:updateCartQuantity}}>
         <Router>
 
           <Switch>
