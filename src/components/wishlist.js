@@ -9,9 +9,14 @@ function Wishlist()
  {
     const value=useContext(ProductContext)
     
-    const [myWishlist, setmyWishlist] = useState();
+    const [myWishlist, setmyWishlist] = useState([]);
+    const [message, setMessage] = useState(true)
     useEffect(() => {
         setmyWishlist(value.Wishlist)
+        if(value.Wishlist.length >0)
+        {
+            setMessage(false);
+        }
     }, [value.Wishlist])
    
     const updateProducts = (product)=>
@@ -33,7 +38,7 @@ function Wishlist()
         <div className="container">
             <h3 className="mt-4">My Wishlist</h3>
               <div className="row mt-3 row-cols-4">
-                            {myWishlist ?
+                            {myWishlist.length>0 ?
                                 myWishlist.map((product) => {
                                     let obj = value.extractData(product);
                                     let index2 = value.Cart.findIndex(p => p._id === product._id);
@@ -82,9 +87,12 @@ function Wishlist()
                                         
 
                                     )
-                                }) : null}
+                                }) : null }
 
-                        </div>
+             </div>
+             <div>
+                 {message?<h4><center>You have an empty wishlist.</center></h4>:null}
+             </div>
         </div>
      </div>
     )

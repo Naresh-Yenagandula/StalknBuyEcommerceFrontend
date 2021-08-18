@@ -9,7 +9,7 @@ import axios from 'axios'
 function Carts() 
 {
     const value = useContext(ProductContext)
-    const [myCart, setmyCart] = useState();
+    const [myCart, setmyCart] = useState([]);
     const [discountPrice, setDiscountPrice] = useState(0);
     const [afterDisc, setAfterDisc] = useState(0)
     let TotalPrice=0;
@@ -70,7 +70,7 @@ function Carts()
             </div>
             <div className="container mt-5">
                 {
-                      myCart ?
+                      myCart.length >0 ?
                 <div className="row">
                     <div className="col-md-8 border">
                     <table className="table table-borderless p-3">
@@ -170,7 +170,7 @@ function Carts()
                         </div>
                     </div>
                 </div>
-                :null}
+                : <h4><center> Your Cart seems to be empty! </center></h4>}
             </div>
 
             
