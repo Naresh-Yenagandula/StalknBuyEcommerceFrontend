@@ -10,7 +10,10 @@ function Carts()
 {
     const value = useContext(ProductContext)
     const [myCart, setmyCart] = useState();
-    let TotalPrice=0
+    const [discountPrice, setDiscountPrice] = useState(0);
+    const [afterDisc, setAfterDisc] = useState(0)
+    let TotalPrice=0;
+    
 
     useEffect(() => 
     {
@@ -36,6 +39,9 @@ function Carts()
                 
             }
             temp.push(p)
+            setDiscountPrice(0);
+            setAfterDisc(0);
+            document.getElementById("coupon").value = "Select coupon code"
         })
         axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/updateCart?id=${value.userData[0]._id}`, temp)
         .then((res) => {
@@ -49,6 +55,10 @@ function Carts()
 
     }
 
+    const discount = (offValue)=>
+    {
+        setAfterDisc((offValue*TotalPrice)/100)
+    }
     return (
         <div>
             <Navbar/>
@@ -133,26 +143,28 @@ function Carts()
                     <div className="col-md-4 ">
                         <div className="border p-3">
                         <div className="input-group mb-5   ">
-                        <select class="form-select  " aria-label="Default select example">
-                                <option selected>Select Coupun Code</option>
-                                <option value="1">LAXMINARAYANJI10</option>
-                                <option value="2">RANAJI20</option>
-                                <option value="3">JAINSAHAB20</option>
-                                <option value="4">GURUJI50</option>
-                                <option value="5">GUPTAJI100</option>
-                                 <option value="6">GARGSAHAB20</option>
-                                 <option value="7">BHATTSAHAB20</option>
-                                </select>
-                                <button className="btn btn-dark "  type="submit">Apply</button>
+                            <select  id="coupon" class="form-select" aria-label="Default select example" onChange={e=> setDiscountPrice(e.target.value)}>
+                                <option value = "Select coupon code" selected disabled> Select Coupon Code </option>
+                                <option value="5" disabled={!(TotalPrice>= 900 && TotalPrice<1000)}>BHATTSAHAB5</option>
+                                <option value="10" disabled={!(TotalPrice>= 1200 && TotalPrice< 2000)}>LAXMINARAYANJI10</option>
+                                <option value="20" disabled={!(TotalPrice>=2000 && TotalPrice<2500)}>RANAJI20 </option>
+                                <option value="30" disabled={!(TotalPrice>=2500 &&TotalPrice<5000)} >JAINSAHAB30</option>
+                                <option value="40" disabled={!(TotalPrice>=5000 &&TotalPrice<7000)}>GURUJI40</option>
+                                <option value="50" disabled={!(TotalPrice>=7000 &&TotalPrice<8000)}>GUPTAJI50</option>
+                                <option value="60" disabled={!(TotalPrice>=8000 &&TotalPrice<20000)}>GARGSAHAB60</option>
+                            </select>
+                                <button className="btn btn-dark "  type="submit" onClick={e=>discount(discountPrice)}>Apply</button>
                             </div>
                             <div className="border p-3" >
                                 
-                                <p>Total Price={TotalPrice}
-                                    
+                                <p>
+                                    Total Price={TotalPrice}    
                                 </p>
 
-                                <p>Discount=10000</p>
-                                <p>Net Price={TotalPrice-500}</p>
+                                <p>
+                                    Discount = {afterDisc}
+                                </p>
+                                <p>Net Price={TotalPrice- afterDisc}</p>
                         </div>
 
                         </div>
