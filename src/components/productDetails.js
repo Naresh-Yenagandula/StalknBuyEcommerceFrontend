@@ -6,7 +6,7 @@ import { Star, StarFill, SuitHeartFill } from 'react-bootstrap-icons';
 import Navbar from './navbar';
 
 
-function ProductDetails() {
+function ProductDetails(props) {
     const value = useContext(ProductContext)
     const { id } = useParams();
     const [idData, setidData] = useState()
@@ -28,14 +28,7 @@ function ProductDetails() {
                 .catch((err) => {
                     console.log(err);
                 })
-        // }
-        // else {
-        //     const productData = await value.FilterProducts.filter(e => { return e.PRODUCT_ID === parseInt(id) })
-        //     setidData(productData[0])
-        //     //console.log(idData)
-        //     //console.log(productData);
-        //     axiosCalls(productData[0])
-        // }
+     
 
         console.log(idData);
 
@@ -156,9 +149,9 @@ function ProductDetails() {
                                     {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
                                 </div>
 
-                                <button className="btn bag-button mt-5" onClick={e=>value.updateCart(idData)}> {index2 == -1? "ADD TO CART":" REMOVE FROM CART" } </button>
+                                <button className="btn bag-button mt-5" onClick={e=>value.Auth?value.updateCart(idData):props.history.push('/login')}> {index2 == -1? "ADD TO CART":" REMOVE FROM CART" } </button>
                                 
-                                <button className="btn bag-button mt-4"onClick={e=>value.updateWishlist(idData)}>{index1 == -1? "ADD TO WISHLIST":"WISHLISTED ITEM" } </button>
+                                <button className="btn bag-button mt-4"onClick={e=>value.Auth?value.updateWishlist(idData):props.history.push('/login')}>{index1 == -1? "ADD TO WISHLIST":"WISHLISTED ITEM" } </button>
                                 
 
                             </div></> : null}

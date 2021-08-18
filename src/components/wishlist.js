@@ -5,13 +5,17 @@ import { ProductContext } from '../App';
 import { Star, StarFill,XCircleFill} from 'react-bootstrap-icons';
 
 
-function Wishlist()
+function Wishlist(props)
  {
     const value=useContext(ProductContext)
     
     const [myWishlist, setmyWishlist] = useState([]);
     const [message, setMessage] = useState(true)
     useEffect(() => {
+        if(!(value.Auth))
+        {
+           props.history.push('/login')
+        }
         setmyWishlist(value.Wishlist)
         if(value.Wishlist.length >0)
         {

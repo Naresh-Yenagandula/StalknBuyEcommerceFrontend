@@ -4,7 +4,7 @@ import { StarFill, Star, SuitHeartFill } from 'react-bootstrap-icons'
 import { ProductContext } from '../App';
 import Navbar from './navbar';
 
-function HomePage() {
+function HomePage(props) {
     const [modalData, setmodalData] = useState()
     const value = useContext(ProductContext)
     const [count, setCount] = useState([1, 2, 3, 4, 5]);
@@ -115,8 +115,9 @@ function HomePage() {
                                                 <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
-                                                <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button>
-
+                                                {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
+                                                 
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -160,8 +161,9 @@ function HomePage() {
                                                 <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
-                                                <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button>
-
+                                                {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
+                                                
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -206,8 +208,9 @@ function HomePage() {
                                                 <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
-                                                <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button>
-
+                                                {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
+                                                   
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -274,8 +277,9 @@ function HomePage() {
                                                 <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
-                                                <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button>
-
+                                                {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
+                                                 
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -320,8 +324,9 @@ function HomePage() {
                                                 <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
-                                                <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button>
-
+                                                {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
+                                                
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -367,8 +372,9 @@ function HomePage() {
                                                 <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
-                                                <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button>
-
+                                                {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
+                                                 
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />

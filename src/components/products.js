@@ -216,7 +216,19 @@ function Products(props) {
     const pageChange = ({ selected: current }) => {
         setcurrPage(current);
     }
+    
+    let index2=-1;
+        if(modalData)
 
+    {
+        index2=value.Cart.findIndex(p=>p._id===modalData._id)
+    }
+
+    
+
+    
+   
+    
     return (
         <div>
             <Navbar></Navbar>
@@ -247,8 +259,11 @@ function Products(props) {
                                                     <button className="btn btn-secondary rounded-circle size-button">XL</button>
                                                     {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
                                                 </div>
-
-                                                <button className="btn bag-button mt-5">ADD TO BAG</button>
+{/* 
+                                                <button className="btn bag-button mt-5">ADD TO BAG</button> */}
+                                                <button className="btn bag-button mt-5" onClick={e=>value.updateCart(modalData)}> {index2 == -1? "ADD TO CART":" REMOVE FROM CART" } </button>
+                                
+                                {/* <button className="btn bag-button mt-4"onClick={e=>value.updateWishlist(modalData)}>{index1 == -1? "ADD TO WISHLIST":"WISHLISTED ITEM" } </button> */}
 
                                                 <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4" data-bs-dismiss="modal">PRODUCT DETAILS</button> </Link>
                                             </div></> : null}
@@ -623,7 +638,7 @@ function Products(props) {
                                                     <strong>Quick Look</strong>
                                                 </button>
                                                 {index===-1?
-                                                <button className="btn btn-sm wishlist" onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button>
+                                                <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
                                                 :<button className="btn btn-sm wishlist " onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>}
                                                 
                                                 <div className="card-body" style={{ height: "120px" }}>

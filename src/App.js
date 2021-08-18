@@ -5,7 +5,7 @@ import Footer from './components/footer';
 import Navbar from './components/navbar';
 import HomePage from './components/homePage';
 import Products from './components/products';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route,useHistory } from 'react-router-dom';
 import ProductDetails from './components/productDetails';
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
@@ -16,6 +16,7 @@ import Forgotpassword from './components/forgotpassword';
 import Wishlist from './components/wishlist';
 import Toast from 'react-bootstrap/Toast'
 import Carts from './components/cart';
+
 
 export const ProductContext = React.createContext()
 
@@ -29,8 +30,10 @@ function App() {
   const [userData, setuserData] = useState()
   const [Wishlists, setWishlist] = useState([])
   const [Cart, setCart] = useState([]);
+  const [Auth, setAuth] = useState(false);
   const [myToken, setMyToken] = useState(localStorage.getItem('token'));
   const [showToast, setshowToast] = useState({show:false,message:""})
+ 
 
   const search = (searchValue, e) => {
     // e.preventDefault();
@@ -42,6 +45,7 @@ function App() {
         setuserData(res.data.user);
         setWishlist(res.data.user[0].WISHLIST)
         setCart(res.data.user[0].CART);
+        setAuth(true)
       })
       .catch((err) => {
         console.log(err);
@@ -54,6 +58,7 @@ function App() {
   }
 
   const updateWishlist = (product) => {
+   
     let temp = Wishlists
     let index = Wishlists.findIndex(p => p._id === product._id)
     if (index === -1) {
@@ -144,12 +149,12 @@ function App() {
 
   return (
     <div className="App">
-      <div className="toast-container position-fixed top-10 end-1" style={{zIndex:"1000"}}>
+      <div className="toast-container position-fixed top-10 end-1" style={{zIndex:"1000000000"}}>
         <Toast className="bg-success text-light" onClose={e => setshowToast({...showToast,show:false})} delay={3000} show={showToast.show} autohide>
           <Toast.Body>{showToast.message}</Toast.Body>
         </Toast>
       </div>
-      <ProductContext.Provider value={{ updateToken: updateToken, search: search, searchValue: searchValue, count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts, authToken: authToken, userData: userData, Wishlist: Wishlists, Cart: Cart,  updateWishlist: updateWishlist, updateCart: updateCart, updateCartQuantity:updateCartQuantity}}>
+      <ProductContext.Provider value={{ updateToken: updateToken, search: search, searchValue: searchValue, count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts, authToken: authToken, userData: userData, Wishlist: Wishlists, Cart: Cart,  updateWishlist: updateWishlist, updateCart: updateCart, updateCartQuantity:updateCartQuantity ,Auth:Auth}}>
         <Router>
 
           <Switch>

@@ -6,7 +6,7 @@ import axios from 'axios'
 
 
 
-function Carts() 
+function Carts(props) 
 {
     const value = useContext(ProductContext)
     const [myCart, setmyCart] = useState([]);
@@ -17,9 +17,15 @@ function Carts()
 
     useEffect(() => 
     {
-        console.log(value.Cart);
-        //console.log(myCart);
+        // console.log(value.Cart);
+        // //console.log(myCart);
+        if(!(value.Auth))
+        {
+           props.history.push('/login')
+        }
+
         setmyCart(value.Cart)
+
     }, [value.Cart])
    
     const moveToWishList = (product) =>
@@ -145,13 +151,13 @@ function Carts()
                         <div className="input-group mb-5   ">
                             <select  id="coupon" class="form-select" aria-label="Default select example" onChange={e=> setDiscountPrice(e.target.value)}>
                                 <option value = "Select coupon code" selected disabled> Select Coupon Code </option>
-                                <option value="5" disabled={!(TotalPrice>= 900 && TotalPrice<1000)}>BHATTSAHAB5</option>
-                                <option value="10" disabled={!(TotalPrice>= 1200 && TotalPrice< 2000)}>LAXMINARAYANJI10</option>
-                                <option value="20" disabled={!(TotalPrice>=2000 && TotalPrice<2500)}>RANAJI20 </option>
-                                <option value="30" disabled={!(TotalPrice>=2500 &&TotalPrice<5000)} >JAINSAHAB30</option>
-                                <option value="40" disabled={!(TotalPrice>=5000 &&TotalPrice<7000)}>GURUJI40</option>
-                                <option value="50" disabled={!(TotalPrice>=7000 &&TotalPrice<8000)}>GUPTAJI50</option>
-                                <option value="60" disabled={!(TotalPrice>=8000 &&TotalPrice<20000)}>GARGSAHAB60</option>
+                                <option value="5" disabled={!(TotalPrice>= 9000 && TotalPrice<10000)}>BHATTSAHAB5</option>
+                                <option value="10" disabled={!(TotalPrice>= 12000 && TotalPrice< 20000)}>LAXMINARAYANJI10</option>
+                                <option value="20" disabled={!(TotalPrice>=20000 && TotalPrice<25000)}>RANAJI20 </option>
+                                <option value="30" disabled={!(TotalPrice>=25000 &&TotalPrice<50000)} >JAINSAHAB30</option>
+                                <option value="40" disabled={!(TotalPrice>=50000 &&TotalPrice<70000)}>GURUJI40</option>
+                                <option value="50" disabled={!(TotalPrice>=70000 &&TotalPrice<80000)}>GUPTAJI50</option>
+                                <option value="60" disabled={!(TotalPrice>=80000 &&TotalPrice<100000000000000)}>GARGSAHAB60</option>
                             </select>
                                 <button className="btn btn-dark "  type="submit" onClick={e=>discount(discountPrice)}>Apply</button>
                             </div>
