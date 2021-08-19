@@ -198,8 +198,9 @@ function Products(props) {
         //console.log(category,color,brand,fabric,price);
         setcurrPage(0)
         let strURL = `?category=${category.join(",")}&price=${minmaxPrice.join(',')}&size=${Size.join(",")}&fab=${fabric.join(",")}&color=${color.join(",")}&brand=${brand.join(",")}`
+        
         setURL(strURL);
-        props.history.push(strURL);
+        props.history.push(strURL);   
 
     }
 

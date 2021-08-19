@@ -67,7 +67,7 @@ const Navbar = () =>
                             <Link to="/wishlist" className="position-relative ">
                                 <SuitHeart className="fs-4" />
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    1
+                                    {value.Wishlist.length} 
                                     <span class="visually-hidden">unread messages</span>
                                 </span>
                             </Link>
@@ -75,7 +75,7 @@ const Navbar = () =>
                             <Link to="/cart" className="position-relative">
                             <Cart className="fs-4"/>
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    1
+                                    {value.Cart.length} 
                                     <span class="visually-hidden">unread messages</span>
                                 </span>
                             

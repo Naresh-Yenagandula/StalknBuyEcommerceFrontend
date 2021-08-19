@@ -172,7 +172,11 @@ function Carts(props)
                                 </p>
                                 <p>Net Price={TotalPrice- afterDisc}</p>
                         </div>
+                        
 
+                        </div>
+                        <div>
+                        <button className="btn btn-primary "  type="submit">BUY NOW</button>
                         </div>
                     </div>
                 </div>
