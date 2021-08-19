@@ -33,6 +33,7 @@ function App() {
   const [Auth, setAuth] = useState(false);
   const [myToken, setMyToken] = useState(localStorage.getItem('token'));
   const [showToast, setshowToast] = useState({show:false,message:""})
+  const [loading, setloading] = useState(true)
  
 
   const search = (searchValue, e) => {
@@ -46,9 +47,11 @@ function App() {
         setWishlist(res.data.user[0].WISHLIST)
         setCart(res.data.user[0].CART);
         setAuth(true)
+        setloading(false)
       })
       .catch((err) => {
         console.log(err);
+        setloading(false)
       })
   }, [myToken]);
 
@@ -146,6 +149,14 @@ function App() {
   const setFilterProductData = (data) => {
     setFilterProducts(data)
   }
+  if(loading){
+    return(
+      <div>loading..</div>
+    )
+  }
+  else{
+
+  
 
   return (
     <div className="App">
@@ -173,6 +184,7 @@ function App() {
       <Footer />
     </div>
   );
+  }
 }
 
 export default App;

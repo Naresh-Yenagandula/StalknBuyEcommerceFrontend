@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <div className="d-flex justify-content-between align-items-center px-4 pt-3 ">
+        <div className="d-flex justify-content-between align-items-center px-4 pt-3 fixed-bottom">
                 <p>
                     Terms and Conditions
                 </p>

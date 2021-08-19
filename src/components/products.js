@@ -639,7 +639,8 @@ function Products(props) {
                                                 </button>
                                                 {index===-1?
                                                 <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
-                                                :<button className="btn btn-sm wishlist " onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>}
+                                                :<button className="btn btn-sm wishlist " onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>
+                                                }
                                                 
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">

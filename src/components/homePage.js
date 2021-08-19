@@ -8,6 +8,12 @@ function HomePage(props) {
     const [modalData, setmodalData] = useState()
     const value = useContext(ProductContext)
     const [count, setCount] = useState([1, 2, 3, 4, 5]);
+    let index2=-1;
+    if(modalData)
+
+{
+    index2=value.Cart.findIndex(p=>p._id===modalData._id)
+}
 
     return (
         <>
@@ -39,7 +45,9 @@ function HomePage(props) {
                                                     {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
                                                 </div>
 
-                                                <button className="btn bag-button mt-5">ADD TO BAG</button>
+                                                
+                                                <button className="btn bag-button mt-5" onClick={e=>value.updateCart(modalData)}> {index2 == -1? "ADD TO CART":" REMOVE FROM CART" } </button>
+
 
                                                 <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4" data-bs-dismiss="modal">PRODUCT DETAILS</button> </Link>
                                             </div></> : null}
@@ -108,6 +116,7 @@ function HomePage(props) {
                             {value.popularProducts ?
                                 value.popularProducts.slice(0, 4).map((product) => {
                                     let obj = value.extractData(product);
+                                    const index= value.Wishlist.findIndex(p=>p._id===product._id)
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
@@ -116,8 +125,11 @@ function HomePage(props) {
                                                     <strong>Quick Look</strong>
                                                 </button>
                                                 {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {/* <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {index===-1?
                                                 <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
-                                                 
+                                                :<button className="btn btn-sm wishlist " onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>
+                                                }
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -154,6 +166,7 @@ function HomePage(props) {
                             {value.popularProducts ?
                                 value.popularProducts.slice(5, 9).map((product) => {
                                     let obj = value.extractData(product);
+                                    const index= value.Wishlist.findIndex(p=>p._id===product._id)
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
@@ -162,8 +175,11 @@ function HomePage(props) {
                                                     <strong>Quick Look</strong>
                                                 </button>
                                                 {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {/* <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {index===-1?
                                                 <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
-                                                
+                                                :<button className="btn btn-sm wishlist " onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>
+                                                }
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -201,6 +217,7 @@ function HomePage(props) {
                             {value.popularProducts ?
                                 value.popularProducts.slice(10, 14).map((product) => {
                                     let obj = value.extractData(product);
+                                    const index= value.Wishlist.findIndex(p=>p._id===product._id)
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
@@ -209,8 +226,11 @@ function HomePage(props) {
                                                     <strong>Quick Look</strong>
                                                 </button>
                                                 {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {/* <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {index===-1?
                                                 <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
-                                                   
+                                                :<button className="btn btn-sm wishlist " onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>
+                                                }
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -270,6 +290,7 @@ function HomePage(props) {
                             {value.newProducts ?
                                 value.newProducts.slice(0, 4).map((product) => {
                                     let obj = value.extractData(product);
+                                    const index= value.Wishlist.findIndex(p=>p._id===product._id)
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
@@ -278,8 +299,11 @@ function HomePage(props) {
                                                     <strong>Quick Look</strong>
                                                 </button>
                                                 {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {/* <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {index===-1?
                                                 <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
-                                                 
+                                                :<button className="btn btn-sm wishlist " onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>
+                                                } 
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -317,6 +341,7 @@ function HomePage(props) {
                             {value.newProducts ?
                                 value.newProducts.slice(5, 9).map((product) => {
                                     let obj = value.extractData(product);
+                                    const index= value.Wishlist.findIndex(p=>p._id===product._id)
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
@@ -325,8 +350,11 @@ function HomePage(props) {
                                                     <strong>Quick Look</strong>
                                                 </button>
                                                 {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {/* <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {index===-1?
                                                 <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
-                                                
+                                                :<button className="btn btn-sm wishlist " onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>
+                                                }
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
@@ -365,6 +393,7 @@ function HomePage(props) {
                             {value.newProducts ?
                                 value.newProducts.slice(10, 14).map((product) => {
                                     let obj = value.extractData(product);
+                                    const index= value.Wishlist.findIndex(p=>p._id===product._id)
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
@@ -373,8 +402,11 @@ function HomePage(props) {
                                                     <strong>Quick Look</strong>
                                                 </button>
                                                 {/* <button className="btn btn-sm wishlist" onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {/* <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button> */}
+                                                {index===-1?
                                                 <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
-                                                 
+                                                :<button className="btn btn-sm wishlist " onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>
+                                                }
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />
