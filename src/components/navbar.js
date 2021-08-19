@@ -35,7 +35,7 @@ const Navbar = () =>
                                 <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuLink">
                                     <div className="px-3">
                                         <small> <b>Welcome</b> </small> <br/>
-                                        {!localStorage.getItem('token')?
+                                        {!value.Auth?
                                             <>
                                                 <small>To access account and manage orders</small><br />
                                                 <Link to="/login"><button className="btn btn-outline-warning mt-3">Login / SignUp</button></Link>
@@ -49,7 +49,7 @@ const Navbar = () =>
                                     <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li><a class="dropdown-item" href="#">Another action</a></li>
                                     <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                    {localStorage.getItem('token')?
+                                    {value.Auth?
                                         <div className="d-grid">
                                         <button className="btn btn-outline-warning btn-sm mt-3" onClick={logout}>Logout</button>
                                         </div>
