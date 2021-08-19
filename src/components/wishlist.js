@@ -36,7 +36,7 @@ function Wishlist(props)
    }
    
     return (
-     <div className="">
+     <div className="fbottom">
          <Navbar/>
          {/* <button onClick={e=> console.log(value.Wishlist)}> HI </button> */}
         <div className="container">

@@ -132,3 +132,6 @@ body::-webkit-scrollbar-thumb{
 .scroll{
     height: 100px;
 }
+.fbottom{
+    min-height: 90vh;
+}

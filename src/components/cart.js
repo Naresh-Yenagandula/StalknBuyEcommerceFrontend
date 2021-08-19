@@ -66,7 +66,7 @@ function Carts(props)
         setAfterDisc((offValue*TotalPrice)/100)
     }
     return (
-        <div>
+        <div className="fbottom">
             <Navbar/>
 
             <div className="bg-light py-4">

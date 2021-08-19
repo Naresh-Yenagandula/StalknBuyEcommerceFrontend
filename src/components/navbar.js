@@ -20,7 +20,7 @@ const Navbar = () =>
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
             <div className="container-fluid">
-                <Link to="/" className="navbar-brand"><span>StalknBuy</span></Link>
+                <Link to="/" className="navbar-brand"><img src="images/logo.png" height="50px" width="75px" /></Link>
                 <div className="navbar-text float-end ">
                     <form className="d-flex " >
                             <div className="input-group me-5">
@@ -28,9 +28,14 @@ const Navbar = () =>
                                 <Link to="/product/search"><button className="btn btn-dark " onClick={e => value.search(searchValue, e)} type="submit"><Search /></button></Link>
                             </div>
 
-                            <div class="dropdown">
-                                <a class=" dropdown-toggle pe-4 fs-4" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <PersonCircle />
+                            <div class="dropdown  ">
+
+                                <a class=" dropdown-toggle position-relative" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <PersonCircle className="fs-4" />
+                                    
+                                    <span class={`position-absolute top-100 start-75 translate-middle p-2 ${!value.Auth?"bg-danger":"bg-success"} border border-light rounded-circle`}>
+                                    <span class="visually-hidden">New alerts</span>
+                                    </span>
                                 </a>
                                 <ul class="dropdown-menu shadow" aria-labelledby="dropdownMenuLink">
                                     <div className="px-3">
@@ -57,13 +62,23 @@ const Navbar = () =>
                                     }   
                                 </ul>
                             </div>
+                            <span className="pe-4"></span>
 
-                            <Link to="/wishlist" className="pe-4 fs-4">
-                                <SuitHeart />
+                            <Link to="/wishlist" className="position-relative ">
+                                <SuitHeart className="fs-4" />
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    1
+                                    <span class="visually-hidden">unread messages</span>
+                                </span>
                             </Link>
-
-                            <Link to="/cart" className="pe-4 fs-4">
-                                <Cart />
+                            <span className="pe-4"></span>
+                            <Link to="/cart" className="position-relative">
+                            <Cart className="fs-4"/>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    1
+                                    <span class="visually-hidden">unread messages</span>
+                                </span>
+                            
                             </Link>
 
                     </form>
