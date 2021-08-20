@@ -138,3 +138,6 @@ body::-webkit-scrollbar-thumb{
 .badge{
     font-size: x-small !important;
 }
+.rounded-circle{
+    padding: 5px;
+}

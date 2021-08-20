@@ -33,7 +33,7 @@ const Navbar = () =>
                                 <a class=" dropdown-toggle position-relative" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                     <PersonCircle className="fs-4" />
                                     
-                                    <span class={`position-absolute top-100 start-75 translate-middle p-2 ${!value.Auth?"bg-danger":"bg-success"} border border-light rounded-circle`}>
+                                    <span class={`position-absolute top-100 start-75 translate-middle ${!value.Auth?"bg-danger":"bg-success"} border border-light rounded-circle`}>
                                     <span class="visually-hidden">New alerts</span>
                                     </span>
                                 </a>
