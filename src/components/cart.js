@@ -3,7 +3,7 @@ import Navbar from './navbar'
 import { Rss, XCircleFill } from 'react-bootstrap-icons'
 import { ProductContext } from '../App'
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'; 
 
 
 function Carts(props) {
@@ -98,7 +98,7 @@ function Carts(props) {
                                                 <tr>
                                                     <td>
                                                         <div className="float-start ms-3 me-5">
-                                                            <img src={product.IMAGE} height="100px" width="75px" />
+                                                        <Link to={`/productDetails/${product.PRODUCT_ID}`}>   <img src={product.IMAGE} height="100px" width="75px" /> </Link>
                                                         </div>
                                                         <div className="float-right">
                                                             <h6>{product.BRAND}</h6>
