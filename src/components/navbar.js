@@ -66,18 +66,18 @@ const Navbar = () =>
 
                             <Link to="/wishlist" className="position-relative ">
                                 <SuitHeart className="fs-4" />
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                              {value.Auth?<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     {value.Wishlist.length} 
                                     <span class="visually-hidden">unread messages</span>
-                                </span>
+                                </span>:null}
                             </Link>
                             <span className="pe-4"></span>
                             <Link to="/cart" className="position-relative">
                             <Cart className="fs-4"/>
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                               { value.Auth?<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     {value.Cart.length} 
                                     <span class="visually-hidden">unread messages</span>
-                                </span>
+                                </span>:null}
                             
                             </Link>
 
