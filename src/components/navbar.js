@@ -76,7 +76,7 @@ const Navbar = () =>
                             <Cart className="fs-4"/>
                                { value.Auth?<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     {value.Cart.length} 
-                                    <span class="visually-hidden">unread messages</span>
+                                    <span class="visually-hidden">Unread Messages</span>
                                 </span>:null}
                             
                             </Link>
