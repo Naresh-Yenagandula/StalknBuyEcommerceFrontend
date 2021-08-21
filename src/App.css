@@ -121,7 +121,7 @@ body::-webkit-scrollbar-thumb{
     height: 90vh;
 }
 .dropdown-menu{
-    left: -1rem !important;
+    left: -2rem !important;
 }
 .top-10{
     top: 6rem;

@@ -57,7 +57,7 @@ function Products(props) {
         let sizeU = query.get("size")
         setData()
         setTotalProducts()
-         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/distinct`)
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/distinct`)
             .then((result) => {
                 setCategoryA(result.data.category);
                 setBrandA(result.data.brand);
@@ -67,7 +67,7 @@ function Products(props) {
             })
             .catch((e) => {
                 console.log(e)
-            })     
+            })
 
         axios.get(`${process.env.REACT_APP_BACKEND_URL}/product/categories?cat=${categoryU}&price=${priceU}&size=${sizeU}&brand=${brandU}&color=${colorU}&fab=${fabricU}&offset=${offset}&search=${value.searchValue}&sort=${popular},${sort}`) // backend url, not frontend url
             .then((res) => {
@@ -79,7 +79,7 @@ function Products(props) {
                 console.log(err);
             })
 
-    }, [url, offset, sort,value.searchValue]);
+    }, [url, offset, sort, value.searchValue]);
 
     const checkColor = (val) => {
         const ind = color.indexOf(val);
@@ -198,9 +198,9 @@ function Products(props) {
         //console.log(category,color,brand,fabric,price);
         setcurrPage(0)
         let strURL = `?category=${category.join(",")}&price=${minmaxPrice.join(',')}&size=${Size.join(",")}&fab=${fabric.join(",")}&color=${color.join(",")}&brand=${brand.join(",")}`
-        
+
         setURL(strURL);
-        props.history.push(strURL);   
+        props.history.push(strURL);
 
     }
 
@@ -217,19 +217,17 @@ function Products(props) {
     const pageChange = ({ selected: current }) => {
         setcurrPage(current);
     }
-    
-    let index2=-1;
-        if(modalData)
 
-    {
-        index2=value.Cart.findIndex(p=>p._id===modalData._id)
+    let index2 = -1;
+    if (modalData) {
+        index2 = value.Cart.findIndex(p => p._id === modalData._id)
     }
 
-    
 
-    
-   
-    
+
+
+
+
     return (
         <div>
             <Navbar></Navbar>
@@ -260,11 +258,11 @@ function Products(props) {
                                                     <button className="btn btn-secondary rounded-circle size-button">XL</button>
                                                     {/* <button className="btn btn-secondary rounded-circle size-button">XXL</button> */}
                                                 </div>
-{/* 
+                                                {/* 
                                                 <button className="btn bag-button mt-5">ADD TO BAG</button> */}
-                                                <button className="btn bag-button mt-5" onClick={e=>value.updateCart(modalData)}> {index2 == -1? "ADD TO CART":" REMOVE FROM CART" } </button>
-                                
-                                {/* <button className="btn bag-button mt-4"onClick={e=>value.updateWishlist(modalData)}>{index1 == -1? "ADD TO WISHLIST":"WISHLISTED ITEM" } </button> */}
+                                                <button className="btn bag-button mt-5" onClick={e => value.updateCart(modalData)}> {index2 == -1 ? "ADD TO CART" : " REMOVE FROM CART"} </button>
+
+                                                {/* <button className="btn bag-button mt-4"onClick={e=>value.updateWishlist(modalData)}>{index1 == -1? "ADD TO WISHLIST":"WISHLISTED ITEM" } </button> */}
 
                                                 <Link to={`/productDetails/${modalData.PRODUCT_ID}`}><button className="btn product-button mt-4" data-bs-dismiss="modal">PRODUCT DETAILS</button> </Link>
                                             </div></> : null}
@@ -629,7 +627,7 @@ function Products(props) {
                             {data ?
                                 data.map((product) => {
                                     let obj = value.extractData(product);
-                                    const index= value.Wishlist.findIndex(p=>p._id===product._id)
+                                    const index = value.Wishlist.findIndex(p => p._id === product._id)
                                     return (
                                         <div className="col mb-4" key={product.PRODUCT_ID}>
                                             <div className="card box-shadow">
@@ -638,11 +636,11 @@ function Products(props) {
                                                 <button type="button" className="btn  quick-look " data-bs-toggle="modal" onClick={(e) => setmodalData(product)} data-bs-target="#exampleModal" >
                                                     <strong>Quick Look</strong>
                                                 </button>
-                                                {index===-1?
-                                                <button className="btn btn-sm wishlist" onClick={e=>value.Auth?value.updateWishlist(product):props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
-                                                :<button className="btn btn-sm wishlist " onClick={e=>value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>
+                                                {index === -1 ?
+                                                    <button className="btn btn-sm wishlist" onClick={e => value.Auth ? value.updateWishlist(product) : props.history.push('/login')}> <SuitHeartFill className="wishlist-icon" /></button>
+                                                    : <button className="btn btn-sm wishlist " onClick={e => value.updateWishlist(product)}> <SuitHeartFill className="wishlist-icon wishlist-selected" /></button>
                                                 }
-                                                
+
                                                 <div className="card-body" style={{ height: "120px" }}>
                                                     <div className="card-body-section-one ">
                                                         <b style={{ paddingBottom: "1px" }}>{obj.brand}</b><br />

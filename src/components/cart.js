@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Navbar from './navbar'
-import { Rss, XCircleFill } from 'react-bootstrap-icons'
+import { XCircleFill } from 'react-bootstrap-icons'
 import { ProductContext } from '../App'
 import axios from 'axios'
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 
 function Carts(props) {
@@ -15,8 +15,6 @@ function Carts(props) {
 
 
     useEffect(() => {
-        // console.log(value.Cart);
-        // //console.log(myCart);
         if (!(value.Auth)) {
             props.history.push('/login')
         }
@@ -27,7 +25,6 @@ function Carts(props) {
 
     const moveToWishList = (product) => {
         product['QTY'] = 1
-        console.log(product)
         value.updateWishlist(product);
         value.updateCart(product);
     }
@@ -84,25 +81,23 @@ function Carts(props) {
                                         <th>Quantity</th>
                                         <th>Price</th>
                                         <th></th>
+                                        <th></th>
                                     </thead>
                                     <tbody>
                                         {myCart.map((product) => {
 
                                             TotalPrice += (product.QTY * product.PRICE)
-                                            console.log(TotalPrice)
-
-
                                             let prodDes = value.extractData(product)
                                             let index1 = value.Wishlist.findIndex(p => p._id === product._id)
                                             return (
                                                 <tr>
                                                     <td>
                                                         <div className="float-start ms-3 me-5">
-                                                        <Link to={`/productDetails/${product.PRODUCT_ID}`}>   <img src={product.IMAGE} height="100px" width="75px" /> </Link>
+                                                            <Link to={`/productDetails/${product.PRODUCT_ID}`}>   <img src={product.IMAGE} height="100px" width="75px" /> </Link>
                                                         </div>
                                                         <div className="float-right">
                                                             <h6>{product.BRAND}</h6>
-                                                            <p>{prodDes.desc}</p>
+                                                            <small>{prodDes.desc}</small>
                                                         </div>
                                                     </td>
                                                     <td>
@@ -112,7 +107,6 @@ function Carts(props) {
 
                                                         </div>
                                                     </td>
-                                                    {console.log(product.QTY)}
                                                     <td className="pe-5 ">
                                                         {product.QTY * product.PRICE}
 
