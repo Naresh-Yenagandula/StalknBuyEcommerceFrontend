@@ -16,6 +16,7 @@ import Forgotpassword from './components/forgotpassword';
 import Wishlist from './components/wishlist';
 import Toast from 'react-bootstrap/Toast'
 import Carts from './components/cart';
+import ScrollToTop from './components/ScrollToTop';
 
 
 export const ProductContext = React.createContext()
@@ -189,6 +190,7 @@ function App() {
             </Switch>
           </Router>
         </ProductContext.Provider>
+        <ScrollToTop/>
         <Footer />
       </div>
     );

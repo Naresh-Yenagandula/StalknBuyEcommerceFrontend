@@ -193,3 +193,11 @@ body::-webkit-scrollbar-thumb{
     to {-webkit-transform: scale(1, 1);}
  }
  
+.scrollToTop{
+    bottom: 9vh;
+    right: 10px;
+}
+.transparentBtn{
+    border: 0px;
+    background-color: transparent;
+}
