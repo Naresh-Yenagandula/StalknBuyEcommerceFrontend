@@ -5,7 +5,7 @@ import Footer from './components/footer';
 import Navbar from './components/navbar';
 import HomePage from './components/homePage';
 import Products from './components/products';
-import { BrowserRouter as Router, Switch, Route,useHistory } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useHistory } from 'react-router-dom';
 import ProductDetails from './components/productDetails';
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
@@ -32,9 +32,9 @@ function App() {
   const [Cart, setCart] = useState([]);
   const [Auth, setAuth] = useState(false);
   const [myToken, setMyToken] = useState(localStorage.getItem('token'));
-  const [showToast, setshowToast] = useState({show:false,message:""})
+  const [showToast, setshowToast] = useState({ show: false, message: "" })
   const [loading, setloading] = useState(true)
- 
+
 
   const search = (searchValue, e) => {
     // e.preventDefault();
@@ -61,16 +61,16 @@ function App() {
   }
 
   const updateWishlist = (product) => {
-   
+
     let temp = Wishlists
     let index = Wishlists.findIndex(p => p._id === product._id)
     if (index === -1) {
       temp.push(product)
-      setshowToast({show:true,message:"Item added to wishlist"})
+      setshowToast({ show: true, message: "Item added to wishlist" })
     }
     else {
       temp.splice(index, 1)
-      setshowToast({show:true,message:"Item removed from Wishlist"})
+      setshowToast({ show: true, message: "Item removed from Wishlist" })
 
     }
     setWishlist(temp);
@@ -89,11 +89,11 @@ function App() {
     let index = Cart.findIndex(p => p._id === product._id)
     if (index === -1) {
       temp.push(product)
-      setshowToast({show:true,message:"Item added to cart"})
+      setshowToast({ show: true, message: "Item added to cart" })
     }
     else {
       temp.splice(index, 1)
-      setshowToast({show:true,message:"Item removed from cart"})
+      setshowToast({ show: true, message: "Item removed from cart" })
 
     }
     setCart(temp);
@@ -106,7 +106,7 @@ function App() {
         alert("Sorry, there is an error");
       })
   }
-  const updateCartQuantity=(product)=>{
+  const updateCartQuantity = (product) => {
     setCart(product)
 
   }
@@ -149,41 +149,49 @@ function App() {
   const setFilterProductData = (data) => {
     setFilterProducts(data)
   }
-  if(loading){
-    return(
-      <div>loading..</div>
+  if (loading) {
+    return (
+      <div className="d-flex vh-100 justify-content-center align-items-center">
+        <div class="loader1">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
     )
   }
-  else{
+  else {
 
-  
 
-  return (
-    <div className="App min-vh-100">
-      <div className="toast-container position-fixed top-10 end-1" style={{zIndex:"1000000000"}}>
-        <Toast className="bg-success text-light" onClose={e => setshowToast({...showToast,show:false})} delay={3000} show={showToast.show} autohide>
-          <Toast.Body>{showToast.message}</Toast.Body>
-        </Toast>
+
+    return (
+      <div className="App min-vh-100">
+        <div className="toast-container position-fixed top-10 end-1" style={{ zIndex: "1000000000" }}>
+          <Toast className="bg-success text-light" onClose={e => setshowToast({ ...showToast, show: false })} delay={3000} show={showToast.show} autohide>
+            <Toast.Body>{showToast.message}</Toast.Body>
+          </Toast>
+        </div>
+        <ProductContext.Provider value={{ updateToken: updateToken, search: search, searchValue: searchValue, count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts, authToken: authToken, userData: userData, Wishlist: Wishlists, Cart: Cart, updateWishlist: updateWishlist, updateCart: updateCart, updateCartQuantity: updateCartQuantity, Auth: Auth }}>
+          <Router>
+
+            <Switch>
+              <Route path="/" exact component={HomePage} />
+              <Route path="/product" exact component={Products} />
+              <Route path="/product/:popular" exact component={Products} />
+              <Route path="/productDetails/:id" exact component={ProductDetails} />
+              <Route path="/signup" exact component={SignUp} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/forgotpass" exact component={Forgotpassword} />
+              <Route path="/wishlist" exact component={Wishlist} />
+              <Route path="/cart" exact component={Carts} />
+            </Switch>
+          </Router>
+        </ProductContext.Provider>
+        <Footer />
       </div>
-      <ProductContext.Provider value={{ updateToken: updateToken, search: search, searchValue: searchValue, count: count, newProducts: NewProducts, popularProducts: PopularProducts, extractData: extractData, setFilterProductData: setFilterProductData, FilterProducts: FilterProducts, authToken: authToken, userData: userData, Wishlist: Wishlists, Cart: Cart,  updateWishlist: updateWishlist, updateCart: updateCart, updateCartQuantity:updateCartQuantity ,Auth:Auth}}>
-        <Router>
-
-          <Switch>
-            <Route path="/" exact component={HomePage} />
-            <Route path="/product" exact component={Products} />
-            <Route path="/product/:popular" exact component={Products} />
-            <Route path="/productDetails/:id" exact component={ProductDetails} />
-            <Route path="/signup" exact component={SignUp} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/forgotpass" exact component={Forgotpassword} />
-            <Route path="/wishlist" exact component={Wishlist} />
-            <Route path="/cart" exact component={Carts} />
-          </Switch>
-        </Router>
-      </ProductContext.Provider>
-      <Footer />
-    </div>
-  );
+    );
   }
 }
 
