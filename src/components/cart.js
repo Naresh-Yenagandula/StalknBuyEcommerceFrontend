@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Navbar from './navbar'
-import { XCircleFill } from 'react-bootstrap-icons'
+import { XCircleFill,Plus } from 'react-bootstrap-icons'
 import { ProductContext } from '../App'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
@@ -11,16 +11,25 @@ function Carts(props) {
     const [myCart, setmyCart] = useState([]);
     const [discountPrice, setDiscountPrice] = useState(0);
     const [afterDisc, setAfterDisc] = useState(0)
-    let TotalPrice = 0;
-
-
+    const [placeorder, setplaceorder] = useState(0)
+    const [TotalPrice, setTotalPrice] = useState(0)
+    const [newAddress, setnewAddress] = useState();
     useEffect(() => {
+
         if (!(value.Auth)) {
             props.history.push('/login')
         }
 
         setmyCart(value.Cart)
-
+        
+        // calculate total price of cart
+        let sumPrice =0;
+        value.Cart.map((product)=>
+        {
+            sumPrice += (product.QTY * product.PRICE)
+        })
+        //TotalPrice += (product.QTY * product.PRICE)
+        setTotalPrice(sumPrice);
     }, [value.Cart])
 
     const moveToWishList = (product) => {
@@ -52,24 +61,69 @@ function Carts(props) {
         setmyCart(temp)
 
     }
-
+    
     const discount = (offValue) => {
         setAfterDisc((offValue * TotalPrice) / 100)
     }
     return (
         <div className="fbottom">
             <Navbar />
+             
+            {/* <!-- Modal --> */}
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Address</h5>
+                    <textarea type="text" className="form-control mb-3" placeholder="Enter your address" />
+                    <input type="tel" className="form-control mb-3" placeholder="Enter your Phone Number" />
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                </div>
+            </div>
+            </div>
 
             <div className="bg-light py-4">
                 <div className="container">
-                    <h3>Shopping Cart</h3>
+                    <h6 className="text-center">
+
+                        <span className = {placeorder==0?"cart-progress1":"null"}>
+                            BAG
+                        </span>
+
+                        <span className = "cart-progress2">
+                            ------
+                        </span>
+
+                        <span className = {placeorder==1?"cart-progress1":"null"}>
+                            ADDRESS
+                        </span>
+
+                        <span className = "cart-progress2">
+                            ------
+                        </span>
+
+                        <span className = {placeorder==2?"cart-progress1":"null"}>
+                            PAYMENT
+                        </span>   
+                    </h6>
                 </div>
             </div>
             <div className="container mt-5">
                 {
                     myCart.length > 0 ?
                         <div className="row">
+                           
                             <div className="col-md-8 border">
+                            {(placeorder==0)?
                                 <table className="table table-borderless p-3">
                                     <colgroup>
                                         <col />
@@ -84,9 +138,10 @@ function Carts(props) {
                                         <th></th>
                                     </thead>
                                     <tbody>
+                                        
                                         {myCart.map((product) => {
 
-                                            TotalPrice += (product.QTY * product.PRICE)
+                                           
                                             let prodDes = value.extractData(product)
                                             let index1 = value.Wishlist.findIndex(p => p._id === product._id)
                                             return (
@@ -125,8 +180,49 @@ function Carts(props) {
                                         }
                                     </tbody>
                                 </table>
+                            :
+                            (placeorder==1)?
+                            <div>
+                                <h5>
+                                    Select delivery address
+                                </h5>
 
+                                <div className="py-2">
+                                    <small>DEFAULT ADDRESS</small>
+                                </div>
+                           
+                                <div class="form-check border shadow-sm">
+                                    <div className = "p-3">
+                                    
+                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
+                                        <label class="form-check-label" for="flexRadioDefault2">
+                                        <p>
+                                            <b>{value.userData[0].NAME}</b>
+                                        </p>
+                                        <p>
+                                            {value.userData[0].CONTACT_DETAILS[0].Phone}
+                                        </p>
+                                        <p>
+                                        {value.userData[0].CONTACT_DETAILS[0].Address}
+                                        </p>
+                                        <button className="btn btn-sm btn-outline-secondary">EDIT</button>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div className="my-3">
+                                    <button type="button" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <Plus /> <span className="p-2">ADD NEW ADDRESS</span>
+                                    </button>
+                                    
+                                </div>
+                                
+                            </div>:
+                            <div>
+                                hello
+                            </div>}
                             </div >
+                            
                             <div className="col-md-4 ">
                                 <div className="border p-3">
                                     <div className="input-group mb-3   ">
@@ -161,9 +257,14 @@ function Carts(props) {
                                         </table>
                                     </div>
                                 </div>
-                                <div className="d-grid mt-3">
-                                    <button className="btn btn-primary " type="submit">PLACE ORDER</button>
-                                </div>
+                                {
+                                !(placeorder ==2)?
+                                    <div className="d-grid mt-3">
+                                        <button className="btn btn-primary " type="submit" onClick={e=> setplaceorder(placeorder+1) }>{(placeorder==0)?"PLACE ORDER":"CONTINUE"}</button>
+                                    </div>
+                                 :
+                                 null
+                                }
                             </div>
                         </div>
                         : <h4><center> Your Cart seems to be empty! </center></h4>}

@@ -201,3 +201,14 @@ body::-webkit-scrollbar-thumb{
     border: 0px;
     background-color: transparent;
 }
+
+.cart-progress1
+{
+    color: green;
+    text-decoration: underline;
+}
+.cart-progress2
+{
+    padding: 10px;
+    font-size: 10px 
+}
