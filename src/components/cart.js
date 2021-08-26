@@ -69,17 +69,17 @@ function Carts(props) {
     }
 
     const addNewAddress=()=>{
-        let temp  =newAddress
+        let temp = [...newAddress]
         temp.push(contactInfo)
         setnewAddress(temp)
         console.log(temp);
-        // axios.post("",temp)
-        // .then((res)=>{
-        //     console.log("updated");
-        // })
-        // .catch((err)=>{
-        //     console.log(err);
-        // })
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/user/updateAddress?id=${value.userData[0]._id}`,temp)
+        .then((res)=>{
+            console.log("updated");
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     }
     return (
         <div className="fbottom">
@@ -201,9 +201,9 @@ function Carts(props) {
                                                 Select delivery address
                                             </h5>
 
-                                            <div className="py-2">
+                                            {/* <div className="py-2">
                                                 <small>DEFAULT ADDRESS</small>
-                                            </div>
+                                            </div> */}
 
                                             {newAddress.map((contact) => {
                                                 return (
