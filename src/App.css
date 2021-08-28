@@ -212,3 +212,21 @@ body::-webkit-scrollbar-thumb{
     padding: 10px;
     font-size: 10px 
 }
+.gpay{
+    height: 30px;
+    width: 30px;
+
+}
+
+.pay{
+    height: 30px;
+    width: 30px;
+    transform: rotate(270deg);
+
+}
+.upi{
+    height: 30px;
+    width: 30px;
+    transform: rotate(270deg);
+
+}
