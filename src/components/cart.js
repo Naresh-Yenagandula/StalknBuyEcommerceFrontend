@@ -10,7 +10,12 @@ import bhim from '../Images/bhim.png'
 import free from '../Images/free.png'
 import mobiwik from '../Images/mob.png'
 import rajor from '../Images/rajor.png'
+import axis from '../Images/Axis-Bank.png'
+import hdfc from '../Images/hdfc.png'
+import icici from '../Images/icici.png'
+import sbi from '../Images/SBI.png'
 import apple from '../Images/apple.png'
+
 
 
 function Carts(props) {
@@ -252,9 +257,8 @@ function Carts(props) {
                                                         <button class="nav-link text-start" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><small style={{fontSize:'12px'}}>CASH ON DELIVERY (CARD/CASH/UPI)</small></button>
                                                         <button class="nav-link text-start" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false"><small style={{fontSize:'12px'}}>CREDIT CARD/DEBIT CARD</small></button>
                            
-                                                        <button class=" nav-link text-start" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><small style={{fontSize:'12px'}}></small>WALLETS</button>
-                                                        <button class="nav-link text-start" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><small style={{fontSize:'12px'}}>NET BANKING</small></button>
-                                                        <button class="nav-link text-start" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><small style={{fontSize:'12px'}}>EMI</small></button>
+                                                        <button class=" nav-link text-start" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><small style={{fontSize:'12px'}}>WALLETS</small></button>
+                                                        <button class="nav-link text-start" id="v-pills-netBank-tab" data-bs-toggle="pill" data-bs-target="#v-pills-netBank" type="button" role="tab" aria-controls="v-pills-netBank" aria-selected="false"><small style={{fontSize:'12px'}}>NET BANKING</small></button>
 
                                                     </div>
                                                     <div class="tab-content" id="v-pills-tabContent">
@@ -330,10 +334,36 @@ function Carts(props) {
                                                                 <button className="btn btn-pri">Pay Now</button>
                                                             </div>
                                                         </div>
-                                                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
-                                                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
-                                                        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
-                                                        
+                                                        <div class="tab-pane fade" id="v-pills-netBank" role="tabpanel" aria-labelledby="v-pills-netBank-tab">
+                                                        <div class="form-check ms-5 mb-5">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                                                                <label  class="form-check-label" for="flexRadioDefault1">
+                                                                    <img src={hdfc} className="gpay" alt="" />
+                                                                    HDFC Bank
+                                                                </label>
+                                                                </div>
+                                                                <div class="form-check ms-5 mb-5">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                                                                <label class="form-check-label" for="flexRadioDefault1">
+                                                                <img src={axis}  className="gpay" />
+                                                                   Axis Bank
+                                                                </label>
+                                                                </div>
+                                                                <div class="form-check ms-5 mb-5">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
+                                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                                <img src={sbi} className="gpay" alt="" />
+                                                                    SBI Bank
+                                                                </label>
+                                                                </div>
+                                                                <div class="form-check ms-5 mb-5">
+                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
+                                                                <label class="form-check-label" for="flexRadioDefault2">
+                                                                <img src={icici} className="gpay" alt="" />
+                                                                    ICICI Bank
+                                                                </label>
+                                                                </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
