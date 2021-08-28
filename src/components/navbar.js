@@ -15,14 +15,14 @@ const Navbar = () => {
 
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+        <nav className="navbar navbar-expand-lg navbar-light bg-navbar sticky-top">
             <div className="container-fluid">
                 <Link to="/" className="navbar-brand"><img src={logo} height="30px" width="35px" /></Link>
                 <div className="navbar-text float-end ">
                     <form className="d-flex align-items-center pe-2" >
                         <div className="input-group me-5">
                             <input className="form-control" type="search" placeholder="Search for products, brands and more" aria-label="Search" onChange={(e) => setsearchValue(e.target.value)} />
-                            <Link to="/product/search"><button className="btn btn-dark " onClick={e => value.search(searchValue, e)} type="submit"><Search /></button></Link>
+                            <Link to="/product/search"><button className="btn bg-btn " onClick={e => value.search(searchValue, e)} type="submit"><Search /></button></Link>
                         </div>
 
                         <div class="dropdown  ">

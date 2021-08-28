@@ -164,7 +164,7 @@ function Carts(props) {
                     myCart.length > 0 ?
                         <div className="row">
 
-                            <div className="col-md-8 border">
+                            <div className="col-md-8" style={{border:"1px solid #a66fab"}}>
                                 {(placeorder == 0) ?
                                     <table className="table table-borderless p-3">
                                         <colgroup>
@@ -290,26 +290,26 @@ function Carts(props) {
                                                             <div class="form-check ms-5 mb-5">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
                                                                 <label  class="form-check-label" for="flexRadioDefault1">
-                                                                    <img src={googlepay} className="gpay" alt="" />
+                                                                    <img src={googlepay} className="gpay pe-2" alt="" />
                                                                     Google Pay
                                                                 </label>
                                                                 </div>
                                                                 <div class="form-check ms-5 mb-5">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
                                                                 <label class="form-check-label" for="flexRadioDefault1">
-                                                                <img src={phonepe}  className="pay" />
+                                                                <img src={phonepe}  className="pay pe-2" />
                                                                     Phone Pe
                                                                 </label>
                                                                 </div>
                                                                 <div class="form-check ms-5 mb-5">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
                                                                 <label class="form-check-label" for="flexRadioDefault2">
-                                                                <img src={bhim} className="upi" alt="" />
+                                                                <img src={bhim} className="upi pe-2" alt="" />
                                                                     Bhim Upi
                                                                 </label>
                                                                 </div>    
                                                          </div>
-                                                        <button className="btn btn-primary btn-sm float-end">Pay Now</button>
+                                                        <button className="btn bg-btn btn-sm float-end">Pay Now</button>
 
                                                         </div>
                                                         
@@ -347,7 +347,7 @@ function Carts(props) {
                                                                 </div>
                                                             
                                                             </div>
-                                                            <button className="btn btn-primary">Pay Now</button>
+                                                            <button className="btn bg-btn">Pay Now</button>
 
                                                         </div>
                                          
@@ -359,7 +359,7 @@ function Carts(props) {
                                                                 <input type="month" className="form-control mb-3" placeholder=""/>
                                                                 {/* <input type="text" className="form-control mb-3" placeholder="CVV"/> */}
                                                                 <input type="text" className="form-control mb-3" placeholder="OTP"/>
-                                                                <button className="btn btn-sm btn-primary float-end">Pay Now</button>
+                                                                <button className="btn btn-sm bg-btn float-end">Pay Now</button>
 
                                                             </div>
                                                         </div>
@@ -399,7 +399,7 @@ function Carts(props) {
                                                                 </label>
 
                                                             </div>
-                                                            <button className="btn btn-sm btn-primary float-end">Pay Now</button>
+                                                            <button className="btn btn-sm bg-btn float-end">Pay Now</button>
 
                                                         </div>
 
@@ -417,7 +417,7 @@ function Carts(props) {
                                                                     <div class="valid-feedback">
                                                                         
                                                                     </div>}
-                                                                    <button className="btn btn-sm btn-primary mt-3 float-end" type="submit" onClick={e=>validateCaptcha(e)}>Pay Now</button>
+                                                                    <button className="btn btn-sm bg-btn mt-3 float-end" type="submit" onClick={e=>validateCaptcha(e)}>Pay Now</button>
                                                                 </form>
                                                             </div>   
                                                         </div>
@@ -430,7 +430,7 @@ function Carts(props) {
                             </div >
 
                             <div className="col-md-4 ">
-                                <div className="border p-3">
+                                <div className=" p-3" style={{border:"1px solid #a66fab"}}>
                                     <div className="input-group mb-3   ">
                                         <select id="coupon" class="form-select" aria-label="Default select example" onChange={e => setDiscountPrice(e.target.value)}>
                                             <option value="Select coupon code" selected disabled> Select Coupon Code </option>
@@ -442,7 +442,7 @@ function Carts(props) {
                                             <option value="50" disabled={!(TotalPrice >= 70000 && TotalPrice < 80000)}>GUPTAJI50</option>
                                             <option value="60" disabled={!(TotalPrice >= 80000 && TotalPrice < 100000000000000)}>GARGSAHAB60</option>
                                         </select>
-                                        <button className="btn btn-dark " type="submit" onClick={e => discount(discountPrice)}>Apply</button>
+                                        <button className="btn bg-btn " type="submit" onClick={e => discount(discountPrice)}>Apply</button>
                                     </div>
                                     <div className="border p-2" >
                                         <table className="table table-borderless">
@@ -466,7 +466,7 @@ function Carts(props) {
                                 {
                                     !(placeorder == 2) ?
                                         <div className="d-grid mt-3">
-                                            <button className="btn btn-primary " type="submit" onClick={e => setplaceorder(placeorder + 1)}>{(placeorder == 0) ? "PLACE ORDER" : "CONTINUE"}</button>
+                                            <button className="btn bg-btn " type="submit" onClick={e => setplaceorder(placeorder + 1)}>{(placeorder == 0) ? "PLACE ORDER" : "CONTINUE"}</button>
                                         </div>
                                         :
                                         null

@@ -8,6 +8,10 @@ body::-webkit-scrollbar-thumb{
     background-color: rgba(182, 178, 178, 0.815);
     border-radius: 50px;
 }
+body{
+    background-color: #f5eaf6 !important;
+    color: #5a2b5e !important
+}
 .sidebar::-webkit-scrollbar{
     width: 8px;
 }
@@ -95,15 +99,15 @@ body::-webkit-scrollbar-thumb{
 .bag-button
 {
     width: 70%;
-    color: blueviolet;
-    background-color: rgb(189, 104, 65) !important;
+    color: white !important;
+    background-color: #a66fab !important;
     
 }
 .product-button
 {
     width: 70%;
-    color: blueviolet;
-    background-color: rgb(204, 109, 55) !important;
+    color: white !important;
+    background-color: #a66fab !important;
     
 }
 .carousel-control-next,.carousel-control-prev{
@@ -233,4 +237,17 @@ body::-webkit-scrollbar-thumb{
 .end-page
 {
     height: 70vh;
+}
+.bg-navbar{
+    background-color: #5a2b5e;
+}
+.accordion-button:not(.collapsed) {
+    color: #ffffff !important;
+    background-color:#5a2b5e !important;
+}
+.navbar-light .navbar-text a, .navbar-light .navbar-text a:focus, .navbar-light .navbar-text a:hover {
+    color:white !important;
+}
+.bg-btn{
+    background-color: #a66fab !important;
 }
