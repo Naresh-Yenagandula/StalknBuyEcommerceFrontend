@@ -17,7 +17,7 @@ import Wishlist from './components/wishlist';
 import Toast from 'react-bootstrap/Toast'
 import Carts from './components/cart';
 import ScrollToTop from './components/ScrollToTop';
-
+import EndPage from './components/endPage';
 
 export const ProductContext = React.createContext()
 
@@ -187,6 +187,8 @@ function App() {
               <Route path="/forgotpass" exact component={Forgotpassword} />
               <Route path="/wishlist" exact component={Wishlist} />
               <Route path="/cart" exact component={Carts} />
+              <Route path="/endPage" exact component={EndPage} />
+              
             </Switch>
           </Router>
         </ProductContext.Provider>

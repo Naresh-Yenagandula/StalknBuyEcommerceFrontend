@@ -230,3 +230,7 @@ body::-webkit-scrollbar-thumb{
     transform: rotate(270deg);
 
 }
+.end-page
+{
+    height: 70vh;
+}

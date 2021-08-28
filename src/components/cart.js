@@ -15,7 +15,7 @@ import hdfc from '../Images/hdfc.png'
 import icici from '../Images/icici.png'
 import sbi from '../Images/SBI.png'
 import apple from '../Images/apple.png'
-
+import Captcha from '../Images/CAPTCHA.jpg'
 
 
 function Carts(props) {
@@ -27,6 +27,8 @@ function Carts(props) {
     const [TotalPrice, setTotalPrice] = useState(0)
     const [newAddress, setnewAddress] = useState();
     const [contactInfo, setcontactInfo] = useState()
+    const [captcha, setcaptcha] = useState();
+    const [checkCaptcha, setcheckCaptcha] = useState(false);
 
     useEffect(() => {
 
@@ -92,6 +94,20 @@ function Carts(props) {
         .catch((err)=>{
             console.log(err);
         })
+    }
+
+    const validateCaptcha = (e) =>
+    {   
+        e.preventDefault();
+        if(captcha != 'CAPTCHA')
+        {
+            setcheckCaptcha(false);
+        }
+        else
+        {
+            setcheckCaptcha(true);
+            props.history.push('/endPage');
+        }
     }
     return (
         <div className="fbottom">
@@ -249,19 +265,26 @@ function Carts(props) {
 
                                         </div> :
                                         <div>
-                                           <div className="my-4 ps-3"> <b>Choose Payment Mode</b> </div>
+                                           <div className="my-4 ps-3"> 
+                                                <b>Choose Payment Mode</b> 
+                                           </div>
                                             <div className="border m-2 p-3">
+
                                                 <div class="d-flex align-items-start ">
+                                                    {/* Payment method */}
                                                     <div class="nav flex-column nav-pills bg-light w-25" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                                         <button class=" nav-link text-start " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true"><small style={{fontSize:'12px'}}> PHONEPE/GOOGLE PAY/AMAZON PAY</small></button>
-                                                        <button class="nav-link text-start" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false"><small style={{fontSize:'12px'}}>CASH ON DELIVERY (CARD/CASH/UPI)</small></button>
+                                                        <button class="nav-link text-start" id="v-pills-COD-tab" data-bs-toggle="pill" data-bs-target="#v-pills-COD" type="button" role="tab" aria-controls="v-pills-COD" aria-selected="false"><small style={{fontSize:'12px'}}>CASH ON DELIVERY (CARD/CASH/UPI)</small></button>
                                                         <button class="nav-link text-start" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false"><small style={{fontSize:'12px'}}>CREDIT CARD/DEBIT CARD</small></button>
                            
                                                         <button class=" nav-link text-start" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><small style={{fontSize:'12px'}}>WALLETS</small></button>
                                                         <button class="nav-link text-start" id="v-pills-netBank-tab" data-bs-toggle="pill" data-bs-target="#v-pills-netBank" type="button" role="tab" aria-controls="v-pills-netBank" aria-selected="false"><small style={{fontSize:'12px'}}>NET BANKING</small></button>
 
                                                     </div>
+                                                    
+                                                    {/* payment options */}
                                                     <div class="tab-content" id="v-pills-tabContent">
+                                                        {/* UPI */}
                                                         <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                                         <div>
                                                             <div class="form-check ms-5 mb-5">
@@ -284,10 +307,13 @@ function Carts(props) {
                                                                 <img src={bhim} className="upi" alt="" />
                                                                     Bhim Upi
                                                                 </label>
-                                                                </div>
-                                                            
+                                                                </div>    
+                                                         </div>
+                                                        <button className="btn btn-primary btn-sm float-end">Pay Now</button>
+
                                                         </div>
-                                                        </div>
+                                                        
+                                                        {/* Wallet */}
                                                         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                                         <div>
                                                         
@@ -321,9 +347,11 @@ function Carts(props) {
                                                                 </div>
                                                             
                                                             </div>
-                                                        
+                                                            <button className="btn btn-primary">Pay Now</button>
+
                                                         </div>
                                          
+                                                        {/*Credit Card/ Debit Card */}
                                                         <div class="tab-pane fade  " id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
                                                             <div className="ms-5 ">
                                                             <input type="text" className="form-control mb-3 " placeholder="Card Holder Name"/>
@@ -331,41 +359,72 @@ function Carts(props) {
                                                                 <input type="month" className="form-control mb-3" placeholder=""/>
                                                                 {/* <input type="text" className="form-control mb-3" placeholder="CVV"/> */}
                                                                 <input type="text" className="form-control mb-3" placeholder="OTP"/>
-                                                                <button className="btn btn-pri">Pay Now</button>
+                                                                <button className="btn btn-sm btn-primary float-end">Pay Now</button>
+
                                                             </div>
                                                         </div>
+                                                        
+                                                        {/* NetBanking */}
                                                         <div class="tab-pane fade" id="v-pills-netBank" role="tabpanel" aria-labelledby="v-pills-netBank-tab">
-                                                        <div class="form-check ms-5 mb-5">
-                                                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
-                                                                <label  class="form-check-label" for="flexRadioDefault1">
-                                                                    <img src={hdfc} className="gpay" alt="" />
-                                                                    HDFC Bank
-                                                                </label>
-                                                                </div>
-                                                                <div class="form-check ms-5 mb-5">
+                                                            
+                                                            <div class="form-check ms-5 mb-5">
+                                                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
+                                                                    <label  class="form-check-label" for="flexRadioDefault1">
+                                                                        <img src={hdfc} className="gpay" alt="" />
+                                                                        HDFC Bank
+                                                                    </label>
+                                                            </div>
+
+                                                            <div class="form-check ms-5 mb-5">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"/>
                                                                 <label class="form-check-label" for="flexRadioDefault1">
                                                                 <img src={axis}  className="gpay" />
                                                                    Axis Bank
                                                                 </label>
-                                                                </div>
-                                                                <div class="form-check ms-5 mb-5">
+                                                            </div>
+
+                                                            <div class="form-check ms-5 mb-5">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
                                                                 <label class="form-check-label" for="flexRadioDefault2">
                                                                 <img src={sbi} className="gpay" alt="" />
                                                                     SBI Bank
                                                                 </label>
-                                                                </div>
-                                                                <div class="form-check ms-5 mb-5">
+                                                            </div>
+
+                                                            <div class="form-check ms-5 mb-4">
                                                                 <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked/>
                                                                 <label class="form-check-label" for="flexRadioDefault2">
                                                                 <img src={icici} className="gpay" alt="" />
                                                                     ICICI Bank
                                                                 </label>
-                                                                </div>
+
+                                                            </div>
+                                                            <button className="btn btn-sm btn-primary float-end">Pay Now</button>
+
                                                         </div>
+
+                                                        {/* COD */}
+                                                        <div class="tab-pane fade" id="v-pills-COD" role="tabpanel" aria-labelledby="v-pills-COD-tab">
+                                                            <div className="m-4">
+                                                                <img src={Captcha} alt="Captcha loading.." height="70px" width="130px"></img>
+                                                                <form className="needs-validation" novalidate>
+                                                                    <input type="text" className="form-control is-valid" onChange={e => setcaptcha(e.target.value)}/>
+                                                                    {!checkCaptcha?
+                                                                    <div class="invalid-feedback">
+                                                                        Please choose a username.
+                                                                    </div>
+                                                                    :
+                                                                    <div class="valid-feedback">
+                                                                        
+                                                                    </div>}
+                                                                    <button className="btn btn-sm btn-primary mt-3 float-end" type="submit" onClick={e=>validateCaptcha(e)}>Pay Now</button>
+                                                                </form>
+                                                            </div>   
+                                                        </div>
+                                                    
                                                     </div>
                                                 </div>
+
                                             </div>
                                         </div>}
                             </div >
