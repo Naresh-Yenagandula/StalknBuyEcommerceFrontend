@@ -16,6 +16,7 @@ function EndPage()
       .then((res) => {
         console.log("cart is empty now")
       })
+      value.authToken();
      
     }, [])
     return (

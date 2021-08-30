@@ -311,8 +311,8 @@ function Carts(props) {
                                                                 </label>
                                                                 </div>    
                                                          </div>
-                                                        <button className="btn bg-btn btn-sm float-end">Pay Now</button>
-
+                                                        
+                                                        <Link to="/endPage"><button className="btn bg-btn btn-sm float-end">Pay Now</button></Link>
                                                         </div>
                                                         
                                                         {/* Wallet */}
@@ -349,7 +349,8 @@ function Carts(props) {
                                                                 </div>
                                                             
                                                             </div>
-                                                            <button className="btn bg-btn">Pay Now</button>
+                                                        <Link to="/endPage"><button className="btn bg-btn btn-sm float-end">Pay Now</button></Link>
+
 
                                                         </div>
                                          
@@ -361,7 +362,8 @@ function Carts(props) {
                                                                 <input type="month" className="form-control mb-3" placeholder=""/>
                                                                 {/* <input type="text" className="form-control mb-3" placeholder="CVV"/> */}
                                                                 <input type="text" className="form-control mb-3" placeholder="OTP"/>
-                                                                <button className="btn btn-sm bg-btn float-end">Pay Now</button>
+                                                                <Link to="/endPage"><button className="btn bg-btn btn-sm float-end">Pay Now</button></Link>
+
 
                                                             </div>
                                                         </div>
@@ -401,7 +403,8 @@ function Carts(props) {
                                                                 </label>
 
                                                             </div>
-                                                            <button className="btn btn-sm bg-btn float-end">Pay Now</button>
+                                                            <Link to="/endPage"><button className="btn bg-btn btn-sm float-end">Pay Now</button></Link>
+
 
                                                         </div>
 
