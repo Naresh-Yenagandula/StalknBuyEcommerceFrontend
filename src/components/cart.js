@@ -36,7 +36,8 @@ function Carts(props) {
             props.history.push('/login')
         }
 
-        setmyCart(value.Cart)
+        else{
+            setmyCart(value.Cart)
         setnewAddress(value.userData[0].CONTACT_DETAILS)
 
         // calculate total price of cart
@@ -46,6 +47,7 @@ function Carts(props) {
         })
         //TotalPrice += (product.QTY * product.PRICE)
         setTotalPrice(sumPrice);
+        }
     }, [value.Cart])
 
     const moveToWishList = (product) => {
@@ -408,7 +410,7 @@ function Carts(props) {
                                                             <div className="m-4">
                                                                 <img src={Captcha} alt="Captcha loading.." height="70px" width="130px"></img>
                                                                 <form className="needs-validation" novalidate>
-                                                                    <input type="text" className="form-control is-valid" onChange={e => setcaptcha(e.target.value)}/>
+                                                                    <input type="text" className="form-control" onChange={e => setcaptcha(e.target.value)}/>
                                                                     {!checkCaptcha?
                                                                     <div class="invalid-feedback">
                                                                         Please choose a username.

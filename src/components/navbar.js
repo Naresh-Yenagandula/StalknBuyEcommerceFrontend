@@ -2,7 +2,9 @@ import { PersonCircle, SuitHeart, Cart, Search } from "react-bootstrap-icons";
 import { Link, BrowserRouter as Router } from 'react-router-dom';
 import { ProductContext } from '../App';
 import React, { useContext, useState } from 'react';
-import logo from '../Images/logo.jpg'
+import logo from '../Images/logo.png'
+
+
 
 const Navbar = () => {
 
@@ -17,7 +19,13 @@ const Navbar = () => {
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-navbar sticky-top">
             <div className="container-fluid">
-                <Link to="/" className="navbar-brand"><img src={logo} height="30px" width="35px" /></Link>
+                
+                <Link to="/" className="navbar-brand"><div className="d-flex flex-column text-center"><span className="logo">Stalk&Buy</span>
+                
+                <span className="logo1 lead font-monospace ">FASHION FORWARD</span>
+                    </div>
+                    </Link>
+
                 <div className="navbar-text float-end ">
                     <form className="d-flex align-items-center pe-2" >
                         <div className="input-group me-5">
@@ -53,7 +61,7 @@ const Navbar = () => {
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                                 {value.Auth ?
                                     <div className="d-grid">
-                                        <button className="btn btn-outline-warning btn-sm mt-3" onClick={logout}>Logout</button>
+                                        <button className="btn btn-logout btn-sm mt-3" onClick={logout}>Logout</button>
                                     </div>
                                     : null
                                 }
